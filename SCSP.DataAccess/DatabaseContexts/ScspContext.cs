@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessObjects.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace SCSP.DataAccess.Models;

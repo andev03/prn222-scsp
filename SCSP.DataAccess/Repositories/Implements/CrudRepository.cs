@@ -2,6 +2,7 @@
 using SCSP.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using BusinessObjects.Models.Base;
 
 namespace SCSP.DataAccess.Repositories.Implements;
 

@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessObjects.Models.Entities;
 using Microsoft.Extensions.Logging;
 using SCSP.BusinessLogic.DTOs.Commands;
 using SCSP.BusinessLogic.DTOs.Queries;

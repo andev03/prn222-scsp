@@ -1,3 +1,4 @@
+using BusinessObjects.Models.Base;
 using SCSP.DataAccess.Repositories.Interfaces;
 using SCSP.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
