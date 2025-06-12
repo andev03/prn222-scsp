@@ -2,15 +2,15 @@
 
 namespace BusinessObjects.Models.Entities;
 
-public partial class UserBadge : BaseEntity
+public partial class UserBadge : BaseEntityWithInt
 {
-    public Guid? UserGuid { get; set; }
+    public Guid UserId { get; set; }
 
-    public Guid? ArchievementGuid { get; set; }
+    public int BadgeId { get; set; }
 
-    public DateTime? EarnedAt { get; set; }
+    public DateTime AwardedAt { get; set; }
+    
+    public virtual Badge Badge { get; set; } = null!;
 
-    public virtual Archievement? Archievement { get; set; }
-
-    public virtual UserAccount? User { get; set; }
+    public virtual User User { get; set; } = null!;
 }
