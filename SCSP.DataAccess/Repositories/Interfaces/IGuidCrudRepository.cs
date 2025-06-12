@@ -1,5 +1,4 @@
 using BusinessObjects.Models.Base;
-using SCSP.DataAccess.Models;
 
 namespace SCSP.DataAccess.Repositories.Interfaces;
 

@@ -1,5 +1,4 @@
 ﻿using SCSP.DataAccess.Repositories.Interfaces;
-using SCSP.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using BusinessObjects.Models.Base;
@@ -34,7 +33,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
 
     public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
-        if (entity is BaseEntity baseEntity)
+        if (entity is SoftDeleteEntity baseEntity)
         {
             baseEntity.CreatedAt = DateTime.UtcNow;
             baseEntity.UpdatedAt = DateTime.UtcNow;
@@ -56,7 +55,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
     {
         foreach (var entity in entities)
         {
-            if (entity is BaseEntity baseEntity)
+            if (entity is SoftDeleteEntity baseEntity)
             {
                 baseEntity.CreatedAt = DateTime.UtcNow;
                 baseEntity.UpdatedAt = DateTime.UtcNow;
@@ -94,7 +93,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
 
     public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
     {
-        if (entity is BaseEntity baseEntity)
+        if (entity is SoftDeleteEntity baseEntity)
         {
             baseEntity.IsDeleted = true;
             baseEntity.DeletedAt = DateTime.UtcNow;
@@ -113,7 +112,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
     {
         foreach (var entity in entities)
         {
-            if (entity is BaseEntity baseEntity)
+            if (entity is SoftDeleteEntity baseEntity)
             {
                 baseEntity.IsDeleted = true;
                 baseEntity.DeletedAt = DateTime.UtcNow;
@@ -148,11 +147,11 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
     {
         var query = DbSet.IgnoreQueryFilters().AsQueryable();
 
-        if (typeof(BaseEntity).IsAssignableFrom(typeof(T)))
+        if (typeof(SoftDeleteEntity).IsAssignableFrom(typeof(T)))
         {
-            query = query.Where(e => (e as BaseEntity) != null &&
-                                     ((e as BaseEntity)!).IsDeleted.HasValue &&
-                                     ((e as BaseEntity)!).IsDeleted!.Value);
+            query = query.Where(e => (e as SoftDeleteEntity) != null &&
+                                     ((e as SoftDeleteEntity)!).IsDeleted.HasValue &&
+                                     ((e as SoftDeleteEntity)!).IsDeleted!.Value);
         }
         else
         {
@@ -164,7 +163,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
 
     public virtual async Task RestoreAsync(T entity, CancellationToken cancellationToken = default)
     {
-        if (entity is BaseEntity baseEntity)
+        if (entity is SoftDeleteEntity baseEntity)
         {
             baseEntity.IsDeleted = false;
             baseEntity.DeletedAt = null;
@@ -208,7 +207,7 @@ public class CrudRepository<T> : ICrudRepository<T> where T : class
 
     public virtual async Task DisableAsync(T entity, CancellationToken cancellationToken = default)
     {
-        if (entity is BaseEntity baseEntity)
+        if (entity is SoftDeleteEntity baseEntity)
         {
             baseEntity.Disabled = true;
             baseEntity.UpdatedAt = DateTime.UtcNow;

@@ -2,16 +2,16 @@ namespace BusinessObjects.Models.Base;
 
 public abstract class BaseEntity
 {
-    public DateTime? CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-    public DateTime? DeletedAt { get; set; }
-    public bool? IsDeleted { get; set; }
     public bool? Disabled { get; set; }
+    
+    public DateTime? CreatedAt { get; set; }
 
+    public DateTime? UpdatedAt { get; set; }
+    
     protected BaseEntity()
     {
-        CreatedAt = DateTime.UtcNow;
-        IsDeleted = false;
         Disabled = false;
+        CreatedAt = DateTime.Now;
+        UpdatedAt = null;
     }
 } 

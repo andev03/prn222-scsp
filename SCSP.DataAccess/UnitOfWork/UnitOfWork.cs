@@ -1,6 +1,6 @@
 using BusinessObjects.Models.Base;
 using Microsoft.EntityFrameworkCore.Storage;
-using SCSP.DataAccess.Models;
+using SCSP.DataAccess.DatabaseContexts;
 using SCSP.DataAccess.Repositories.Implements;
 using SCSP.DataAccess.Repositories.Interfaces;
 
@@ -8,12 +8,12 @@ namespace SCSP.DataAccess.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ScspContext _context;
+    private readonly QuitSmokingAppDbContext _context;
     private readonly Dictionary<Type, object> _repositories;
     private readonly Dictionary<Type, object> _guidRepositories;
     private bool _disposed = false;
 
-    public UnitOfWork(ScspContext context)
+    public UnitOfWork(QuitSmokingAppDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _repositories = new Dictionary<Type, object>();
@@ -82,6 +82,7 @@ public class UnitOfWork : IUnitOfWork
             _repositories.Clear();
             _guidRepositories.Clear();
         }
+
         _disposed = true;
     }
 }

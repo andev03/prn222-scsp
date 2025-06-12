@@ -1,6 +1,6 @@
 namespace BusinessObjects.Models.Base;
 
-public abstract class BaseEntityWithGuid : BaseEntity
+public abstract class BaseEntityWithGuid : SoftDeleteEntity
 {
     public Guid Guid { get; set; }
 
