@@ -77,3 +77,9 @@ crashlytics-build.properties
 # End of https://www.toptal.com/developers/gitignore/api/unity
 /.idea
 /BusinessObjects/obj
+/SCSP.BusinessLogic/obj
+/SCSP.DataAccess/Migrations
+/BusinessObjects/bin
+*.json
+/SCSP.RazorApp/bin
+/SCSP.DataAccess/obj
