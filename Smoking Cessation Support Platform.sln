@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSP.DataAccess", "SCSP.DataAccess\SCSP.DataAccess.csproj", "{CFD8F166-0A9A-42C3-87EF-799A9E181DE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSP.BusinessLogic", "SCSP.BusinessLogic\SCSP.BusinessLogic.csproj", "{0355D8DA-7CCB-42B5-AD45-E6F8CB5CAA3F}"
@@ -30,5 +33,8 @@ Global
 		{C7B0957E-2DE1-4B7E-8DFA-C0F72F62517D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7B0957E-2DE1-4B7E-8DFA-C0F72F62517D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7B0957E-2DE1-4B7E-8DFA-C0F72F62517D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

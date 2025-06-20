@@ -83,3 +83,6 @@ crashlytics-build.properties
 *.json
 /SCSP.RazorApp/bin
 /SCSP.DataAccess/obj
+/SCSP.RazorApp/obj
+/SCSP.BusinessLogic/bin
+/SCSP.DataAccess/bin
