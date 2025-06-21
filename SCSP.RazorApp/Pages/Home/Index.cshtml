@@ -1,0 +1,171 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+<link rel="stylesheet" href="~/css/index.css" />
+
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>Cùng Nhau Cai Thuốc Lá</h1>
+                <p class="hero-description">
+                    <strong>Một cuộc sống khỏe mạnh bắt đầu từ quyết định bỏ thuốc.</strong>
+                    Tham gia cộng đồng của chúng tôi để nhận được sự hỗ trợ, động viên và chia sẻ kinh nghiệm từ những người cùng chung mục tiêu.
+                </p>
+                <div class="hero-buttons">
+                    <a asp-page="/Account/Register" class="btn-primary">Tham Gia Ngay</a>
+                    <button class="btn-secondary">Tìm Hiểu Thêm</button>
+                </div>
+            </div>
+
+            <div class="hero-images">
+                <div class="profile-circle profile-1">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="profile-circle profile-2">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="profile-circle profile-3">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="profile-circle profile-4">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="profile-circle profile-5">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="profile-circle profile-6">
+                    <img src="https://via.placeholder.com/80x80" alt="Thành viên cộng đồng">
+                </div>
+                <div class="decoration star">★</div>
+                <div class="decoration triangle"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <h2 class="stats-title">Cộng Đồng Cai Thuốc Lá</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" data-target="15420">0</span>
+                <span class="stat-label">Số người tham gia</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="3847">0</span>
+                <span class="stat-label">Số người đang cai thuốc lá</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="8965">0</span>
+                <span class="stat-label">Số người đã cai thuốc lá thành công</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="features-title">Tại Sao Chọn Cộng Đồng Của Chúng Tôi?</h2>
+        <p class="features-subtitle">Những lợi ích khi tham gia cộng đồng cai thuốc lá</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Cộng Đồng Hỗ Trợ</h3>
+                <p class="feature-description">Kết nối với những người cùng chung mục tiêu và nhận được sự động viên từ cộng đồng.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 class="feature-title">Tài Liệu Hữu Ích</h3>
+                <p class="feature-description">Truy cập các tài liệu, mẹo vặt và phương pháp cai thuốc hiệu quả từ chuyên gia.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Theo Dõi Tiến Độ</h3>
+                <p class="feature-description">Ghi lại hành trình cai thuốc của bạn và theo dõi những cải thiện về sức khỏe.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Mục Tiêu Cá Nhân</h3>
+                <p class="feature-description">Đặt mục tiêu riêng và nhận được lời khuyên phù hợp với tình trạng của bạn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h3 class="feature-title">Động Lực Hàng Ngày</h3>
+                <p class="feature-description">Nhận thông báo động viên và lời khuyên hữu ích mỗi ngày.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Thành Tựu</h3>
+                <p class="feature-description">Ghi nhận những cột mốc quan trọng trong hành trình cai thuốc của bạn.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="testimonials-title">Câu Chuyện Thành Công</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-content">
+                    "Nhờ có cộng đồng này, tôi đã bỏ thuốc thành công sau 15 năm nghiện. Sự động viên từ mọi người và những lời khuyên hữu ích đã giúp tôi vượt qua những lúc khó khăn nhất."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">NV</div>
+                    <div class="author-info">
+                        <h4>Nguyễn Văn An</h4>
+                        <p>Cai thuốc thành công 8 tháng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-content">
+                    "Tôi đã thử cai thuốc nhiều lần nhưng đều thất bại. Khi tham gia cộng đồng này, tôi cảm thấy không còn cô đơn nữa. Mọi người luôn sẵn sàng lắng nghe và chia sẻ kinh nghiệm."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">LT</div>
+                    <div class="author-info">
+                        <h4>Lê Thị Bình</h4>
+                        <p>Cai thuốc thành công 1 năm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-content">
+                    "Ứng dụng theo dõi tiến độ rất hữu ích. Tôi có thể thấy rõ những cải thiện về sức khỏe từng ngày, điều này tạo động lực rất lớn để tôi tiếp tục hành trình cai thuốc."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">PT</div>
+                    <div class="author-info">
+                        <h4>Phạm Thanh Cường</h4>
+                        <p>Cai thuốc thành công 6 tháng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="cta-title">Sẵn Sàng Bắt Đầu Hành Trình Cai Thuốc?</h2>
+        <p class="cta-subtitle">Tham gia cùng hàng nghìn người đã thành công trong việc cai thuốc lá và xây dựng cuộc sống khỏe mạnh hơn.</p>
+        <div class="cta-buttons">
+            <a asp-page="/Account/Register" class="btn-white">Bắt Đầu Ngay Hôm Nay</a>
+            <a asp-page="/HowItWorks" class="btn-outline">Tìm Hiểu Thêm</a>
+        </div>
+    </div>
+</section>\
+
+@section Scripts {
+    <script src="~/js/index.js"></script>
+}
