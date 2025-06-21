@@ -10,9 +10,5 @@ namespace SCSP.DataAccess.Repositories.Implements
 {
     public class ProgressRecordsRepository : IProgressRecordsRepository
     {
-        ProgressRecord GetById()
-        {
-
-        }
     }
 }
