@@ -1,0 +1,105 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Presentation
+build_property.RootNamespace = Presentation
+build_property.ProjectDir = S:\programming_language\study\c-sharp\project\scsp\SmokingCessationSupportPlatform\Presentation\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = S:\programming_language\study\c-sharp\project\scsp\SmokingCessationSupportPlatform\Presentation
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Badges/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Badges/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Badges/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Badges/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/SmokingRecords/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU21va2luZ1JlY29yZHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/SmokingRecords/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU21va2luZ1JlY29yZHNcRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/SmokingRecords/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU21va2luZ1JlY29yZHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/SmokingRecords/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU21va2luZ1JlY29yZHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/UserBadges/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckJhZGdlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/UserBadges/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckJhZGdlc1xEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/UserBadges/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckJhZGdlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/UserBadges/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckJhZGdlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/programming_language/study/c-sharp/project/scsp/SmokingCessationSupportPlatform/Presentation/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-goe6xmhgsy
