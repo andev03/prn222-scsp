@@ -5,339 +5,341 @@
     Layout = "_Layout";
 }
 
-<div class="container-fluid py-4">
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="text-primary mb-1">
-                        <i class="fas fa-edit me-2"></i>
-                        Edit Health Record
-                    </h2>
-                    <p class="text-muted mb-0">Update smoking cessation journey and health progress</p>
+<main role="main" class="pb-3">
+    <div class="container-fluid py-4">
+        <!-- Header Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary mb-1">
+                            <i class="fas fa-edit me-2"></i>
+                            Edit Health Record
+                        </h2>
+                        <p class="text-muted mb-0">Update smoking cessation journey and health progress</p>
+                    </div>
+                    <a asp-page="./Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Records
+                    </a>
                 </div>
-                <a asp-page="./Index" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>
-                    Back to Records
-                </a>
             </div>
         </div>
-    </div>
 
-    <!-- Main Form -->
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-warning text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-heartbeat me-2"></i>
-                        Update Health Record Information
-                    </h5>
-                </div>
-                <div class="card-body p-4">
-                    <!-- Display validation errors -->
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <strong>Please fix the following errors:</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                                {
-                                    <li>@error.ErrorMessage</li>
-                                }
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    }
-
-                    <form method="post" id="editRecordForm">
-                        <!-- Hidden fields for system data -->
-                        <input type="hidden" asp-for="Item.RecordId" />
-                        <input type="hidden" asp-for="Item.CreatedAt" />
-                        <input type="hidden" asp-for="Item.IsDeleted" />
-                        <input type="hidden" asp-for="Item.DeletedAt" />
-                        
-                        <div class="row">
-                            <!-- User Selection -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.UserId" class="form-label fw-semibold">
-                                    <i class="fas fa-user me-1 text-primary"></i>
-                                    Select User <span class="text-danger">*</span>
-                                </label>
-                                <select asp-for="Item.UserId" 
-                                        asp-items="Model.UserList"
-                                        class="form-select form-control-lg" 
-                                        id="userId" 
-                                        required>
-                                </select>
-                                <span asp-validation-for="Item.UserId" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    User associated with this health record
-                                </div>
+        <!-- Main Form -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-heartbeat me-2"></i>
+                            Update Health Record Information
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Display validation errors -->
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Please fix the following errors:</strong>
+                                <ul class="mb-0 mt-2">
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
+                        }
 
-                            <!-- Record Date -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.RecordDate" class="form-label fw-semibold">
-                                    <i class="fas fa-calendar me-1 text-success"></i>
-                                    Record Date <span class="text-danger">*</span>
-                                </label>
-                                <input asp-for="Item.RecordDate" 
-                                       type="date" 
-                                       class="form-control form-control-lg" 
-                                       id="recordDate" 
-                                       required>
-                                <span asp-validation-for="Item.RecordDate" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Date when this health record was tracked
-                                </div>
-                            </div>
-                        </div>
+                        <form method="post" id="editRecordForm">
+                            <!-- Hidden fields for system data -->
+                            <input type="hidden" asp-for="Item.RecordId" />
+                            <input type="hidden" asp-for="Item.CreatedAt" />
+                            <input type="hidden" asp-for="Item.IsDeleted" />
+                            <input type="hidden" asp-for="Item.DeletedAt" />
 
-                        <div class="row">
-                            <!-- Cigarettes Count -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.CigarettesCount" class="form-label fw-semibold">
-                                    <i class="fas fa-smoking me-1 text-warning"></i>
-                                    Cigarettes Count <span class="text-danger">*</span>
-                                </label>
-                                <input asp-for="Item.CigarettesCount" 
-                                       type="number" 
-                                       min="0" 
-                                       class="form-control form-control-lg" 
-                                       id="cigarettesCount" 
-                                       placeholder="0"
-                                       required>
-                                <span asp-validation-for="Item.CigarettesCount" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Number of cigarettes smoked (0 = smoke-free day!)
-                                </div>
-                            </div>
-
-                            <!-- Frequency -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.Frequency" class="form-label fw-semibold">
-                                    <i class="fas fa-clock me-1 text-info"></i>
-                                    Smoking Frequency
-                                </label>
-                                <select asp-for="Item.Frequency" class="form-select form-control-lg" id="frequency">
-                                    <option value="">Select frequency...</option>
-                                    <option value="None">None (Smoke-Free)</option>
-                                    <option value="Morning Only">Morning Only</option>
-                                    <option value="Afternoon Only">Afternoon Only</option>
-                                    <option value="Evening Only">Evening Only</option>
-                                    <option value="Morning & Evening">Morning & Evening</option>
-                                    <option value="Throughout Day">Throughout Day</option>
-                                    <option value="Social Occasions">Social Occasions Only</option>
-                                    <option value="Stress-Related">Stress-Related</option>
-                                </select>
-                                <span asp-validation-for="Item.Frequency" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    When during the day smoking occurred
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- Cost Per Pack -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.CostPerPack" class="form-label fw-semibold">
-                                    <i class="fas fa-dollar-sign me-1 text-danger"></i>
-                                    Cost per Pack ($)
-                                </label>
-                                <input asp-for="Item.CostPerPack" 
-                                       type="number" 
-                                       step="0.01" 
-                                       min="0" 
-                                       class="form-control form-control-lg" 
-                                       id="costPerPack" 
-                                       placeholder="0.00">
-                                <span asp-validation-for="Item.CostPerPack" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Cost spent on cigarettes (optional, for financial tracking)
-                                </div>
-                            </div>
-
-                            <!-- Record Status -->
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label fw-semibold">
-                                    <i class="fas fa-toggle-on me-1 text-primary"></i>
-                                    Record Status
-                                </label>
-                                <div class="card border-light bg-light p-3">
-                                    <div class="form-check form-switch">
-                                        <input name="Item.Disabled" 
-                                               class="form-check-input" 
-                                               type="checkbox" 
-                                               id="recordStatus"
-                                               value="true"
-                                               @(Model.Item.Disabled == true ? "checked" : "")>
-                                        <input name="Item.Disabled" type="hidden" value="false">
-                                        <label class="form-check-label fw-semibold" for="recordStatus">
-                                            <span class="badge bg-success me-2" id="statusBadge">
-                                                <i class="fas fa-check me-1"></i>Active
-                                            </span>
-                                            <span id="statusText">Enable this health record</span>
-                                        </label>
-                                    </div>
-                                    <div class="form-text mt-2">
+                            <div class="row">
+                                <!-- User Selection -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.UserId" class="form-label fw-semibold">
+                                        <i class="fas fa-user me-1 text-primary"></i>
+                                        Select User <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Item.UserId"
+                                            asp-items="Model.UserList"
+                                            class="form-select form-control-lg"
+                                            id="userId"
+                                            required>
+                                    </select>
+                                    <span asp-validation-for="Item.UserId" class="text-danger"></span>
+                                    <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Active records are included in health analytics
+                                        User associated with this health record
+                                    </div>
+                                </div>
+
+                                <!-- Record Date -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.RecordDate" class="form-label fw-semibold">
+                                        <i class="fas fa-calendar me-1 text-success"></i>
+                                        Record Date <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="Item.RecordDate"
+                                           type="date"
+                                           class="form-control form-control-lg"
+                                           id="recordDate"
+                                           required>
+                                    <span asp-validation-for="Item.RecordDate" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Date when this health record was tracked
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Notes -->
-                        <div class="mb-4">
-                            <label asp-for="Item.Notes" class="form-label fw-semibold">
-                                <i class="fas fa-sticky-note me-1 text-primary"></i>
-                                Health Notes & Observations
-                            </label>
-                            <textarea asp-for="Item.Notes" 
-                                      class="form-control" 
-                                      id="notes" 
-                                      rows="4" 
-                                      placeholder="Record how you felt, triggers, cravings, health improvements, or any other observations..."></textarea>
-                            <span asp-validation-for="Item.Notes" class="text-danger"></span>
-                            <div class="form-text">
-                                <i class="fas fa-info-circle me-1"></i>
-                                Document your health journey, feelings, triggers, or improvements
+                            <div class="row">
+                                <!-- Cigarettes Count -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.CigarettesCount" class="form-label fw-semibold">
+                                        <i class="fas fa-smoking me-1 text-warning"></i>
+                                        Cigarettes Count <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="Item.CigarettesCount"
+                                           type="number"
+                                           min="0"
+                                           class="form-control form-control-lg"
+                                           id="cigarettesCount"
+                                           placeholder="0"
+                                           required>
+                                    <span asp-validation-for="Item.CigarettesCount" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Number of cigarettes smoked (0 = smoke-free day!)
+                                    </div>
+                                </div>
+
+                                <!-- Frequency -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.Frequency" class="form-label fw-semibold">
+                                        <i class="fas fa-clock me-1 text-info"></i>
+                                        Smoking Frequency
+                                    </label>
+                                    <select asp-for="Item.Frequency" class="form-select form-control-lg" id="frequency">
+                                        <option value="">Select frequency...</option>
+                                        <option value="None">None (Smoke-Free)</option>
+                                        <option value="Morning Only">Morning Only</option>
+                                        <option value="Afternoon Only">Afternoon Only</option>
+                                        <option value="Evening Only">Evening Only</option>
+                                        <option value="Morning & Evening">Morning & Evening</option>
+                                        <option value="Throughout Day">Throughout Day</option>
+                                        <option value="Social Occasions">Social Occasions Only</option>
+                                        <option value="Stress-Related">Stress-Related</option>
+                                    </select>
+                                    <span asp-validation-for="Item.Frequency" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        When during the day smoking occurred
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Health Status Preview -->
-                        <div class="row">
-                            <div class="col-md-12 mb-4">
-                                <label class="form-label fw-semibold">
-                                    <i class="fas fa-heartbeat me-1 text-success"></i>
-                                    Health Status Preview
-                                </label>
-                                <div class="card border-success bg-light" style="min-height: 120px;">
-                                    <div class="card-body d-flex align-items-center justify-content-center">
-                                        <div class="text-center" id="healthPreview">
-                                            <i class="fas fa-heart fa-3x text-success mb-2"></i>
-                                            <div class="fw-bold text-success h6">Excellent Health Day!</div>
-                                            <div class="text-muted small">Smoke-Free Progress</div>
+                            <div class="row">
+                                <!-- Cost Per Pack -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.CostPerPack" class="form-label fw-semibold">
+                                        <i class="fas fa-dollar-sign me-1 text-danger"></i>
+                                        Cost per Pack ($)
+                                    </label>
+                                    <input asp-for="Item.CostPerPack"
+                                           type="number"
+                                           step="0.01"
+                                           min="0"
+                                           class="form-control form-control-lg"
+                                           id="costPerPack"
+                                           placeholder="0.00">
+                                    <span asp-validation-for="Item.CostPerPack" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Cost spent on cigarettes (optional, for financial tracking)
+                                    </div>
+                                </div>
+
+                                <!-- Record Status -->
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-toggle-on me-1 text-primary"></i>
+                                        Record Status
+                                    </label>
+                                    <div class="card border-light bg-light p-3">
+                                        <div class="form-check form-switch">
+                                            <input name="Item.Disabled"
+                                                   class="form-check-input"
+                                                   type="checkbox"
+                                                   id="recordStatus"
+                                                   value="true"
+                                                   @(Model.Item.Disabled == true ? "checked" : "")>
+                                            <input name="Item.Disabled" type="hidden" value="false">
+                                            <label class="form-check-label fw-semibold" for="recordStatus">
+                                                <span class="badge bg-success me-2" id="statusBadge">
+                                                    <i class="fas fa-check me-1"></i>Active
+                                                </span>
+                                                <span id="statusText">Enable this health record</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-text mt-2">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Active records are included in health analytics
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                            <a asp-page="./Index" class="btn btn-outline-secondary btn-lg px-4">
-                                <i class="fas fa-times me-2"></i>
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-warning btn-lg px-4" id="updateRecordBtn">
-                                <i class="fas fa-save me-2"></i>
-                                Update Health Record
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Health Guidelines Section -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-info text-white">
-                    <h6 class="mb-0">
-                        <i class="fas fa-medkit me-2"></i>
-                        Health Update Guidelines
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <h6 class="text-success">
-                            <i class="fas fa-heart me-1"></i>
-                            Smoke-Free Progress
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Update count to 0 for smoke-free days</li>
-                            <li>Change frequency to "None"</li>
-                            <li>Add positive health observations</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6 class="text-warning">
-                            <i class="fas fa-chart-line me-1"></i>
-                            Progress Tracking
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Accurate cigarette count updates</li>
-                            <li>Note changes in smoking patterns</li>
-                            <li>Update cost information for financial tracking</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6 class="text-primary">
-                            <i class="fas fa-notes-medical me-1"></i>
-                            Health Observations
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Update feelings and mood changes</li>
-                            <li>Note physical improvements</li>
-                            <li>Track trigger patterns</li>
-                        </ul>
-                    </div>
-
-                    <div class="alert alert-light border-warning mt-3">
-                        <i class="fas fa-edit text-warning me-2"></i>
-                        <strong>Update Tip:</strong> Regular updates help track your progress accurately. Be honest about your journey!
-                    </div>
-                </div>
-            </div>
-
-            <!-- Health Statistics Card -->
-            <div class="card border-0 shadow-sm mt-3">
-                <div class="card-header bg-success text-white">
-                    <h6 class="mb-0">
-                        <i class="fas fa-chart-bar me-2"></i>
-                        Record Information
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <div class="border-end">
-                                <i class="fas fa-calendar-plus text-primary fa-2x mb-2"></i>
-                                <h6 class="mb-1">Created</h6>
-                                <small class="text-muted">@Model.Item.CreatedAt?.ToString("MMM dd, yyyy")</small>
+                            <!-- Notes -->
+                            <div class="mb-4">
+                                <label asp-for="Item.Notes" class="form-label fw-semibold">
+                                    <i class="fas fa-sticky-note me-1 text-primary"></i>
+                                    Health Notes & Observations
+                                </label>
+                                <textarea asp-for="Item.Notes"
+                                          class="form-control"
+                                          id="notes"
+                                          rows="4"
+                                          placeholder="Record how you felt, triggers, cravings, health improvements, or any other observations..."></textarea>
+                                <span asp-validation-for="Item.Notes" class="text-danger"></span>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Document your health journey, feelings, triggers, or improvements
+                                </div>
                             </div>
+
+                            <!-- Health Status Preview -->
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-heartbeat me-1 text-success"></i>
+                                        Health Status Preview
+                                    </label>
+                                    <div class="card border-success bg-light" style="min-height: 120px;">
+                                        <div class="card-body d-flex align-items-center justify-content-center">
+                                            <div class="text-center" id="healthPreview">
+                                                <i class="fas fa-heart fa-3x text-success mb-2"></i>
+                                                <div class="fw-bold text-success h6">Excellent Health Day!</div>
+                                                <div class="text-muted small">Smoke-Free Progress</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                <a asp-page="./Index" class="btn btn-outline-secondary btn-lg px-4">
+                                    <i class="fas fa-times me-2"></i>
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-warning btn-lg px-4" id="updateRecordBtn">
+                                    <i class="fas fa-save me-2"></i>
+                                    Update Health Record
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Guidelines Section -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-medkit me-2"></i>
+                            Health Update Guidelines
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6 class="text-success">
+                                <i class="fas fa-heart me-1"></i>
+                                Smoke-Free Progress
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Update count to 0 for smoke-free days</li>
+                                <li>Change frequency to "None"</li>
+                                <li>Add positive health observations</li>
+                            </ul>
                         </div>
-                        <div class="col-6">
-                            <i class="fas fa-calendar-edit text-info fa-2x mb-2"></i>
-                            <h6 class="mb-1">Last Updated</h6>
-                            <small class="text-muted">
-                                @if (Model.Item.UpdatedAt.HasValue && Model.Item.UpdatedAt != Model.Item.CreatedAt)
-                                {
-                                    @Model.Item.UpdatedAt?.ToString("MMM dd, yyyy")
-                                }
-                                else
-                                {
-                                    <span>Not updated</span>
-                                }
-                            </small>
+
+                        <div class="mb-3">
+                            <h6 class="text-warning">
+                                <i class="fas fa-chart-line me-1"></i>
+                                Progress Tracking
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Accurate cigarette count updates</li>
+                                <li>Note changes in smoking patterns</li>
+                                <li>Update cost information for financial tracking</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="text-primary">
+                                <i class="fas fa-notes-medical me-1"></i>
+                                Health Observations
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Update feelings and mood changes</li>
+                                <li>Note physical improvements</li>
+                                <li>Track trigger patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="alert alert-light border-warning mt-3">
+                            <i class="fas fa-edit text-warning me-2"></i>
+                            <strong>Update Tip:</strong> Regular updates help track your progress accurately. Be honest about your journey!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Statistics Card -->
+                <div class="card border-0 shadow-sm mt-3">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Record Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="border-end">
+                                    <i class="fas fa-calendar-plus text-primary fa-2x mb-2"></i>
+                                    <h6 class="mb-1">Created</h6>
+                                    <small class="text-muted">@Model.Item.CreatedAt?.ToString("MMM dd, yyyy")</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fas fa-calendar-edit text-info fa-2x mb-2"></i>
+                                <h6 class="mb-1">Last Updated</h6>
+                                <small class="text-muted">
+                                    @if (Model.Item.UpdatedAt.HasValue && Model.Item.UpdatedAt != Model.Item.CreatedAt)
+                                    {
+                                        @Model.Item.UpdatedAt?.ToString("MMM dd, yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span>Not updated</span>
+                                    }
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 @section Scripts {
     <script>
@@ -349,12 +351,12 @@
             const statusBadge = document.getElementById('statusBadge');
             const statusText = document.getElementById('statusText');
             const userSelect = document.getElementById('userId');
-            
+
             // Update health preview based on cigarettes count
             function updateHealthPreview() {
                 const count = parseInt(cigarettesInput.value) || 0;
                 let icon, color, status, message;
-                
+
                 if (count === 0) {
                     icon = 'fas fa-heart';
                     color = 'success';
@@ -376,24 +378,24 @@
                     status = 'High Risk Day';
                     message = 'Focus on Reduction';
                 }
-                
+
                 healthPreview.innerHTML = `
                     <i class="${icon} fa-3x text-${color} mb-2 health-icon"></i>
                     <div class="fw-bold text-${color} h6">${status}</div>
                     <div class="text-muted small">${message}</div>
                 `;
             }
-            
+
             // Auto-update frequency based on cigarettes count
             cigarettesInput.addEventListener('input', function() {
                 updateHealthPreview();
-                
+
                 const count = parseInt(this.value) || 0;
                 if (count === 0 && frequencySelect.value === '') {
                     frequencySelect.value = 'None';
                 }
             });
-            
+
             // Update status badge
             statusCheckbox.addEventListener('change', function() {
                 if (this.checked) {
@@ -406,7 +408,7 @@
                     statusText.textContent = 'Enable this health record';
                 }
             });
-            
+
             // Initialize status display based on current value
             const initStatus = function() {
                 if (statusCheckbox.checked) {
@@ -419,12 +421,12 @@
                     statusText.textContent = 'Enable this health record';
                 }
             };
-            
+
             // Form validation
             document.getElementById('editRecordForm').addEventListener('submit', function(e) {
                 const requiredFields = this.querySelectorAll('[required]');
                 let isValid = true;
-                
+
                 requiredFields.forEach(field => {
                     if (!field.value.trim()) {
                         field.classList.add('is-invalid');
@@ -433,7 +435,7 @@
                         field.classList.remove('is-invalid');
                     }
                 });
-                
+
                 // Special validation for user selection
                 if (!userSelect.value || userSelect.value === '') {
                     userSelect.classList.add('is-invalid');
@@ -441,20 +443,20 @@
                 } else {
                     userSelect.classList.remove('is-invalid');
                 }
-                
+
                 if (!isValid) {
                     e.preventDefault();
                     alert('Please fill in all required fields and select a user');
                 }
             });
-            
+
             // User selection change handler
             userSelect.addEventListener('change', function() {
                 if (this.value) {
                     this.classList.remove('is-invalid');
                 }
             });
-            
+
             // Initialize
             updateHealthPreview();
             initStatus();
@@ -467,67 +469,67 @@
         border-radius: 15px;
         transition: all 0.3s ease;
     }
-    
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-    }
-    
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
+
     .form-control:focus {
         border-color: #fd7e14;
         box-shadow: 0 0 0 0.25rem rgba(253, 126, 20, 0.15);
     }
-    
+
     .form-control-lg {
         padding: 0.75rem 1rem;
         font-size: 1.1rem;
     }
-    
+
     .health-icon {
         animation: pulse 2s infinite;
     }
-    
- 
+
+
     .btn-lg {
         padding: 0.75rem 2rem;
         font-size: 1.1rem;
         border-radius: 10px;
     }
-    
+
     .form-check-input:checked {
         background-color: #fd7e14;
         border-color: #fd7e14;
     }
-    
+
     .alert {
         border-radius: 10px;
     }
-    
+
     .card-header {
         border-radius: 15px 15px 0 0 !important;
     }
-    
+
     .is-invalid {
         border-color: #dc3545 !important;
         box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
     }
-    
+
     .bg-light {
         background-color: #f8f9fa !important;
     }
-    
+
     .text-success {
         color: #198754 !important;
     }
-    
+
     .text-warning {
         color: #fd7e14 !important;
     }
-    
+
     .text-danger {
         color: #dc3545 !important;
     }
-    
+
     .border-end {
         border-right: 1px solid #dee2e6 !important;
     }

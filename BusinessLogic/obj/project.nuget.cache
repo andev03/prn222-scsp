@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0ZlflU9HZDo=",
+  "dgSpecHash": "xTGE7dFaocU=",
   "success": true,
-  "projectFilePath": "S:\\programming_language\\study\\c-sharp\\project\\scsp\\SmokingCessationSupportPlatform\\BusinessLogic\\BusinessLogic.csproj",
+  "projectFilePath": "S:\\university\\semester_7\\PRN222\\project\\scsp\\BusinessLogic\\BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -18,6 +18,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -25,5 +26,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Home/Index");
+    return Task.CompletedTask;
+});
 
 app.Run();

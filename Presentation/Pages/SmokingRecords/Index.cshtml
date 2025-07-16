@@ -5,333 +5,334 @@
     Layout = "_Layout";
 }
 
-<div class="container-fluid py-4">
-    <!-- Success/Error Messages -->
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle me-2"></i>
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
+<main role="main" class="pb-3">
+    <div class="container-fluid py-4">
+        <!-- Success/Error Messages -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="text-primary mb-1">
-                        <i class="fas fa-smoking me-2"></i>
-                        Health Smoking Records
-                    </h2>
-                    <p class="text-muted mb-0">Track and monitor smoking cessation progress</p>
+        <!-- Header Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary mb-1">
+                            <i class="fas fa-smoking me-2"></i>
+                            Health Smoking Records
+                        </h2>
+                        <p class="text-muted mb-0">Track and monitor smoking cessation progress</p>
+                    </div>
+                    <a asp-page="./Create" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>
+                        Add New Record
+                    </a>
                 </div>
-                <a asp-page="./Create" class="btn btn-success">
-                    <i class="fas fa-plus me-2"></i>
-                    Add New Record
-                </a>
             </div>
         </div>
-    </div>
 
-    <!-- Health Stats Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-primary mb-2">
-                        <i class="fas fa-calendar-check fa-2x"></i>
+        <!-- Health Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-calendar-check fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.smokingRecords?.Count ?? 0)</h5>
+                        <small class="text-muted">Total Records</small>
                     </div>
-                    <h5 class="mb-1">@(Model.smokingRecords?.Count ?? 0)</h5>
-                    <small class="text-muted">Total Records</small>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-success mb-2">
+                            <i class="fas fa-heart fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.smokingRecords?.Count(r => r.CigarettesCount == 0) ?? 0)</h5>
+                        <small class="text-muted">Smoke-Free Days</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-warning mb-2">
+                            <i class="fas fa-smoking-ban fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.smokingRecords?.Where(r => r.CigarettesCount > 0).Sum(r => r.CigarettesCount) ?? 0)</h5>
+                        <small class="text-muted">Total Cigarettes</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-danger mb-2">
+                            <i class="fas fa-dollar-sign fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">$@(Model.smokingRecords?.Where(r => r.CostPerPack.HasValue).Sum(r => r.CostPerPack) ?? 0)</h5>
+                        <small class="text-muted">Total Cost</small>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-success mb-2">
-                        <i class="fas fa-heart fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.smokingRecords?.Count(r => r.CigarettesCount == 0) ?? 0)</h5>
-                    <small class="text-muted">Smoke-Free Days</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-warning mb-2">
-                        <i class="fas fa-smoking-ban fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.smokingRecords?.Where(r => r.CigarettesCount > 0).Sum(r => r.CigarettesCount) ?? 0)</h5>
-                    <small class="text-muted">Total Cigarettes</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-danger mb-2">
-                        <i class="fas fa-dollar-sign fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">$@(Model.smokingRecords?.Where(r => r.CostPerPack.HasValue).Sum(r => r.CostPerPack) ?? 0)</h5>
-                    <small class="text-muted">Total Cost</small>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Content -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">
-                            <i class="fas fa-chart-line me-2 text-primary"></i>
-                            Health Progress Tracking
-                        </h5>
-                        <div class="d-flex gap-2">
-                            <div class="input-group" style="width: 300px;">
-                                <span class="input-group-text">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Search records..." id="searchInput">
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-filter me-1"></i>Filter
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" onclick="filterRecords('all')">All Records</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterRecords('smoke-free')">Smoke-Free Days</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterRecords('smoking')">Smoking Days</a></li>
-                                </ul>
+        <!-- Main Content -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-line me-2 text-primary"></i>
+                                Health Progress Tracking
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="input-group" style="width: 300px;">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Search records..." id="searchInput">
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-filter me-1"></i>Filter
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="filterRecords('all')">All Records</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterRecords('smoke-free')">Smoke-Free Days</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterRecords('smoking')">Smoking Days</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    @if (Model.smokingRecords != null && Model.smokingRecords.Any())
-                    {
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="border-0 ps-4">
-                                            <i class="fas fa-calendar me-1 text-muted"></i>Date
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-smoking me-1 text-muted"></i>Cigarettes Count
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-clock me-1 text-muted"></i>Frequency
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-dollar-sign me-1 text-muted"></i>Cost per Pack
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-heartbeat me-1 text-muted"></i>Health Status
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-sticky-note me-1 text-muted"></i>Notes
-                                        </th>
-                                        <th class="border-0 pe-4">
-                                            <i class="fas fa-cog me-1 text-muted"></i>Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var record in Model.smokingRecords.Where(r => r.IsDeleted != true).OrderByDescending(r => r.RecordDate))
-                                    {
-                                        <tr class="record-row">
-                                            <td class="ps-4">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fas fa-calendar-day me-2 text-primary"></i>
-                                                    <div>
-                                                        <strong>@record.RecordDate.ToString("MMM dd, yyyy")</strong>
-                                                        <br>
-                                                        <small class="text-muted">@record.RecordDate.DayOfWeek</small>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @if (record.CigarettesCount == 0)
-                                                {
-                                                    <span class="badge bg-success-subtle text-success fs-6 px-3 py-2">
-                                                        <i class="fas fa-heart me-1"></i>
-                                                        Smoke-Free Day
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
-                                                        <i class="fas fa-smoking me-1"></i>
-                                                        @record.CigarettesCount cigarettes
-                                                    </span>
-                                                }
-                                            </td>
-                                            <td>
-                                                @if (!string.IsNullOrEmpty(record.Frequency))
-                                                {
-                                                    <span class="text-info">
-                                                        <i class="fas fa-clock me-1"></i>
-                                                        @record.Frequency
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-muted">-</span>
-                                                }
-                                            </td>
-                                            <td>
-                                                @if (record.CostPerPack.HasValue)
-                                                {
-                                                    <span class="text-danger fw-semibold">
-                                                        <i class="fas fa-dollar-sign me-1"></i>
-                                                        @record.CostPerPack.Value.ToString("F2")
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-muted">-</span>
-                                                }
-                                            </td>
-                                            <td>
-                                                @if (record.CigarettesCount == 0)
-                                                {
-                                                    <div class="d-flex align-items-center text-success">
-                                                        <i class="fas fa-heart-pulse me-2"></i>
-                                                        <span class="fw-semibold">Healthy</span>
-                                                    </div>
-                                                }
-                                                else if (record.CigarettesCount <= 5)
-                                                {
-                                                    <div class="d-flex align-items-center text-warning">
-                                                        <i class="fas fa-exclamation-triangle me-2"></i>
-                                                        <span class="fw-semibold">Moderate</span>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="d-flex align-items-center text-danger">
-                                                        <i class="fas fa-radiation me-2"></i>
-                                                        <span class="fw-semibold">High Risk</span>
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td>
-                                                @if (!string.IsNullOrEmpty(record.Notes))
-                                                {
-                                                    <span class="text-dark" title="@record.Notes">
-                                                        <i class="fas fa-file-alt me-1 text-primary"></i>
-                                                        @(record.Notes.Length > 30 ? record.Notes.Substring(0, 30) + "..." : record.Notes)
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-muted">No notes</span>
-                                                }
-                                            </td>
-                                            <td class="pe-4">
-                                                <div class="btn-group" role="group">
-                                                    <!-- View Details Button -->
-                                                    <a asp-page="./Detail" asp-route-id="@record.RecordId" 
-                                                       class="btn btn-outline-info btn-sm" 
-                                                       title="View Details"
-                                                       data-bs-toggle="tooltip">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <!-- Edit Button -->
-                                                    <a asp-page="./Edit" asp-route-id="@record.RecordId" 
-                                                       class="btn btn-outline-warning btn-sm" 
-                                                       title="Edit Record"
-                                                       data-bs-toggle="tooltip">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <!-- Delete Button -->
-                                                    <button type="button" 
-                                                            class="btn btn-outline-danger btn-sm" 
-                                                            title="Delete Record"
-                                                            data-bs-toggle="tooltip"
-                                                            onclick="confirmDelete(@record.RecordId, '@record.RecordDate.ToString("MMM dd, yyyy")')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                    <div class="card-body p-0">
+                        @if (Model.smokingRecords != null && Model.smokingRecords.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="border-0 ps-4">
+                                                <i class="fas fa-calendar me-1 text-muted"></i>Date
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-smoking me-1 text-muted"></i>Cigarettes Count
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-clock me-1 text-muted"></i>Frequency
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-dollar-sign me-1 text-muted"></i>Cost per Pack
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-heartbeat me-1 text-muted"></i>Health Status
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-sticky-note me-1 text-muted"></i>Notes
+                                            </th>
+                                            <th class="border-0 pe-4">
+                                                <i class="fas fa-cog me-1 text-muted"></i>Actions
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <div class="text-muted mb-3">
-                                <i class="fas fa-heartbeat fa-3x text-success"></i>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var record in Model.smokingRecords.Where(r => r.IsDeleted != true).OrderByDescending(r => r.RecordDate))
+                                        {
+                                            <tr class="record-row">
+                                                <td class="ps-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-calendar-day me-2 text-primary"></i>
+                                                        <div>
+                                                            <strong>@record.RecordDate.ToString("MMM dd, yyyy")</strong>
+                                                            <br>
+                                                            <small class="text-muted">@record.RecordDate.DayOfWeek</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if (record.CigarettesCount == 0)
+                                                    {
+                                                        <span class="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                            <i class="fas fa-heart me-1"></i>
+                                                            Smoke-Free Day
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-warning-subtle text-warning fs-6 px-3 py-2">
+                                                            <i class="fas fa-smoking me-1"></i>
+                                                            @record.CigarettesCount cigarettes
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(record.Frequency))
+                                                    {
+                                                        <span class="text-info">
+                                                            <i class="fas fa-clock me-1"></i>
+                                                            @record.Frequency
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (record.CostPerPack.HasValue)
+                                                    {
+                                                        <span class="text-danger fw-semibold">
+                                                            <i class="fas fa-dollar-sign me-1"></i>
+                                                            @record.CostPerPack.Value.ToString("F2")
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">-</span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (record.CigarettesCount == 0)
+                                                    {
+                                                        <div class="d-flex align-items-center text-success">
+                                                            <i class="fas fa-heart-pulse me-2"></i>
+                                                            <span class="fw-semibold">Healthy</span>
+                                                        </div>
+                                                    }
+                                                    else if (record.CigarettesCount <= 5)
+                                                    {
+                                                        <div class="d-flex align-items-center text-warning">
+                                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                                            <span class="fw-semibold">Moderate</span>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="d-flex align-items-center text-danger">
+                                                            <i class="fas fa-radiation me-2"></i>
+                                                            <span class="fw-semibold">High Risk</span>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (!string.IsNullOrEmpty(record.Notes))
+                                                    {
+                                                        <span class="text-dark" title="@record.Notes">
+                                                            <i class="fas fa-file-alt me-1 text-primary"></i>
+                                                            @(record.Notes.Length > 30 ? record.Notes.Substring(0, 30) + "..." : record.Notes)
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-muted">No notes</span>
+                                                    }
+                                                </td>
+                                                <td class="pe-4">
+                                                    <div class="btn-group" role="group">
+                                                        <!-- View Details Button -->
+                                                        <a asp-page="./Detail" asp-route-id="@record.RecordId"
+                                                           class="btn btn-outline-info btn-sm"
+                                                           title="View Details"
+                                                           data-bs-toggle="tooltip">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <!-- Edit Button -->
+                                                        <a asp-page="./Edit" asp-route-id="@record.RecordId"
+                                                           class="btn btn-outline-warning btn-sm"
+                                                           title="Edit Record"
+                                                           data-bs-toggle="tooltip">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <!-- Delete Button -->
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                title="Delete Record"
+                                                                data-bs-toggle="tooltip"
+                                                                onclick="confirmDelete(@record.RecordId, '@record.RecordDate.ToString("MMM dd, yyyy")')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
-                            <h5 class="text-muted">No smoking records found</h5>
-                            <p class="text-muted">Start tracking your health journey by creating your first smoking record.</p>
-                            <a asp-page="./Create" class="btn btn-success">
-                                <i class="fas fa-plus me-2"></i>Create First Record
-                            </a>
-                        </div>
-                    }
+                        }
+                        else
+                        {
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-3">
+                                    <i class="fas fa-heartbeat fa-3x text-success"></i>
+                                </div>
+                                <h5 class="text-muted">No smoking records found</h5>
+                                <p class="text-muted">Start tracking your health journey by creating your first smoking record.</p>
+                                <a asp-page="./Create" class="btn btn-success">
+                                    <i class="fas fa-plus me-2"></i>Create First Record
+                                </a>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle text-danger me-2"></i>
-                    Confirm Delete
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete the smoking record for <strong id="recordDate"></strong>?</p>
-                <div class="alert alert-warning">
-                    <i class="fas fa-warning me-2"></i>
-                    This action cannot be undone. This will permanently remove the health record from your tracking history.
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">
+                        <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                        Confirm Delete
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form method="post" id="deleteForm" style="display: inline;">
-                    <input type="hidden" name="id" id="deleteId" />
-                    <button type="submit" class="btn btn-danger" asp-page-handler="Delete">
-                        <i class="fas fa-trash me-2"></i>Delete Record
-                    </button>
-                </form>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the smoking record for <strong id="recordDate"></strong>?</p>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-warning me-2"></i>
+                        This action cannot be undone. This will permanently remove the health record from your tracking history.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" id="deleteForm" style="display: inline;">
+                        <input type="hidden" name="id" id="deleteId" />
+                        <button type="submit" class="btn btn-danger" asp-page-handler="Delete">
+                            <i class="fas fa-trash me-2"></i>Delete Record
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</main>
 @section Scripts {
     <script>
         // Search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const rows = document.querySelectorAll('.record-row');
-            
+
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchTerm) ? '' : 'none';
@@ -341,11 +342,11 @@
         // Filter functionality
         function filterRecords(type) {
             const rows = document.querySelectorAll('.record-row');
-            
+
             rows.forEach(row => {
                 const smokeFreeElement = row.querySelector('.badge.bg-success-subtle');
                 const smokingElement = row.querySelector('.badge.bg-warning-subtle');
-                
+
                 switch(type) {
                     case 'smoke-free':
                         row.style.display = smokeFreeElement ? '' : 'none';
@@ -373,7 +374,7 @@
         function confirmDelete(recordId, recordDate) {
             document.getElementById('deleteId').value = recordId;
             document.getElementById('recordDate').textContent = recordDate;
-            
+
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();
         }
@@ -399,7 +400,7 @@
         function updateHealthProgress() {
             const smokeFreeCount = document.querySelectorAll('.badge.bg-success-subtle').length;
             const totalRecords = document.querySelectorAll('.record-row').length;
-            
+
             if (totalRecords > 0) {
                 const progressPercentage = (smokeFreeCount / totalRecords) * 100;
                 console.log(`Health Progress: ${progressPercentage.toFixed(1)}% smoke-free days`);
@@ -416,66 +417,66 @@
         border-radius: 12px;
         transition: all 0.3s ease;
     }
-    
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
-    }
-    
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+        }
+
     .btn-group .btn {
         margin-right: 2px;
         border-radius: 6px;
     }
-    
+
     .badge {
         font-size: 0.75em;
         padding: 0.4em 0.6em;
         border-radius: 6px;
     }
-    
+
     .table td {
         vertical-align: middle;
         border-color: #f1f3f4;
     }
-    
+
     .bg-success-subtle {
         background-color: #d1e7dd !important;
     }
-    
+
     .bg-warning-subtle {
         background-color: #fff3cd !important;
     }
-    
+
     .bg-danger-subtle {
         background-color: #f8d7da !important;
     }
-    
+
     .record-row {
         transition: background-color 0.2s ease;
     }
-    
+
     .btn-sm {
         padding: 0.25rem 0.5rem;
         font-size: 0.875rem;
     }
-    
+
     .alert {
         border-radius: 10px;
         border: none;
     }
-    
+
     .text-success {
         color: #198754 !important;
     }
-    
+
     .text-warning {
         color: #fd7e14 !important;
     }
-    
+
     .text-danger {
         color: #dc3545 !important;
     }
-    
+
     .health-indicator {
         padding: 0.25rem 0.5rem;
         border-radius: 4px;

@@ -1,52 +1,105 @@
-﻿    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Presentation</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/Presentation.styles.css" asp-append-version="true" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">Presentation</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Cộng Đồng Cai Thuốc Lá</title>
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/footer.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="margin: 0">
+    <div class="page-container">
+        <header class="header">
+            <nav class="nav-container">
+                <a href="/" class="logo">🚭 Cai Thuốc Lá</a>
+
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a asp-page="/Index" class="nav-link">Trang chủ</a></li>
+                    <li class="nav-item"><a asp-page="/Community" class="nav-link">Cộng đồng</a></li>
+                    <li class="nav-item"><a asp-page="/Resources" class="nav-link">Tài liệu</a></li>
+                    <li class="nav-item"><a asp-page="/Support" class="nav-link">Hỗ trợ</a></li>
+                    <li class="nav-item"><a asp-page="/Contact" class="nav-link">Liên hệ</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <a asp-page="/Account/Login" class="login-btn">Đăng nhập</a>
+                    <a asp-page="/Account/Register" class="signup-btn">Đăng ký</a>
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
         </header>
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2025 - Presentation - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>🚭 Cai Thuốc Lá</h3>
+                        <p>Kết nối cộng đồng những người muốn cai thuốc lá trên toàn quốc. Cùng nhau xây dựng cuộc sống khỏe mạnh không khói thuốc.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">📘</a>
+                            <a href="#" class="social-link">🐦</a>
+                            <a href="#" class="social-link">📷</a>
+                            <a href="#" class="social-link">💼</a>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Hỗ Trợ</h3>
+                        <ul class="footer-links">
+                            <li><a asp-page="/HowItWorks">Cách Thức Hoạt Động</a></li>
+                            <li><a asp-page="/MobileApp">Ứng Dụng Di Động</a></li>
+                            <li><a asp-page="/Resources">Tài Liệu</a></li>
+                            <li><a asp-page="/FAQ">Câu Hỏi Thường Gặp</a></li>
+                            <li><a asp-page="/Support">Liên Hệ Hỗ Trợ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Cộng Đồng</h3>
+                        <ul class="footer-links">
+                            <li><a asp-page="/Forum">Diễn Đàn</a></li>
+                            <li><a asp-page="/SuccessStories">Câu Chuyện Thành Công</a></li>
+                            <li><a asp-page="/Events">Sự Kiện</a></li>
+                            <li><a asp-page="/Blog">Blog</a></li>
+                            <li><a asp-page="/Experiences">Chia Sẻ Kinh Nghiệm</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Về Chúng Tôi</h3>
+                        <ul class="footer-links">
+                            <li><a asp-page="/About">Giới Thiệu</a></li>
+                            <li><a asp-page="/Team">Đội Ngũ</a></li>
+                            <li><a asp-page="/News">Tin Tức</a></li>
+                            <li><a asp-page="/Careers">Tuyển Dụng</a></li>
+                            <li><a asp-page="/Contact">Liên Hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; @DateTime.Now.Year Cộng Đồng Cai Thuốc Lá. Tất cả quyền được bảo lưu.</p>
+                    <div class="footer-bottom-links">
+                        <a asp-page="/Privacy">Chính Sách Bảo Mật</a>
+                        <a asp-page="/Terms">Điều Khoản Sử Dụng</a>
+                        <a asp-page="/CookiePolicy">Chính Sách Cookie</a>
+                    </div>
+                </div>
             </div>
         </footer>
+    </div>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
-    </html>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

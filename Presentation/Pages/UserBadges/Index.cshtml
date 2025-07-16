@@ -4,309 +4,309 @@
     ViewData["Title"] = "Health Achievement Awards";
     Layout = "_Layout";
 }
+<main role="main" class="pb-3">
+    <div class="container-fluid py-4">
+        <!-- Success/Error Messages -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
-<div class="container-fluid py-4">
-    <!-- Success/Error Messages -->
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle me-2"></i>
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <!-- Header Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary mb-1">
+                            <i class="fas fa-trophy me-2"></i>
+                            Health Achievement Awards
+                        </h2>
+                        <p class="text-muted mb-0">Track user badge achievements and smoking cessation milestones</p>
+                    </div>
+                    <a asp-page="./Create" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>
+                        Award New Badge
+                    </a>
+                </div>
+            </div>
         </div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
 
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="text-primary mb-1">
-                        <i class="fas fa-trophy me-2"></i>
-                        Health Achievement Awards
-                    </h2>
-                    <p class="text-muted mb-0">Track user badge achievements and smoking cessation milestones</p>
+        <!-- Achievement Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-primary mb-2">
+                            <i class="fas fa-award fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.userBadges?.Count ?? 0)</h5>
+                        <small class="text-muted">Total Awards</small>
+                    </div>
                 </div>
-                <a asp-page="./Create" class="btn btn-success">
-                    <i class="fas fa-plus me-2"></i>
-                    Award New Badge
-                </a>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-success mb-2">
+                            <i class="fas fa-medal fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.userBadges?.Count(ub => ub.Disabled != true && ub.IsDeleted != true) ?? 0)</h5>
+                        <small class="text-muted">Active Awards</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-warning mb-2">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.userBadges?.Where(ub => ub.IsDeleted != true).Select(ub => ub.UserId).Distinct().Count() ?? 0)</h5>
+                        <small class="text-muted">Unique Users</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="text-info mb-2">
+                            <i class="fas fa-calendar-star fa-2x"></i>
+                        </div>
+                        <h5 class="mb-1">@(Model.userBadges?.Where(ub => ub.AwardedAt.Date == DateTime.Today && ub.IsDeleted != true).Count() ?? 0)</h5>
+                        <small class="text-muted">Today's Awards</small>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Achievement Stats Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-primary mb-2">
-                        <i class="fas fa-award fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.userBadges?.Count ?? 0)</h5>
-                    <small class="text-muted">Total Awards</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-success mb-2">
-                        <i class="fas fa-medal fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.userBadges?.Count(ub => ub.Disabled != true && ub.IsDeleted != true) ?? 0)</h5>
-                    <small class="text-muted">Active Awards</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-warning mb-2">
-                        <i class="fas fa-users fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.userBadges?.Where(ub => ub.IsDeleted != true).Select(ub => ub.UserId).Distinct().Count() ?? 0)</h5>
-                    <small class="text-muted">Unique Users</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <div class="text-info mb-2">
-                        <i class="fas fa-calendar-star fa-2x"></i>
-                    </div>
-                    <h5 class="mb-1">@(Model.userBadges?.Where(ub => ub.AwardedAt.Date == DateTime.Today && ub.IsDeleted != true).Count() ?? 0)</h5>
-                    <small class="text-muted">Today's Awards</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">
-                            <i class="fas fa-trophy me-2 text-primary"></i>
-                            Achievement Management
-                        </h5>
-                        <div class="d-flex gap-2">
-                            <div class="input-group" style="width: 300px;">
-                                <span class="input-group-text">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Search awards..." id="searchInput">
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-filter me-1"></i>Filter
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" onclick="filterAwards('all')">All Awards</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterAwards('active')">Active Awards</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterAwards('recent')">Recent Awards</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterAwards('disabled')">Disabled Awards</a></li>
-                                </ul>
+        <!-- Main Content -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fas fa-trophy me-2 text-primary"></i>
+                                Achievement Management
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="input-group" style="width: 300px;">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Search awards..." id="searchInput">
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-filter me-1"></i>Filter
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="filterAwards('all')">All Awards</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterAwards('active')">Active Awards</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterAwards('recent')">Recent Awards</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterAwards('disabled')">Disabled Awards</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    @if (Model.userBadges != null && Model.userBadges.Any())
-                    {
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="border-0 ps-4">
-                                            <i class="fas fa-user me-1 text-muted"></i>User
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-award me-1 text-muted"></i>Badge Achievement
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-trophy me-1 text-muted"></i>Badge Details
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-calendar-star me-1 text-muted"></i>Awarded Date
-                                        </th>
-                                        <th class="border-0">
-                                            <i class="fas fa-toggle-on me-1 text-muted"></i>Status
-                                        </th>
-                                        <th class="border-0 pe-4">
-                                            <i class="fas fa-cog me-1 text-muted"></i>Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var userBadge in Model.userBadges.Where(ub => ub.IsDeleted != true).OrderByDescending(ub => ub.AwardedAt))
-                                    {
-                                        <tr class="award-row">
-                                            <td class="ps-4">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar-circle me-3">
-                                                        <i class="fas fa-user-circle fa-2x text-primary"></i>
-                                                    </div>
-                                                    <div>
-                                                        <h6 class="mb-0 fw-semibold">@(userBadge.User?.Email ?? "Unknown User")</h6>
-                                                        <small class="text-muted">ID: @userBadge.UserId.ToString().Substring(0, 8)...</small>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="badge-preview me-3">
-                                                        <i class="fas fa-medal fa-2x text-warning"></i>
-                                                    </div>
-                                                    <div>
-                                                        <h6 class="mb-1 text-primary fw-semibold">@(userBadge.Badge?.Name ?? "Unknown Badge")</h6>
-                                                        <span class="badge bg-light text-dark border">@(userBadge.Badge?.Code ?? "N/A")</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-success">
-                                                    <i class="fas fa-bullseye me-1"></i>
-                                                    <span class="fw-semibold">@(userBadge.Badge?.Criteria?.Length > 40 ? userBadge.Badge.Criteria.Substring(0, 40) + "..." : userBadge.Badge?.Criteria ?? "No criteria")</span>
-                                                </div>
-                                                @if (!string.IsNullOrEmpty(userBadge.Badge?.Description))
-                                                {
-                                                    <br>
-                                                    <small class="text-muted">@(userBadge.Badge.Description.Length > 50 ? userBadge.Badge.Description.Substring(0, 50) + "..." : userBadge.Badge.Description)</small>
-                                                }
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fas fa-calendar-check me-2 text-success"></i>
-                                                    <div>
-                                                        <strong>@userBadge.AwardedAt.ToString("MMM dd, yyyy")</strong>
-                                                        <br>
-                                                        <small class="text-muted">@userBadge.AwardedAt.ToString("hh:mm tt")</small>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @if (userBadge.Disabled == true)
-                                                {
-                                                    <span class="badge bg-danger-subtle text-danger fs-6 px-3 py-2">
-                                                        <i class="fas fa-times me-1"></i>Disabled
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge bg-success-subtle text-success fs-6 px-3 py-2">
-                                                        <i class="fas fa-check me-1"></i>Active
-                                                    </span>
-                                                }
-                                                
-                                                @if (userBadge.AwardedAt.Date == DateTime.Today)
-                                                {
-                                                    <br>
-                                                    <span class="badge bg-info-subtle text-info mt-1">
-                                                        <i class="fas fa-star me-1"></i>New Today
-                                                    </span>
-                                                }
-                                            </td>
-                                            <td class="pe-4">
-                                                <div class="btn-group" role="group">
-                                                    <!-- View Details Button -->
-                                                    <a asp-page="./Detail" asp-route-id="@userBadge.UserBadgeId" 
-                                                       class="btn btn-outline-info btn-sm" 
-                                                       title="View Details"
-                                                       data-bs-toggle="tooltip">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <!-- Edit Button -->
-                                                    <a asp-page="./Edit" asp-route-id="@userBadge.UserBadgeId" 
-                                                       class="btn btn-outline-warning btn-sm" 
-                                                       title="Edit Award"
-                                                       data-bs-toggle="tooltip">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <!-- Delete Button -->
-                                                    <button type="button" 
-                                                            class="btn btn-outline-danger btn-sm" 
-                                                            title="Revoke Award"
-                                                            data-bs-toggle="tooltip"
-                                                            onclick="confirmRevoke(@userBadge.UserBadgeId, '@(userBadge.User?.Email ?? "Unknown")', '@(userBadge.Badge?.Name ?? "Unknown Badge")')">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                    <div class="card-body p-0">
+                        @if (Model.userBadges != null && Model.userBadges.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="border-0 ps-4">
+                                                <i class="fas fa-user me-1 text-muted"></i>User
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-award me-1 text-muted"></i>Badge Achievement
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-trophy me-1 text-muted"></i>Badge Details
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-calendar-star me-1 text-muted"></i>Awarded Date
+                                            </th>
+                                            <th class="border-0">
+                                                <i class="fas fa-toggle-on me-1 text-muted"></i>Status
+                                            </th>
+                                            <th class="border-0 pe-4">
+                                                <i class="fas fa-cog me-1 text-muted"></i>Actions
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <div class="text-muted mb-3">
-                                <i class="fas fa-trophy fa-3x text-warning"></i>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var userBadge in Model.userBadges.Where(ub => ub.IsDeleted != true).OrderByDescending(ub => ub.AwardedAt))
+                                        {
+                                            <tr class="award-row">
+                                                <td class="ps-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-circle me-3">
+                                                            <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-0 fw-semibold">@(userBadge.User?.Email ?? "Unknown User")</h6>
+                                                            <small class="text-muted">ID: @userBadge.UserId.ToString().Substring(0, 8)...</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="badge-preview me-3">
+                                                            <i class="fas fa-medal fa-2x text-warning"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-1 text-primary fw-semibold">@(userBadge.Badge?.Name ?? "Unknown Badge")</h6>
+                                                            <span class="badge bg-light text-dark border">@(userBadge.Badge?.Code ?? "N/A")</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-success">
+                                                        <i class="fas fa-bullseye me-1"></i>
+                                                        <span class="fw-semibold">@(userBadge.Badge?.Criteria?.Length > 40 ? userBadge.Badge.Criteria.Substring(0, 40) + "..." : userBadge.Badge?.Criteria ?? "No criteria")</span>
+                                                    </div>
+                                                    @if (!string.IsNullOrEmpty(userBadge.Badge?.Description))
+                                                    {
+                                                        <br>
+                                                        <small class="text-muted">@(userBadge.Badge.Description.Length > 50 ? userBadge.Badge.Description.Substring(0, 50) + "..." : userBadge.Badge.Description)</small>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-calendar-check me-2 text-success"></i>
+                                                        <div>
+                                                            <strong>@userBadge.AwardedAt.ToString("MMM dd, yyyy")</strong>
+                                                            <br>
+                                                            <small class="text-muted">@userBadge.AwardedAt.ToString("hh:mm tt")</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if (userBadge.Disabled == true)
+                                                    {
+                                                        <span class="badge bg-danger-subtle text-danger fs-6 px-3 py-2">
+                                                            <i class="fas fa-times me-1"></i>Disabled
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-success-subtle text-success fs-6 px-3 py-2">
+                                                            <i class="fas fa-check me-1"></i>Active
+                                                        </span>
+                                                    }
+
+                                                    @if (userBadge.AwardedAt.Date == DateTime.Today)
+                                                    {
+                                                        <br>
+                                                        <span class="badge bg-info-subtle text-info mt-1">
+                                                            <i class="fas fa-star me-1"></i>New Today
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td class="pe-4">
+                                                    <div class="btn-group" role="group">
+                                                        <!-- View Details Button -->
+                                                        <a asp-page="./Detail" asp-route-id="@userBadge.UserBadgeId"
+                                                           class="btn btn-outline-info btn-sm"
+                                                           title="View Details"
+                                                           data-bs-toggle="tooltip">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <!-- Edit Button -->
+                                                        <a asp-page="./Edit" asp-route-id="@userBadge.UserBadgeId"
+                                                           class="btn btn-outline-warning btn-sm"
+                                                           title="Edit Award"
+                                                           data-bs-toggle="tooltip">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <!-- Delete Button -->
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                title="Revoke Award"
+                                                                data-bs-toggle="tooltip"
+                                                                onclick="confirmRevoke(@userBadge.UserBadgeId, '@(userBadge.User?.Email ?? "Unknown")', '@(userBadge.Badge?.Name ?? "Unknown Badge")')">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
-                            <h5 class="text-muted">No badge awards found</h5>
-                            <p class="text-muted">Start recognizing health achievements by awarding your first badge.</p>
-                            <a asp-page="./Create" class="btn btn-success">
-                                <i class="fas fa-plus me-2"></i>Award First Badge
-                            </a>
-                        </div>
-                    }
+                        }
+                        else
+                        {
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-3">
+                                    <i class="fas fa-trophy fa-3x text-warning"></i>
+                                </div>
+                                <h5 class="text-muted">No badge awards found</h5>
+                                <p class="text-muted">Start recognizing health achievements by awarding your first badge.</p>
+                                <a asp-page="./Create" class="btn btn-success">
+                                    <i class="fas fa-plus me-2"></i>Award First Badge
+                                </a>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Revoke Confirmation Modal -->
-<div class="modal fade" id="revokeModal" tabindex="-1" aria-labelledby="revokeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="revokeModalLabel">
-                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
-                    Confirm Badge Revocation
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to revoke the badge <strong id="badgeName"></strong> from user <strong id="userName"></strong>?</p>
-                <div class="alert alert-warning">
-                    <i class="fas fa-warning me-2"></i>
-                    This action will remove the achievement from the user's profile. Consider disabling instead of permanent removal.
+    <!-- Revoke Confirmation Modal -->
+    <div class="modal fade" id="revokeModal" tabindex="-1" aria-labelledby="revokeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="revokeModalLabel">
+                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                        Confirm Badge Revocation
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form method="post" id="revokeForm" style="display: inline;">
-                    <input type="hidden" name="id" id="revokeId" />
-                    <button type="submit" class="btn btn-warning" asp-page-handler="Revoke">
-                        <i class="fas fa-times me-2"></i>Revoke Award
-                    </button>
-                </form>
+                <div class="modal-body">
+                    <p>Are you sure you want to revoke the badge <strong id="badgeName"></strong> from user <strong id="userName"></strong>?</p>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-warning me-2"></i>
+                        This action will remove the achievement from the user's profile. Consider disabling instead of permanent removal.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" id="revokeForm" style="display: inline;">
+                        <input type="hidden" name="id" id="revokeId" />
+                        <button type="submit" class="btn btn-warning" asp-page-handler="Revoke">
+                            <i class="fas fa-times me-2"></i>Revoke Award
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</main>
 @section Scripts {
     <script>
         // Search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const rows = document.querySelectorAll('.award-row');
-            
+
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchTerm) ? '' : 'none';
@@ -317,12 +317,12 @@
         function filterAwards(type) {
             const rows = document.querySelectorAll('.award-row');
             const today = new Date().toDateString();
-            
+
             rows.forEach(row => {
                 const activeElement = row.querySelector('.badge.bg-success-subtle');
                 const disabledElement = row.querySelector('.badge.bg-danger-subtle');
                 const newTodayElement = row.querySelector('.badge.bg-info-subtle');
-                
+
                 switch(type) {
                     case 'active':
                         row.style.display = activeElement ? '' : 'none';
@@ -354,7 +354,7 @@
             document.getElementById('revokeId').value = userBadgeId;
             document.getElementById('userName').textContent = userName;
             document.getElementById('badgeName').textContent = badgeName;
-            
+
             const revokeModal = new bootstrap.Modal(document.getElementById('revokeModal'));
             revokeModal.show();
         }
@@ -393,82 +393,82 @@
         border-radius: 12px;
         transition: all 0.3s ease;
     }
-    
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
-    }
-    
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+        }
+
     .btn-group .btn {
         margin-right: 2px;
         border-radius: 6px;
     }
-    
+
     .badge {
         font-size: 0.75em;
         padding: 0.4em 0.6em;
         border-radius: 6px;
     }
-    
+
     .table td {
         vertical-align: middle;
         border-color: #f1f3f4;
     }
-    
+
     .bg-success-subtle {
         background-color: #d1e7dd !important;
     }
-    
+
     .bg-danger-subtle {
         background-color: #f8d7da !important;
     }
-    
+
     .bg-warning-subtle {
         background-color: #fff3cd !important;
     }
-    
+
     .bg-info-subtle {
         background-color: #cff4fc !important;
     }
-    
+
     .award-row {
         transition: background-color 0.2s ease;
     }
-    
+
     .btn-sm {
         padding: 0.25rem 0.5rem;
         font-size: 0.875rem;
     }
-    
+
     .alert {
         border-radius: 10px;
         border: none;
     }
-    
+
     .avatar-circle {
         transition: transform 0.2s ease;
     }
-    
-    .avatar-circle:hover {
-        transform: scale(1.1);
-    }
-    
+
+        .avatar-circle:hover {
+            transform: scale(1.1);
+        }
+
     .badge-preview i {
         transition: transform 0.2s ease;
     }
-    
+
     .text-success {
         color: #198754 !important;
     }
-    
+
     .text-warning {
         color: #fd7e14 !important;
     }
-    
+
     .text-danger {
         color: #dc3545 !important;
     }
-    
+
     .text-info {
         color: #0dcaf0 !important;
     }

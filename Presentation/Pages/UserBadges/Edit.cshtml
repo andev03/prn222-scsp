@@ -4,283 +4,283 @@
     ViewData["Title"] = "Edit Health Achievement Award";
     Layout = "_Layout";
 }
-
-<div class="container-fluid py-4">
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="text-primary mb-1">
-                        <i class="fas fa-edit me-2"></i>
-                        Edit Achievement Award
-                    </h2>
-                    <p class="text-muted mb-0">Update health milestone achievement award details</p>
+<main role="main" class="pb-3">
+    <div class="container-fluid py-4">
+        <!-- Header Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="text-primary mb-1">
+                            <i class="fas fa-edit me-2"></i>
+                            Edit Achievement Award
+                        </h2>
+                        <p class="text-muted mb-0">Update health milestone achievement award details</p>
+                    </div>
+                    <a asp-page="./Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Awards
+                    </a>
                 </div>
-                <a asp-page="./Index" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>
-                    Back to Awards
-                </a>
             </div>
         </div>
-    </div>
 
-    <!-- Main Form -->
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-warning text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-medal me-2"></i>
-                        Update Badge Award Information
-                    </h5>
-                </div>
-                <div class="card-body p-4">
-                    <!-- Display validation errors -->
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <strong>Please fix the following errors:</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                                {
-                                    <li>@error.ErrorMessage</li>
-                                }
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    }
-
-                    <form method="post" id="editAwardForm">
-                        <!-- Hidden fields for system data -->
-                        <input type="hidden" asp-for="Item.UserBadgeId" />
-                        <input type="hidden" asp-for="Item.CreatedAt" />
-                        <input type="hidden" asp-for="Item.IsDeleted" />
-                        <input type="hidden" asp-for="Item.DeletedAt" />
-                        
-                        <div class="row">
-                            <!-- User Selection -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.UserId" class="form-label fw-semibold">
-                                    <i class="fas fa-user-circle me-1 text-primary"></i>
-                                    Select User <span class="text-danger">*</span>
-                                </label>
-                                <select asp-for="Item.UserId" 
-                                        asp-items="Model.UserList"
-                                        class="form-select form-control-lg" 
-                                        id="userId" 
-                                        required>
-                                </select>
-                                <span asp-validation-for="Item.UserId" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    User associated with this achievement award
-                                </div>
+        <!-- Main Form -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-medal me-2"></i>
+                            Update Badge Award Information
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Display validation errors -->
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Please fix the following errors:</strong>
+                                <ul class="mb-0 mt-2">
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
+                        }
 
-                            <!-- Badge Selection -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.BadgeId" class="form-label fw-semibold">
-                                    <i class="fas fa-award me-1 text-warning"></i>
-                                    Select Badge <span class="text-danger">*</span>
-                                </label>
-                                <select asp-for="Item.BadgeId" 
-                                        asp-items="Model.BadgeList"
-                                        class="form-select form-control-lg" 
-                                        id="badgeId" 
-                                        required>
-                                </select>
-                                <span asp-validation-for="Item.BadgeId" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Achievement badge for this award
-                                </div>
-                            </div>
-                        </div>
+                        <form method="post" id="editAwardForm">
+                            <!-- Hidden fields for system data -->
+                            <input type="hidden" asp-for="Item.UserBadgeId" />
+                            <input type="hidden" asp-for="Item.CreatedAt" />
+                            <input type="hidden" asp-for="Item.IsDeleted" />
+                            <input type="hidden" asp-for="Item.DeletedAt" />
 
-                        <div class="row">
-                            <!-- Award Date -->
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Item.AwardedAt" class="form-label fw-semibold">
-                                    <i class="fas fa-calendar-star me-1 text-success"></i>
-                                    Award Date <span class="text-danger">*</span>
-                                </label>
-                                <input asp-for="Item.AwardedAt" 
-                                       type="datetime-local" 
-                                       class="form-control form-control-lg" 
-                                       id="awardedAt" 
-                                       required>
-                                <span asp-validation-for="Item.AwardedAt" class="text-danger"></span>
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Date and time when the achievement was earned
-                                </div>
-                            </div>
-
-                            <!-- Award Status -->
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label fw-semibold">
-                                    <i class="fas fa-toggle-on me-1 text-primary"></i>
-                                    Award Status
-                                </label>
-                                <div class="card border-light bg-light p-3">
-                                    <div class="form-check form-switch">
-                                        <input name="Item.Disabled" 
-                                               class="form-check-input" 
-                                               type="checkbox" 
-                                               id="awardStatus"
-                                               value="true"
-                                               @(Model.Item.Disabled == true ? "checked" : "")>
-                                        <input name="Item.Disabled" type="hidden" value="false">
-                                        <label class="form-check-label fw-semibold" for="awardStatus">
-                                            <span class="badge bg-success me-2" id="statusBadge">
-                                                <i class="fas fa-check me-1"></i>Active
-                                            </span>
-                                            <span id="statusText">Enable this award</span>
-                                        </label>
-                                    </div>
-                                    <div class="form-text mt-2">
+                            <div class="row">
+                                <!-- User Selection -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.UserId" class="form-label fw-semibold">
+                                        <i class="fas fa-user-circle me-1 text-primary"></i>
+                                        Select User <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Item.UserId"
+                                            asp-items="Model.UserList"
+                                            class="form-select form-control-lg"
+                                            id="userId"
+                                            required>
+                                    </select>
+                                    <span asp-validation-for="Item.UserId" class="text-danger"></span>
+                                    <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Active awards are displayed in user profiles
+                                        User associated with this achievement award
+                                    </div>
+                                </div>
+
+                                <!-- Badge Selection -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.BadgeId" class="form-label fw-semibold">
+                                        <i class="fas fa-award me-1 text-warning"></i>
+                                        Select Badge <span class="text-danger">*</span>
+                                    </label>
+                                    <select asp-for="Item.BadgeId"
+                                            asp-items="Model.BadgeList"
+                                            class="form-select form-control-lg"
+                                            id="badgeId"
+                                            required>
+                                    </select>
+                                    <span asp-validation-for="Item.BadgeId" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Achievement badge for this award
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Badge Preview Section -->
-                        <div class="row">
-                            <div class="col-md-12 mb-4">
-                                <label class="form-label fw-semibold">
-                                    <i class="fas fa-eye me-1 text-primary"></i>
-                                    Award Preview
-                                </label>
-                                <div class="card border-warning bg-gradient-light" style="min-height: 150px;">
-                                    <div class="card-body d-flex align-items-center justify-content-center">
-                                        <div class="text-center" id="awardPreview">
-                                            <i class="fas fa-trophy fa-4x text-warning mb-3 award-icon"></i>
-                                            <div class="fw-bold text-warning h5">@(Model.Item.Badge?.Name ?? "Badge Name")</div>
-                                            <div class="text-muted">Awarded to: @(Model.Item.User?.Email ?? "User Email")</div>
+                            <div class="row">
+                                <!-- Award Date -->
+                                <div class="col-md-6 mb-4">
+                                    <label asp-for="Item.AwardedAt" class="form-label fw-semibold">
+                                        <i class="fas fa-calendar-star me-1 text-success"></i>
+                                        Award Date <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="Item.AwardedAt"
+                                           type="datetime-local"
+                                           class="form-control form-control-lg"
+                                           id="awardedAt"
+                                           required>
+                                    <span asp-validation-for="Item.AwardedAt" class="text-danger"></span>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Date and time when the achievement was earned
+                                    </div>
+                                </div>
+
+                                <!-- Award Status -->
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-toggle-on me-1 text-primary"></i>
+                                        Award Status
+                                    </label>
+                                    <div class="card border-light bg-light p-3">
+                                        <div class="form-check form-switch">
+                                            <input name="Item.Disabled"
+                                                   class="form-check-input"
+                                                   type="checkbox"
+                                                   id="awardStatus"
+                                                   value="true"
+                                                   @(Model.Item.Disabled == true ? "checked" : "")>
+                                            <input name="Item.Disabled" type="hidden" value="false">
+                                            <label class="form-check-label fw-semibold" for="awardStatus">
+                                                <span class="badge bg-success me-2" id="statusBadge">
+                                                    <i class="fas fa-check me-1"></i>Active
+                                                </span>
+                                                <span id="statusText">Enable this award</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-text mt-2">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Active awards are displayed in user profiles
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                            <a asp-page="./Index" class="btn btn-outline-secondary btn-lg px-4">
-                                <i class="fas fa-times me-2"></i>
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-warning btn-lg px-4" id="updateAwardBtn">
-                                <i class="fas fa-save me-2"></i>
-                                Update Award
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                            <!-- Badge Preview Section -->
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label fw-semibold">
+                                        <i class="fas fa-eye me-1 text-primary"></i>
+                                        Award Preview
+                                    </label>
+                                    <div class="card border-warning bg-gradient-light" style="min-height: 150px;">
+                                        <div class="card-body d-flex align-items-center justify-content-center">
+                                            <div class="text-center" id="awardPreview">
+                                                <i class="fas fa-trophy fa-4x text-warning mb-3 award-icon"></i>
+                                                <div class="fw-bold text-warning h5">@(Model.Item.Badge?.Name ?? "Badge Name")</div>
+                                                <div class="text-muted">Awarded to: @(Model.Item.User?.Email ?? "User Email")</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!-- Edit Guidelines Section -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-info text-white">
-                    <h6 class="mb-0">
-                        <i class="fas fa-lightbulb me-2"></i>
-                        Edit Guidelines
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <h6 class="text-primary">
-                            <i class="fas fa-user-edit me-1"></i>
-                            User Changes
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Transfer award to different user if needed</li>
-                            <li>Verify new user eligibility</li>
-                            <li>Consider achievement history</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6 class="text-warning">
-                            <i class="fas fa-medal me-1"></i>
-                            Badge Updates
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Change badge type if criteria evolved</li>
-                            <li>Only active badges are available</li>
-                            <li>Ensure badge match achievement</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6 class="text-success">
-                            <i class="fas fa-calendar-edit me-1"></i>
-                            Date Corrections
-                        </h6>
-                        <ul class="small text-muted mb-0">
-                            <li>Correct inaccurate award dates</li>
-                            <li>Cannot set future achievement dates</li>
-                            <li>Maintain achievement timeline integrity</li>
-                        </ul>
-                    </div>
-
-                    <div class="alert alert-light border-warning mt-3">
-                        <i class="fas fa-edit text-warning me-2"></i>
-                        <strong>Edit Tip:</strong> Be careful when updating awards as changes affect user achievement history!
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                                <a asp-page="./Index" class="btn btn-outline-secondary btn-lg px-4">
+                                    <i class="fas fa-times me-2"></i>
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-warning btn-lg px-4" id="updateAwardBtn">
+                                    <i class="fas fa-save me-2"></i>
+                                    Update Award
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Award Information Card -->
-            <div class="card border-0 shadow-sm mt-3">
-                <div class="card-header bg-success text-white">
-                    <h6 class="mb-0">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Award Information
-                    </h6>
+            <!-- Edit Guidelines Section -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            Edit Guidelines
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6 class="text-primary">
+                                <i class="fas fa-user-edit me-1"></i>
+                                User Changes
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Transfer award to different user if needed</li>
+                                <li>Verify new user eligibility</li>
+                                <li>Consider achievement history</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="text-warning">
+                                <i class="fas fa-medal me-1"></i>
+                                Badge Updates
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Change badge type if criteria evolved</li>
+                                <li>Only active badges are available</li>
+                                <li>Ensure badge match achievement</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="text-success">
+                                <i class="fas fa-calendar-edit me-1"></i>
+                                Date Corrections
+                            </h6>
+                            <ul class="small text-muted mb-0">
+                                <li>Correct inaccurate award dates</li>
+                                <li>Cannot set future achievement dates</li>
+                                <li>Maintain achievement timeline integrity</li>
+                            </ul>
+                        </div>
+
+                        <div class="alert alert-light border-warning mt-3">
+                            <i class="fas fa-edit text-warning me-2"></i>
+                            <strong>Edit Tip:</strong> Be careful when updating awards as changes affect user achievement history!
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-6">
-                            <div class="border-end">
-                                <i class="fas fa-calendar-plus text-primary fa-2x mb-2"></i>
-                                <h6 class="mb-1">Created</h6>
-                                <small class="text-muted">@Model.Item.CreatedAt?.ToString("MMM dd, yyyy")</small>
+
+                <!-- Award Information Card -->
+                <div class="card border-0 shadow-sm mt-3">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Award Information
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="border-end">
+                                    <i class="fas fa-calendar-plus text-primary fa-2x mb-2"></i>
+                                    <h6 class="mb-1">Created</h6>
+                                    <small class="text-muted">@Model.Item.CreatedAt?.ToString("MMM dd, yyyy")</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fas fa-calendar-edit text-info fa-2x mb-2"></i>
+                                <h6 class="mb-1">Last Updated</h6>
+                                <small class="text-muted">
+                                    @if (Model.Item.UpdatedAt.HasValue && Model.Item.UpdatedAt != Model.Item.CreatedAt)
+                                    {
+                                        @Model.Item.UpdatedAt?.ToString("MMM dd, yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span>Not updated</span>
+                                    }
+                                </small>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <i class="fas fa-calendar-edit text-info fa-2x mb-2"></i>
-                            <h6 class="mb-1">Last Updated</h6>
-                            <small class="text-muted">
-                                @if (Model.Item.UpdatedAt.HasValue && Model.Item.UpdatedAt != Model.Item.CreatedAt)
-                                {
-                                    @Model.Item.UpdatedAt?.ToString("MMM dd, yyyy")
-                                }
-                                else
-                                {
-                                    <span>Not updated</span>
-                                }
-                            </small>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-3 text-center">
-                        <div class="alert alert-info">
-                            <i class="fas fa-trophy me-2"></i>
-                            <strong>Award ID:</strong> #@Model.Item.UserBadgeId
+
+                        <div class="mt-3 text-center">
+                            <div class="alert alert-info">
+                                <i class="fas fa-trophy me-2"></i>
+                                <strong>Award ID:</strong> #@Model.Item.UserBadgeId
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</main>
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -290,15 +290,15 @@
             const statusCheckbox = document.getElementById('awardStatus');
             const statusBadge = document.getElementById('statusBadge');
             const statusText = document.getElementById('statusText');
-            
+
             // Update award preview
             function updateAwardPreview() {
                 const selectedUser = userSelect.options[userSelect.selectedIndex];
                 const selectedBadge = badgeSelect.options[badgeSelect.selectedIndex];
-                
+
                 let userText = selectedUser && selectedUser.value ? selectedUser.text : 'Select User';
                 let badgeText = selectedBadge && selectedBadge.value ? selectedBadge.text.split(' - ')[0] : 'Select Badge';
-                
+
                 if (userText !== 'Select User' && badgeText !== 'Select Badge') {
                     awardPreview.innerHTML = `
                         <i class="fas fa-trophy fa-4x text-warning mb-3 award-icon"></i>
@@ -316,7 +316,7 @@
                     `;
                 }
             }
-            
+
             // Event listeners
             userSelect.addEventListener('change', function() {
                 updateAwardPreview();
@@ -324,14 +324,14 @@
                     this.classList.remove('is-invalid');
                 }
             });
-            
+
             badgeSelect.addEventListener('change', function() {
                 updateAwardPreview();
                 if (this.value) {
                     this.classList.remove('is-invalid');
                 }
             });
-            
+
             // Update status badge
             statusCheckbox.addEventListener('change', function() {
                 if (this.checked) {
@@ -344,7 +344,7 @@
                     statusText.textContent = 'Enable this award';
                 }
             });
-            
+
             // Initialize status display based on current value
             const initStatus = function() {
                 if (statusCheckbox.checked) {
@@ -357,12 +357,12 @@
                     statusText.textContent = 'Enable this award';
                 }
             };
-            
+
             // Form validation
             document.getElementById('editAwardForm').addEventListener('submit', function(e) {
                 const requiredFields = this.querySelectorAll('[required]');
                 let isValid = true;
-                
+
                 requiredFields.forEach(field => {
                     if (!field.value.trim()) {
                         field.classList.add('is-invalid');
@@ -371,24 +371,24 @@
                         field.classList.remove('is-invalid');
                     }
                 });
-                
+
                 // Special validation for selections
                 if (!userSelect.value || userSelect.value === '') {
                     userSelect.classList.add('is-invalid');
                     isValid = false;
                 }
-                
+
                 if (!badgeSelect.value || badgeSelect.value === '') {
                     badgeSelect.classList.add('is-invalid');
                     isValid = false;
                 }
-                
+
                 if (!isValid) {
                     e.preventDefault();
                     alert('Please fill in all required fields and make proper selections');
                 }
             });
-            
+
             // Initialize
             updateAwardPreview();
             initStatus();
@@ -401,68 +401,68 @@
         border-radius: 15px;
         transition: all 0.3s ease;
     }
-    
-    .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-    }
-    
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        }
+
     .form-control:focus, .form-select:focus {
         border-color: #fd7e14;
         box-shadow: 0 0 0 0.25rem rgba(253, 126, 20, 0.15);
     }
-    
+
     .form-control-lg {
         padding: 0.75rem 1rem;
         font-size: 1.1rem;
     }
-    
+
     .award-icon {
         animation: pulse 2s infinite;
     }
-    
 
-    
+
+
     .btn-lg {
         padding: 0.75rem 2rem;
         font-size: 1.1rem;
         border-radius: 10px;
     }
-    
+
     .form-check-input:checked {
         background-color: #fd7e14;
         border-color: #fd7e14;
     }
-    
+
     .alert {
         border-radius: 10px;
     }
-    
+
     .card-header {
         border-radius: 15px 15px 0 0 !important;
     }
-    
+
     .is-invalid {
         border-color: #dc3545 !important;
         box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
     }
-    
+
     .bg-gradient-light {
         background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
     }
-    
+
     .text-success {
         color: #198754 !important;
     }
-    
+
     .text-warning {
         color: #fd7e14 !important;
     }
-    
+
     .text-danger {
         color: #dc3545 !important;
     }
-    
+
     .border-end {
         border-right: 1px solid #dee2e6 !important;
     }
