@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddRazorPages();
-
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -22,6 +22,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

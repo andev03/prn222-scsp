@@ -15,11 +15,15 @@ namespace DataAccess
         private readonly QuitSmokingAppDBContext _quitSmokingAppDBContext;
         public UserRepostitory()
         {
-            _context = new QuitSmokingAppDBContext();
+            _quitSmokingAppDBContext = new QuitSmokingAppDBContext();
         }
         public async Task<User> GetByGuiUser(Guid id) {
             return await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
 
+        public User Login(string username, string password)
+        {
+            return _quitSmokingAppDBContext.Users.FirstOrDefault(u => u.Username.Equals(username) && u.PasswordHash.Equals(password));
+        }
     }
 }

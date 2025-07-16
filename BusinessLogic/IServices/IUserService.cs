@@ -10,6 +10,7 @@ namespace BusinessLogic.IServices
     public interface IUserService
     {
         Task<List<User>> GetAll();
-        Task<User> GetById(Guid id); 
+        Task<User> GetById(Guid id);
+        User Login(String username, string password);
     }
 }

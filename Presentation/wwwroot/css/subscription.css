@@ -1,0 +1,193 @@
+﻿.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+    color: white;
+}
+
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: black;
+    }
+
+    .header p {
+        font-size: 1.1rem;
+        color: black;
+        opacity: 0.9;
+    }
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.pricing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .pricing-card.popular {
+        border: 3px solid #667eea;
+        transform: scale(1.05);
+    }
+
+        .pricing-card.popular::before {
+            content: "PHỔ BIẾN NHẤT";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+.plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.plan-description {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.price {
+    margin-bottom: 30px;
+}
+
+.price-amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #333;
+    line-height: 1;
+}
+
+.price-currency {
+    font-size: 1.2rem;
+    vertical-align: top;
+}
+
+.price-period {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+    .features li {
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
+        color: #555;
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .features li.unavailable {
+            color: #ccc;
+        }
+
+            .features li.unavailable::before {
+                content: "✗";
+                color: #f44336;
+            }
+
+.cta-button {
+    width: 100%;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .cta-button.primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+
+        .cta-button.primary:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+    .cta-button.secondary {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+        .cta-button.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pricing-card.popular {
+        transform: none;
+    }
+
+    .pricing-card {
+        padding: 30px 20px;
+    }
+
+    .price-amount {
+        font-size: 2.5rem;
+    }
+}

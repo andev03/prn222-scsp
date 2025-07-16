@@ -4,6 +4,7 @@
     ViewData["Title"] = "Trang chủ";
 }
 <link rel="stylesheet" href="~/css/index.css" />
+<link rel="stylesheet" href="~/css/subscription.css" />
 
 <div class="main-content">
     <section class="hero">
@@ -154,18 +155,131 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-title">Sẵn Sàng Bắt Đầu Hành Trình Cai Thuốc?</h2>
-            <p class="cta-subtitle">Tham gia cùng hàng nghìn người đã thành công trong việc cai thuốc lá và xây dựng cuộc sống khỏe mạnh hơn.</p>
-            <div class="cta-buttons">
-                <a asp-page="/Account/Register" class="btn-white">Bắt Đầu Ngay Hôm Nay</a>
-                <a asp-page="/HowItWorks" class="btn-outline">Tìm Hiểu Thêm</a>
+    @if (!string.IsNullOrEmpty(Model.Username))
+    {
+        <section class="cta-section">
+            <div class="container">
+                <div class="header">
+                    <h1>Chọn Gói Membership Phù Hợp</h1>
+                    <p>Nâng cấp trải nghiệm của bạn với các tính năng độc quyền</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Basic Plan -->
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Basic</h3>
+                        <p class="plan-description">Hoàn hảo cho người mới bắt đầu</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>99,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Truy cập nội dung cơ bản</li>
+                            <li>5 downloads/tháng</li>
+                            <li>Hỗ trợ email</li>
+                            <li>Truy cập mobile app</li>
+                            <li class="unavailable">Nội dung premium</li>
+                            <li class="unavailable">Hỗ trợ 24/7</li>
+                            <li class="unavailable">Tính năng nâng cao</li>
+                        </ul>
+
+                        <button class="cta-button secondary">Chọn Gói Basic</button>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="pricing-card popular">
+                        <h3 class="plan-name">Pro</h3>
+                        <p class="plan-description">Tốt nhất cho người dùng chuyên nghiệp</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>199,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Tất cả tính năng Basic</li>
+                            <li>50 downloads/tháng</li>
+                            <li>Nội dung premium</li>
+                            <li>Hỗ trợ ưu tiên</li>
+                            <li>Tính năng nâng cao</li>
+                            <li>API access</li>
+                            <li class="unavailable">Hỗ trợ 24/7</li>
+                        </ul>
+
+                        <button class="cta-button primary">Chọn Gói Pro</button>
+                    </div>
+
+                    <!-- Premium Plan -->
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Premium</h3>
+                        <p class="plan-description">Giải pháp toàn diện cho doanh nghiệp</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>399,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Tất cả tính năng Pro</li>
+                            <li>Unlimited downloads</li>
+                            <li>Hỗ trợ 24/7</li>
+                            <li>Tài khoản team</li>
+                            <li>Báo cáo chi tiết</li>
+                            <li>Tích hợp tùy chỉnh</li>
+                            <li>Đào tạo 1-on-1</li>
+                        </ul>
+
+                        <button class="cta-button secondary">Chọn Gói Premium</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+    else
+    {
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">Nâng Cấp Trải Nghiệm Với Gói Thành Viên</h2>
+                <p class="cta-subtitle">Chọn gói phù hợp với bạn để nhận được nhiều quyền lợi hỗ trợ quá trình cai thuốc hiệu quả hơn.</p>
+                <div class="cta-buttons">
+                    <a asp-page="/Membership/Register" class="btn-white">Mua Gói Bạc / Vàng / Kim Cương</a>
+                    <a asp-page="/Membership/Compare" class="btn-outline">So Sánh Quyền Lợi</a>
+                </div>
+            </div>
+        </section>
+    }
 </div>
 
 @section Scripts {
+    <script>
+        // Add click handlers for buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
+                alert(`Bạn đã chọn gói ${planName}! Chuyển hướng đến trang thanh toán...`);
+                // Here you would typically redirect to a payment page
+                // window.location.href = '/checkout?plan=' + planName.toLowerCase();
+            });
+        });
+
+        // Add hover effects
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('popular') ? 'scale(1.05) translateY(-10px)' : 'translateY(-10px)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = this.classList.contains('popular') ? 'scale(1.05)' : 'none';
+            });
+        });
+    </script>
     <script src="~/js/index.js"></script>
 }

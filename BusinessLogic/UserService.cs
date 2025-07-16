@@ -18,12 +18,17 @@ namespace BusinessLogic
         }
         public async Task<List<User>> GetAll()
         {
-           return await _userRepostitory.GetAllAsync();
+            return await _userRepostitory.GetAllAsync();
         }
 
         public async Task<User> GetById(Guid id)
         {
             return await _userRepostitory.GetByGuiUser(id);
+        }
+
+        public User Login(string username, string password)
+        {
+            return _userRepostitory.Login(username, password);
         }
     }
 }
