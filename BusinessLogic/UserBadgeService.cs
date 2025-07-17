@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.IServices;
+using BusinessObject.DTOs;
 using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
@@ -18,7 +19,7 @@ namespace BusinessLogic
         }
         public async Task<int> Create(UserBadge item)
         {
-           return await _userBadgeRepository.AddAsync(item);
+            return await _userBadgeRepository.AddAsync(item);
         }
 
         public async Task<List<UserBadge>> GetAll()
@@ -28,7 +29,22 @@ namespace BusinessLogic
 
         public async Task<UserBadge> GetById(int UserBadgeId)
         {
-           return await _userBadgeRepository.GetByIdDetails(UserBadgeId);
+            return await _userBadgeRepository.GetByIdDetails(UserBadgeId);
+        }
+
+        public List<NumberBadgeResponse> NumberBadgesReceived()
+        {
+            List<UserBadge> userBadges = _userBadgeRepository.GetAll();
+            var result = userBadges
+                .Where(b => b.IsDeleted != true && b.Disabled != true)
+                .GroupBy(b => b.UserId)
+                .Select(g => new NumberBadgeResponse
+                {
+                    User = g.First().User,
+                    BadgeCount = g.Count()
+                }).ToList();
+
+            return result;
         }
 
         public async Task<int> SoftDelete(int UserBadgeId)

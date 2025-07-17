@@ -1,0 +1,50 @@
+﻿@page
+@model Presentation.Pages.Leaderboard.IndexModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/leaderboard.css" />
+
+<div class="leaderboard-body">
+    <div class="leaderboard-container">
+        <div class="leaderboard-header">
+            <h1>Bảng Xếp Hạng Thành Tích</h1>
+            <p>Xem ai đã đạt được nhiều thành tích nhất!</p>
+        </div>
+
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Hạng</th>
+                    <th>Tên Người Dùng</th>
+                    <th>Số Lượng Thành Tích</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.NumberBadgeResponses != null && Model.NumberBadgeResponses.Any())
+                {
+                    int rank = 1;
+                    foreach (var item in Model.NumberBadgeResponses.OrderByDescending(x => x.BadgeCount))
+                    {
+                        <tr>
+                            <td data-label="Hạng" class="rank-cell">@rank</td>
+                            <td data-label="Tên Người Dùng" class="user-name-cell">
+                                <span>@item.User.FirstName @item.User.LastName </span>
+                            </td>
+                            <td data-label="Số Lượng Thành Tích" class="achievements-cell">
+                                @item.BadgeCount
+                            </td>
+                        </tr>
+                        rank++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">Không có dữ liệu</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

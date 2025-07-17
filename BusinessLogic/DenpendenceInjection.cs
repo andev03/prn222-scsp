@@ -21,6 +21,8 @@ namespace BusinessLogic
             services.AddScoped<IUserBadgeRepository, UserBadgeRepository>();
             services.AddScoped<ISmokingRecordRepository, SmokingRecordRepository>();
             services.AddScoped<IUserRepostitory, UserRepostitory>();
+            services.AddScoped<IForumRepository, ForumRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -30,6 +32,8 @@ namespace BusinessLogic
             services.AddScoped<IUserBadgeService, UserBadgeService>();
             services.AddScoped<ISmokingRecordService, SmokingRecordService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<ICommentService, CommentService>();
             return services;
         }
     }

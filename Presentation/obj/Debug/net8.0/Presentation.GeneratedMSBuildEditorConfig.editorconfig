@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Comments/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tbWVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Leaderboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVhZGVyYm9hcmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Privacy.cshtml]

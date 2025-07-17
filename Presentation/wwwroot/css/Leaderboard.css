@@ -1,0 +1,156 @@
+﻿.leaderboard-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.leaderboard-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 700px; /* Adjusted max-width for a simpler table */
+}
+
+.leaderboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .leaderboard-header h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .leaderboard-header p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    .leaderboard-table th {
+        background-color: #f8f9ff;
+        color: #667eea;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .leaderboard-table tbody tr:hover {
+        background-color: #f0f2f7;
+    }
+
+.rank-cell {
+    font-weight: 800;
+    color: #667eea;
+    width: 60px; /* Fixed width for rank */
+    text-align: center;
+}
+
+.user-name-cell {
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+}
+
+.achievements-cell {
+    font-weight: 700;
+    color: #555;
+    text-align: center;
+    width: 150px; /* Fixed width for achievements count */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .leaderboard-container {
+        padding: 25px;
+    }
+
+    .leaderboard-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .leaderboard-table, .leaderboard-table tbody, .leaderboard-table tr, .leaderboard-table td, .leaderboard-table th {
+        display: block;
+    }
+
+        .leaderboard-table thead {
+            display: none; /* Hide table headers on small screens */
+        }
+
+        .leaderboard-table tr {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .leaderboard-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border: none;
+        }
+
+            .leaderboard-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 30px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: #667eea;
+            }
+
+    .rank-cell {
+        text-align: right; /* Align rank to right in mobile view */
+    }
+
+    .user-name-cell {
+        justify-content: flex-end; /* Align user name to right in mobile view */
+    }
+
+        .user-name-cell .user-avatar-small {
+            order: 2; /* Move avatar to the right */
+        }
+
+        .user-name-cell span {
+            order: 1; /* Move name to the left */
+        }
+
+    .achievements-cell {
+        text-align: right; /* Align achievements to right in mobile view */
+    }
+}

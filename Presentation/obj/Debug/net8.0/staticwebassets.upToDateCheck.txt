@@ -2,9 +2,12 @@ wwwroot\css\badges_received.css
 wwwroot\css\footer.css
 wwwroot\css\header.css
 wwwroot\css\Index.css
+wwwroot\css\Leaderboard.css
 wwwroot\css\profile.css
 wwwroot\css\site.css
 wwwroot\css\subscription.css
+wwwroot\css\view_comments.css
+wwwroot\css\view_post.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
