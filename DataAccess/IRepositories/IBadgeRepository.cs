@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using BusinessObject.Models;
 using DataAccess.Base;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace DataAccess.IRepositories
     public interface IBadgeRepository : IGenericRepository<Badge>
     {
         Task<bool> IsExist(int id);
+
+        List<Badge> ListBadgesUserReceived(User user);
     }
 }

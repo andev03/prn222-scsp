@@ -1,0 +1,107 @@
+﻿@page
+@model Presentation.Pages.Users.ProfileModel
+@{
+    Layout = "_Layout";
+}
+<link rel="stylesheet" href="~/css/profile.css" />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(to right, #74ebd5, #ACB6E5);">
+    <div class="profile-container" style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 450px;">
+        <div class="profile-header" style="text-align: center; margin-bottom: 20px;">
+            <h1>Thông Tin Cá Nhân</h1>
+            <p>Xem và cập nhật chi tiết tài khoản của bạn.</p>
+        </div>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success" style="margin-bottom: 15px; text-align: center;">
+                @TempData["Message"]
+            </div>
+        }
+        <form id="userProfileForm" method="post">
+            <div class="profile-details-grid">
+                <div class="detail-item">
+                    <label for="first_name">Tên</label>
+                    <span id="first_name_display" class="display-mode">@Model.FirstName</span>
+                    <input type="text" id="first_name_input" name="FirstName" value="@Model.FirstName" class="hidden form-control">
+                </div>
+                <div class="detail-item">
+                    <label for="last_name">Họ</label>
+                    <span id="last_name_display" class="display-mode">@Model.LastName</span>
+                    <input type="text" id="last_name_input" name="LastName" value="@Model.LastName" class="hidden form-control">
+                </div>
+                <div class="detail-item full-width">
+                    <label for="username">Tên đăng nhập</label>
+                    <span id="username_display" class="display-mode">@Model.Username</span>
+                    <input type="hidden" name="Username" value="@Model.Username" />
+                </div>
+                <div class="detail-item full-width">
+                    <label for="email">Email</label>
+                    <span id="email_display" class="display-mode">@Model.Email</span>
+                    <input type="email" id="email_input" name="Email" value="@Model.Email" class="hidden form-control">
+                </div>
+                <div class="detail-item">
+                    <label for="password">Mật khẩu</label>
+                    <span id="password_display" class="display-mode">********</span>
+                    <input type="password" id="password_input" name="Password" value="" placeholder="Để trống nếu không đổi" class="hidden form-control">
+                </div>
+                <div class="detail-item">
+                    <label for="role">Vai trò</label>
+                    <span id="role_display" class="display-mode">@Model.RoleName</span>
+                    <input type="hidden" name="RoleName" value="@Model.RoleName" />
+                </div>
+            </div>
+            <div class="profile-actions" style="margin-top: 20px; text-align: center;">
+                <button type="button" id="editButton" class="action-button primary">Cập Nhật</button>
+                <button type="submit" id="saveButton" class="action-button primary hidden">Lưu</button>
+                <button type="button" id="cancelButton" class="action-button secondary hidden">Hủy</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const fields = ['first_name', 'last_name', 'email', 'password'];
+        const displayElements = {};
+        const inputElements = {};
+        const originalValues = {};
+
+        fields.forEach(field => {
+            displayElements[field] = document.getElementById(`${field}_display`);
+            inputElements[field] = document.getElementById(`${field}_input`);
+            originalValues[field] = displayElements[field]?.textContent || '';
+        });
+
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
+        const cancelButton = document.getElementById('cancelButton');
+
+        function toggleEditMode(isEditing) {
+            fields.forEach(field => {
+                if (isEditing) {
+                    displayElements[field]?.classList.add('hidden');
+                    inputElements[field]?.classList.remove('hidden');
+                    if (field === 'password') inputElements[field].value = '';
+                    else inputElements[field].value = displayElements[field].textContent.trim();
+                } else {
+                    displayElements[field]?.classList.remove('hidden');
+                    inputElements[field]?.classList.add('hidden');
+                }
+            });
+
+            editButton.classList.toggle('hidden', isEditing);
+            saveButton.classList.toggle('hidden', !isEditing);
+            cancelButton.classList.toggle('hidden', !isEditing);
+        }
+
+        editButton?.addEventListener('click', () => toggleEditMode(true));
+        cancelButton?.addEventListener('click', () => {
+            fields.forEach(field => {
+                inputElements[field].value = originalValues[field];
+            });
+            toggleEditMode(false);
+        });
+
+        toggleEditMode(false);
+    </script>
+}

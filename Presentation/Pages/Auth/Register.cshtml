@@ -1,0 +1,70 @@
+﻿@page
+@model Presentation.Pages.Auth.RegisterModel
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(to right, #74ebd5, #ACB6E5);">
+    <form method="post" asp-page-handler="Register"
+          style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 360px;">
+        <h2 style="text-align: center; margin-bottom: 24px; color: #333;">Đăng ký</h2>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.FirstName" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.FirstName" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.LastName" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.LastName" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.Username" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.Username" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.Username" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.Email" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.Email" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.Password" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.Password" type="password" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label asp-for="Input.ConfirmPassword" style="display: block; margin-bottom: 6px; color: #333;"></label>
+            <input asp-for="Input.ConfirmPassword" type="password" class="form-control"
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger" style="text-align:center; margin-bottom: 16px;"></div>
+
+        <button type="submit"
+                style="width: 100%; padding: 12px; background-color: #0083b0; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">
+            Đăng ký
+        </button>
+
+        <p style="margin-top: 16px; text-align: center; font-size: 14px; color: #555;">
+            Đã có tài khoản?
+            <a href="/Auth/Login" style="color: #0083b0; text-decoration: none;">Đăng nhập</a>
+        </p>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

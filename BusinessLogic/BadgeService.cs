@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.IServices;
-using BusinessObject;
+using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -28,25 +28,28 @@ namespace BusinessLogic
 
         public async Task<Badge> GetById(int id)
         {
-          return await _repository.GetByIdAsync(id);
+            return await _repository.GetByIdAsync(id);
         }
 
         public Task<bool> IsExist(int id)
         {
-           return _repository.IsExist(id);
+            return _repository.IsExist(id);
         }
 
         public async Task<int> SoftDelete(int badgeId)
         {
             var item = await _repository.GetByIdAsync(badgeId);
             item.IsDeleted = true;
-            item.Disabled = true;
             return await _repository.UpdateAsync(item);
         }
 
         public Task<int> Update(Badge badge)
         {
-           return _repository.UpdateAsync(badge);
+            return _repository.UpdateAsync(badge);
+        }
+        public List<Badge> ListBadgesUserReceived(User user)
+        {
+            return _repository.ListBadgesUserReceived(user);
         }
     }
 }

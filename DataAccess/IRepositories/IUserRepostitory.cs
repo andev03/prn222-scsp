@@ -1,4 +1,4 @@
-﻿using BusinessObject;
+﻿using BusinessObject.Models;
 using DataAccess.Base;
 using System;
 using System.Collections.Generic;
@@ -11,5 +11,11 @@ namespace DataAccess.IRepositories
     public interface IUserRepostitory  :IGenericRepository<User>
     {
         Task<User> GetByGuiUser(Guid id);
+
+        User Login(string username, string password);
+
+        void Register(User user);
+        void UpdateProfile(User user);
+
     }
 }

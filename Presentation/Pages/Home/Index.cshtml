@@ -4,6 +4,7 @@
     ViewData["Title"] = "Trang chủ";
 }
 <link rel="stylesheet" href="~/css/index.css" />
+<link rel="stylesheet" href="~/css/subscription.css" />
 
 <div class="main-content">
     <section class="hero">
@@ -16,7 +17,7 @@
                         Tham gia cộng đồng của chúng tôi để nhận được sự hỗ trợ, động viên và chia sẻ kinh nghiệm từ những người cùng chung mục tiêu.
                     </p>
                     <div class="hero-buttons">
-                        <a asp-page="/Account/Register" class="btn-primary">Tham Gia Ngay</a>
+                        <a asp-page="/Auth/Register" class="btn-primary">Tham Gia Ngay</a>
                         <button class="btn-secondary">Tìm Hiểu Thêm</button>
                     </div>
                 </div>
@@ -154,18 +155,150 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-title">Sẵn Sàng Bắt Đầu Hành Trình Cai Thuốc?</h2>
-            <p class="cta-subtitle">Tham gia cùng hàng nghìn người đã thành công trong việc cai thuốc lá và xây dựng cuộc sống khỏe mạnh hơn.</p>
-            <div class="cta-buttons">
-                <a asp-page="/Account/Register" class="btn-white">Bắt Đầu Ngay Hôm Nay</a>
-                <a asp-page="/HowItWorks" class="btn-outline">Tìm Hiểu Thêm</a>
+    @if (Model.User != null)
+    {
+        <section class="cta-section">
+            <div class="container">
+                <div class="header-cta">
+                    <h1>Chọn Gói Membership Phù Hợp</h1>
+                    <p>Nâng cấp trải nghiệm của bạn với các tính năng hỗ trợ cai thuốc chuyên sâu</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Gói Vàng -->
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Bạc</h3>
+                        <p class="plan-description">Phù hợp cho người mới bắt đầu</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>99,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li class="unavailable">Chia sẻ & cộng đồng</li>
+                            <li class="unavailable">Tư vấn từ huấn luyện viên</li>
+                        </ul>
+
+                        <button class="cta-button secondary">Chọn Gói Bạc</button>
+                    </div>
+
+                    <!-- Gói Bạc -->
+                    <div class="pricing-card popular">
+                        <h3 class="plan-name">Vàng</h3>
+                        <p class="plan-description">Cho người dùng cần hỗ trợ thông minh</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>199,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li>Chia sẻ & cộng đồng</li>
+                            <li class="unavailable">Tư vấn từ huấn luyện viên</li>
+                        </ul>
+
+                        <button class="cta-button primary">Chọn Gói Vàng</button>
+                    </div>
+
+                    <!-- Gói Kim Cương -->
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Kim Cương</h3>
+                        <p class="plan-description">Hỗ trợ toàn diện với huấn luyện viên</p>
+
+                        <div class="price">
+                            <div class="price-amount">
+                                <span class="price-currency">₫</span>399,000
+                            </div>
+                            <div class="price-period">/tháng</div>
+                        </div>
+
+                        <ul class="features">
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li>Chia sẻ & cộng đồng</li>
+                            <li>Tư vấn từ huấn luyện viên</li>
+                        </ul>
+
+                        <button class="cta-button secondary">Chọn Gói Kim Cương</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    }
+    else
+    {
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">Sẵn Sàng Bắt Đầu Hành Trình Cai Thuốc?</h2>
+                <p class="cta-subtitle">Tham gia cùng hàng nghìn người đã thành công trong việc cai thuốc lá và xây dựng cuộc sống khỏe mạnh hơn.</p>
+                <div class="cta-buttons">
+                    <a asp-page="/Account/Register" class="btn-white">Bắt Đầu Ngay Hôm Nay</a>
+                    <a asp-page="/HowItWorks" class="btn-outline">Tìm Hiểu Thêm</a>
+                </div>
+            </div>
+        </section>
+    }
 </div>
 
 @section Scripts {
+    <script>
+        // Add click handlers for buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
+                alert(`Bạn đã chọn gói ${planName}! Chuyển hướng đến trang thanh toán...`);
+                // Here you would typically redirect to a payment page
+                // window.location.href = '/checkout?plan=' + planName.toLowerCase();
+            });
+        });
+
+        // Add hover effects
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('popular') ? 'scale(1.05) translateY(-10px)' : 'translateY(-10px)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = this.classList.contains('popular') ? 'scale(1.05)' : 'none';
+            });
+        });
+
+        const counters = document.querySelectorAll('.stat-number');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / 100;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        });
+    </script>
     <script src="~/js/index.js"></script>
 }

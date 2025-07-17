@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.IServices;
-using BusinessObject;
+using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -31,13 +31,10 @@ namespace BusinessLogic
            return await _userBadgeRepository.GetByIdDetails(UserBadgeId);
         }
 
-    
-
         public async Task<int> SoftDelete(int UserBadgeId)
         {
             var item = await _userBadgeRepository.GetByIdAsync(UserBadgeId);
             item.IsDeleted = true;
-            item.Disabled = true;
             return await _userBadgeRepository.UpdateAsync(item);
         }
 

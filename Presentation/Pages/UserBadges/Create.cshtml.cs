@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.IServices;
 using BusinessObject;
+using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;

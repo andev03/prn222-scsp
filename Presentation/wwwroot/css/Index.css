@@ -334,6 +334,7 @@
     padding: 4rem 0;
     text-align: center;
     color: white;
+    margin-bottom: 40px;
 }
 
 .cta-title {
@@ -452,4 +453,10 @@
         width: 100%;
         text-align: center;
     }
+}
+
+.features .unavailable {
+    color: #999;
+    text-decoration: line-through;
+    opacity: 0.6;
 }
