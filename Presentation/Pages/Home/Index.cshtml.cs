@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
+using BusinessObject.Models;
 
 namespace Presentation.Pages
 {
@@ -8,7 +9,7 @@ namespace Presentation.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public string Username { get; set; }
+        public User User { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -17,7 +18,7 @@ namespace Presentation.Pages
 
         public void OnGet()
         {
-            Username = HttpContext.Session.GetString("fullname");
+            User = HttpContext.Session.GetObject<User>("user");
         }
     }
 }

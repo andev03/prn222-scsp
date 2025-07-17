@@ -1,5 +1,5 @@
 using BusinessLogic.IServices;
-using BusinessObject;
+using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -66,7 +66,7 @@ namespace Presentation.Pages.UserBadges
 
         public int GetActiveAwards()
         {
-            return userBadges?.Count(ub => ub.Disabled != true && ub.IsDeleted != true) ?? 0;
+            return userBadges?.Count(ub => ub.IsDeleted != true) ?? 0;
         }
 
         public int GetUniqueUsers()
@@ -85,7 +85,7 @@ namespace Presentation.Pages.UserBadges
 
         public int GetDisabledAwards()
         {
-            return userBadges?.Count(ub => ub.Disabled == true && ub.IsDeleted != true) ?? 0;
+            return userBadges?.Count(ub => ub.IsDeleted != true) ?? 0;
         }
 
         // Achievement analysis methods
@@ -157,7 +157,7 @@ namespace Presentation.Pages.UserBadges
                                 UserId = g.Key.UserId,
                                 UserEmail = g.Key.Email,
                                 TotalBadges = g.Count(),
-                                ActiveBadges = g.Count(ub => ub.Disabled != true),
+                                ActiveBadges = g.Count(ub => ub.IsDeleted != true),
                                 LatestAward = g.Max(ub => ub.AwardedAt)
                             })
                             .OrderByDescending(s => s.TotalBadges)

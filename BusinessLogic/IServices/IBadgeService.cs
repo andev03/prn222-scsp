@@ -1,4 +1,4 @@
-﻿using BusinessObject;
+﻿using BusinessObject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,6 @@ namespace BusinessLogic.IServices
         Task<int> Create(Badge badge);
         Task<int> Update(Badge badge);
         Task<int> SoftDelete(int badgeId);
-   
+        List<Badge> ListBadgesUserReceived(User user);
     }
 }

@@ -1,0 +1,145 @@
+﻿.profile-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 700px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .profile-header h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .profile-header p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+@media (min-width: 600px) {
+    .profile-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+}
+
+.detail-item {
+    margin-bottom: 0; /* Managed by grid gap */
+}
+
+    .detail-item label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .detail-item .display-mode {
+        display: block;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        color: #555;
+        font-size: 1rem;
+        min-height: 46px; /* To match input height */
+        display: flex;
+        align-items: center;
+    }
+
+    .detail-item input[type="text"],
+    .detail-item input[type="email"],
+    .detail-item input[type="password"],
+    .detail-item input[type="number"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        color: #333;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .detail-item input[type="text"]:focus,
+        .detail-item input[type="email"]:focus,
+        .detail-item input[type="password"]:focus,
+        .detail-item input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+    .action-button.primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.2);
+    }
+
+        .action-button.primary:hover {
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(102, 126, 234, 0.3);
+        }
+
+    .action-button.secondary {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+        .action-button.secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+/* Utility classes for toggling visibility */
+.hidden {
+    display: none !important;
+}

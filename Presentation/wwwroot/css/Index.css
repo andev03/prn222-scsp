@@ -454,3 +454,9 @@
         text-align: center;
     }
 }
+
+.features .unavailable {
+    color: #999;
+    text-decoration: line-through;
+    opacity: 0.6;
+}

@@ -1,5 +1,6 @@
-﻿@{
-    var username = Context.Session.GetString("fullname");
+﻿@using BusinessObject.Models
+@{
+    var user = Context.Session.GetObject<User>("user");
 }
 
 <!DOCTYPE html>
@@ -22,21 +23,74 @@
 
                 <ul class="nav-menu" id="nav-menu">
                     <li class="nav-item"><a asp-page="/Home/Index" class="nav-link">Trang chủ</a></li>
-                    <li class="nav-item"><a asp-page="/Community" class="nav-link">Cộng đồng</a></li>
-                    <li class="nav-item"><a asp-page="/Resources" class="nav-link">Tài liệu</a></li>
-                    <li class="nav-item"><a asp-page="/Support" class="nav-link">Hỗ trợ</a></li>
-                    <li class="nav-item"><a asp-page="/Contact" class="nav-link">Liên hệ</a></li>
+                    @if (user != null && user.RoleId.Equals("bac"))
+                    {
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
+                        </li>
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Bảng xếp hạng</a></li>
+                    }
+                    else if (user != null && user.RoleId.Equals("vang"))
+                    {
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/Forum/Index" class="nav-link">Cộng đồng</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
+                        </li>
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Bảng xếp hạng</a></li>
+                    }
+                    else if (user != null && user.RoleId.Equals("kimcuong"))
+                    {
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/Forum/Index" class="nav-link">Cộng đồng</a></li>
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Coach</a></li>
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Bảng xếp hạng</a></li>
+                    }
+                    else if (user != null && user.RoleId.Equals("user"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Kế hoạch</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
+                        </li>
+                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Bảng xếp hạng</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Kế hoạch</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="pointer-events: none;">Bảng xếp hạng</a>
+                        </li>
+                    }
                 </ul>
 
                 <div class="nav-actions">
-                    @if (!string.IsNullOrEmpty(username))
+                    @if (user != null)
                     {
                         <div class="dropdown">
                             <button class="dropdown-toggle" onclick="toggleDropdown()">
-                                👤 @username
+                                👤 @user.FirstName @user.LastName
                             </button>
                             <ul class="dropdown-menu" id="dropdown-menu">
-                                <li><a asp-page="/Account/Profile">Hồ sơ</a></li>
+                                <li><a asp-page="/Users/Profile">Hồ sơ</a></li>
+                                <li><a asp-page="/Badges/BadgesReceived">Danh hiệu</a></li>
                                 <li><a asp-page="/Auth/Logout">Đăng xuất</a></li>
                             </ul>
                         </div>
@@ -44,7 +98,7 @@
                     else
                     {
                         <a asp-page="/Auth/Login" class="login-btn">Đăng nhập</a>
-                        <a asp-page="/Account/Register" class="signup-btn">Đăng ký</a>
+                        <a asp-page="/Auth/Register" class="signup-btn">Đăng ký</a>
                     }
                     <button class="mobile-menu-btn" id="mobile-menu-btn">
                         <span></span>

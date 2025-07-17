@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.IServices;
-using BusinessObject;
+using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ namespace BusinessLogic
         {
             var item = await _repository.GetByIdAsync(RecordId);
             item.IsDeleted = true;
-            item.Disabled = true;
             return await _repository.UpdateAsync(item);
         }
 

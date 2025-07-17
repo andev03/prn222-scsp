@@ -1,4 +1,4 @@
-﻿using BusinessObject;
+﻿using BusinessObject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +12,8 @@ namespace BusinessLogic.IServices
         Task<List<User>> GetAll();
         Task<User> GetById(Guid id);
         User Login(String username, string password);
+        void Register(User user);
+
+        void UpdateProfile(User user);
     }
 }

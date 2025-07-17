@@ -1,5 +1,5 @@
 ﻿using BusinessLogic.IServices;
-using BusinessObject;
+using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,16 @@ namespace BusinessLogic
         public User Login(string username, string password)
         {
             return _userRepostitory.Login(username, password);
+        }
+
+        public void Register(User user)
+        {
+            _userRepostitory.Register(user);
+        }
+
+        public void UpdateProfile(User user)
+        {
+            _userRepostitory.UpdateProfile(user);
         }
     }
 }

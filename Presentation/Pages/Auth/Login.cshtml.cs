@@ -41,7 +41,7 @@ namespace Presentation.Pages.Auth
                 return Page();
             }
 
-            HttpContext.Session.SetString("fullname", user.FirstName + " " + user.LastName);
+            HttpContext.Session.SetObject("user", user);
 
             return RedirectToPage("/Home/Index");
         }

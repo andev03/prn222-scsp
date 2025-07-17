@@ -1,4 +1,4 @@
-﻿using BusinessObject;
+﻿using BusinessObject.Models;
 using DataAccess.Base;
 using DataAccess.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +18,20 @@ namespace DataAccess
             _context = new QuitSmokingAppDBContext();
         }
 
-     
-
         public async Task<bool> IsExist(int id)
         {
             var item = await _context.Badges.FirstOrDefaultAsync(x => x.Code == id + "");
-            return (item==null)?false:true;
+            return (item == null) ? false : true;
+        }
+
+        public List<Badge> ListBadgesUserReceived(User user)
+        {
+            var userBadges = _context.UserBadges
+                .Where(ub => ub.UserId == user.UserId)
+                .Join(_context.Badges, ub => ub.BadgeId, b => b.BadgeId, (ub, b) => b)
+                .ToList();
+
+            return userBadges;
         }
     }
 }

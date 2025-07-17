@@ -1,0 +1,49 @@
+﻿@page
+@model Presentation.Pages.Badges.BadgesReceivedModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/badges_received.css" />
+
+<div class="badges-received-body">
+    <div class="badges-container">
+        <div class="badges-header">
+            <h1>Danh Sách Huy Hiệu Đã Đạt Được</h1>
+            <p>Khám phá các huy hiệu bạn có thể đạt được và tiêu chí của chúng.</p>
+        </div>
+
+        <table class="badges-table">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên Huy Hiệu</th>
+                    <th>Mô Tả</th>
+                    <th>Tiêu Chí</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Badges != null && Model.Badges.Any())
+                {
+                    @foreach (var badge in Model.Badges)
+                    {
+                        <tr>
+                            <td data-label="Mã" class="badge-code">@badge.Code</td>
+                            <td data-label="Tên Huy Hiệu" class="badge-name">
+                                <div class="badge-icon">⭐</div>
+                                <span>@badge.Name</span>
+                            </td>
+                            <td data-label="Mô Tả" class="badge-description">@badge.Description</td>
+                            <td data-label="Tiêu Chí" class="badge-criteria">@badge.Criteria</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">Bạn chưa có danh hiệu nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

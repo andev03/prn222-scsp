@@ -1,0 +1,152 @@
+﻿.badges-received-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.badges-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 900px;
+}
+
+.badges-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .badges-header h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .badges-header p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+.badges-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+    .badges-table th,
+    .badges-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    .badges-table th {
+        background-color: #f8f9ff;
+        color: #667eea;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .badges-table tbody tr:hover {
+        background-color: #f0f2f7;
+    }
+
+.badge-code {
+    font-weight: 600;
+    color: #333;
+    width: 100px; /* Fixed width for code */
+}
+
+.badge-name {
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.badge-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-description {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.badge-criteria {
+    color: #777;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .badges-container {
+        padding: 20px;
+    }
+
+    .badges-table, .badges-table tbody, .badges-table tr, .badges-table td, .badges-table th {
+        display: block;
+    }
+
+        .badges-table thead {
+            display: none; /* Hide table headers on small screens */
+        }
+
+        .badges-table tr {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .badges-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border: none;
+        }
+
+            .badges-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 30px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: #667eea;
+            }
+
+    .badge-name {
+        justify-content: flex-end;
+    }
+
+        .badge-name .badge-icon {
+            order: 2; /* Move icon to the right */
+        }
+
+        .badge-name span {
+            order: 1; /* Move name to the left */
+        }
+}

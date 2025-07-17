@@ -17,7 +17,7 @@
                         Tham gia cộng đồng của chúng tôi để nhận được sự hỗ trợ, động viên và chia sẻ kinh nghiệm từ những người cùng chung mục tiêu.
                     </p>
                     <div class="hero-buttons">
-                        <a asp-page="/Account/Register" class="btn-primary">Tham Gia Ngay</a>
+                        <a asp-page="/Auth/Register" class="btn-primary">Tham Gia Ngay</a>
                         <button class="btn-secondary">Tìm Hiểu Thêm</button>
                     </div>
                 </div>
@@ -155,20 +155,20 @@
     </section>
 
     <!-- CTA Section -->
-    @if (!string.IsNullOrEmpty(Model.Username))
+    @if (Model.User != null)
     {
         <section class="cta-section">
             <div class="container">
-                <div class="header">
+                <div class="header-cta">
                     <h1>Chọn Gói Membership Phù Hợp</h1>
-                    <p>Nâng cấp trải nghiệm của bạn với các tính năng độc quyền</p>
+                    <p>Nâng cấp trải nghiệm của bạn với các tính năng hỗ trợ cai thuốc chuyên sâu</p>
                 </div>
 
                 <div class="pricing-grid">
-                    <!-- Basic Plan -->
+                    <!-- Gói Vàng -->
                     <div class="pricing-card">
-                        <h3 class="plan-name">Basic</h3>
-                        <p class="plan-description">Hoàn hảo cho người mới bắt đầu</p>
+                        <h3 class="plan-name">Bạc</h3>
+                        <p class="plan-description">Phù hợp cho người mới bắt đầu</p>
 
                         <div class="price">
                             <div class="price-amount">
@@ -178,22 +178,22 @@
                         </div>
 
                         <ul class="features">
-                            <li>Truy cập nội dung cơ bản</li>
-                            <li>5 downloads/tháng</li>
-                            <li>Hỗ trợ email</li>
-                            <li>Truy cập mobile app</li>
-                            <li class="unavailable">Nội dung premium</li>
-                            <li class="unavailable">Hỗ trợ 24/7</li>
-                            <li class="unavailable">Tính năng nâng cao</li>
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li class="unavailable">Chia sẻ & cộng đồng</li>
+                            <li class="unavailable">Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button secondary">Chọn Gói Basic</button>
+                        <button class="cta-button secondary">Chọn Gói Bạc</button>
                     </div>
 
-                    <!-- Pro Plan -->
+                    <!-- Gói Bạc -->
                     <div class="pricing-card popular">
-                        <h3 class="plan-name">Pro</h3>
-                        <p class="plan-description">Tốt nhất cho người dùng chuyên nghiệp</p>
+                        <h3 class="plan-name">Vàng</h3>
+                        <p class="plan-description">Cho người dùng cần hỗ trợ thông minh</p>
 
                         <div class="price">
                             <div class="price-amount">
@@ -203,22 +203,22 @@
                         </div>
 
                         <ul class="features">
-                            <li>Tất cả tính năng Basic</li>
-                            <li>50 downloads/tháng</li>
-                            <li>Nội dung premium</li>
-                            <li>Hỗ trợ ưu tiên</li>
-                            <li>Tính năng nâng cao</li>
-                            <li>API access</li>
-                            <li class="unavailable">Hỗ trợ 24/7</li>
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li>Chia sẻ & cộng đồng</li>
+                            <li class="unavailable">Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button primary">Chọn Gói Pro</button>
+                        <button class="cta-button primary">Chọn Gói Vàng</button>
                     </div>
 
-                    <!-- Premium Plan -->
+                    <!-- Gói Kim Cương -->
                     <div class="pricing-card">
-                        <h3 class="plan-name">Premium</h3>
-                        <p class="plan-description">Giải pháp toàn diện cho doanh nghiệp</p>
+                        <h3 class="plan-name">Kim Cương</h3>
+                        <p class="plan-description">Hỗ trợ toàn diện với huấn luyện viên</p>
 
                         <div class="price">
                             <div class="price-amount">
@@ -228,16 +228,16 @@
                         </div>
 
                         <ul class="features">
-                            <li>Tất cả tính năng Pro</li>
-                            <li>Unlimited downloads</li>
-                            <li>Hỗ trợ 24/7</li>
-                            <li>Tài khoản team</li>
-                            <li>Báo cáo chi tiết</li>
-                            <li>Tích hợp tùy chỉnh</li>
-                            <li>Đào tạo 1-on-1</li>
+                            <li>Ghi nhận tình trạng hút thuốc</li>
+                            <li>Lập kế hoạch cai thuốc (nhập tay)</li>
+                            <li>Ghi nhận tiến trình, thống kê tiết kiệm</li>
+                            <li>Thông báo định kỳ, động viên</li>
+                            <li>Xem huy hiệu thành tích</li>
+                            <li>Chia sẻ & cộng đồng</li>
+                            <li>Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button secondary">Chọn Gói Premium</button>
+                        <button class="cta-button secondary">Chọn Gói Kim Cương</button>
                     </div>
                 </div>
             </div>
@@ -247,11 +247,11 @@
     {
         <section class="cta-section">
             <div class="container">
-                <h2 class="cta-title">Nâng Cấp Trải Nghiệm Với Gói Thành Viên</h2>
-                <p class="cta-subtitle">Chọn gói phù hợp với bạn để nhận được nhiều quyền lợi hỗ trợ quá trình cai thuốc hiệu quả hơn.</p>
+                <h2 class="cta-title">Sẵn Sàng Bắt Đầu Hành Trình Cai Thuốc?</h2>
+                <p class="cta-subtitle">Tham gia cùng hàng nghìn người đã thành công trong việc cai thuốc lá và xây dựng cuộc sống khỏe mạnh hơn.</p>
                 <div class="cta-buttons">
-                    <a asp-page="/Membership/Register" class="btn-white">Mua Gói Bạc / Vàng / Kim Cương</a>
-                    <a asp-page="/Membership/Compare" class="btn-outline">So Sánh Quyền Lợi</a>
+                    <a asp-page="/Account/Register" class="btn-white">Bắt Đầu Ngay Hôm Nay</a>
+                    <a asp-page="/HowItWorks" class="btn-outline">Tìm Hiểu Thêm</a>
                 </div>
             </div>
         </section>
@@ -279,6 +279,25 @@
             card.addEventListener('mouseleave', function() {
                 this.style.transform = this.classList.contains('popular') ? 'scale(1.05)' : 'none';
             });
+        });
+
+        const counters = document.querySelectorAll('.stat-number');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+
+                const increment = target / 100;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
         });
     </script>
     <script src="~/js/index.js"></script>
