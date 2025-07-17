@@ -12,5 +12,6 @@ namespace DataAccess.IRepositories
     {
         Task<List<UserBadge>> GetAllDetails();
         Task<UserBadge> GetByIdDetails(int id);
+        List<UserBadge> GetAll();
     }
 }

@@ -17,7 +17,11 @@ namespace DataAccess
         {
             _context = new QuitSmokingAppDBContext();
         }
-        
+
+        public List<UserBadge> GetAll()
+        {
+            return _context.UserBadges.Include(x => x.User).ToList();
+        }
 
         public async Task<List<UserBadge>> GetAllDetails()
         {

@@ -391,7 +391,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
             entity.HasIndex(e => e.Email, "UQ__users__AB6E6164219EF989").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__users__F3DBC572231BEAF2");
+            entity.HasIndex(e => e.Username, "UQ__users__F3DBC572231BEAF2").IsUnique();
 
             entity.Property(e => e.UserId)
                 .HasDefaultValueSql("(newid())")

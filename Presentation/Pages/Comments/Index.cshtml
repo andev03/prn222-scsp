@@ -1,0 +1,68 @@
+﻿@page
+@model Presentation.Pages.Comments.IndexModel
+@{
+    ViewData["Title"] = "Xem bình luận";
+}
+
+<link rel="stylesheet" href="~/css/view_comments.css" />
+
+<div class="comments-body">
+    <div class="container">
+        <a asp-page="/Forum/Index" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+            Quay lại danh sách bài viết
+        </a>
+
+        <div id="post-full-content" class="post-full-container">
+            <div class="post-header">
+                <h1 class="post-title">@Model.Post.Title</h1>
+                <p class="post-meta">Đăng bởi <span class="username">@Model.Post.User.FirstName @Model.Post.User.LastName</span> vào ngày @Model.Post.CreatedAt.ToString("dd/MM/yyyy")</p>
+            </div>
+            <div class="post-content">
+                <p>@Model.Post.Content</p>
+            </div>
+        </div>
+
+        <div class="comments-section">
+            <h2>Bình luận</h2>
+
+            <ul id="comment-list" class="comment-list">
+                @if (Model.Comments.Any())
+                {
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li class="comment-item">
+                            <div class="comment-content-wrapper">
+                                <div class="comment-author-info">
+                                    <span class="comment-author-name">
+                                        @comment.User.FirstName @comment.User.LastName
+                                    </span>
+                                    <span class="comment-date">
+                                        @comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                    </span>
+                                </div>
+                                <p class="comment-text">@comment.Content</p>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>Chưa có bình luận nào.</li>
+                }
+            </ul>
+
+            <div class="comment-form">
+                <h3>Để lại bình luận của bạn</h3>
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="NewComment.Content"></label>
+                        <textarea asp-for="NewComment.Content" class="form-control" placeholder="Viết bình luận của bạn tại đây..."></textarea>
+                        <span asp-validation-for="NewComment.Content" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="submit-comment-button">Gửi Bình Luận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

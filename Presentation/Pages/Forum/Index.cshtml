@@ -1,4 +1,36 @@
 ﻿@page
 @model Presentation.Pages.Forum.IndexModel
 @{
+    ViewData["Title"] = "Bài Viết Mới Nhất";
 }
+
+<link rel="stylesheet" href="~/css/view_post.css" />
+
+<div class="view-post-body">
+    <div class="container">
+        <div class="page-header">
+            <h1>Bài Viết Mới Nhất</h1>
+            <p>Cập nhật những thông tin và kiến thức mới nhất từ chúng tôi.</p>
+        </div>
+
+        <div class="posts-grid">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="post-card">
+                    <div>
+                        <div class="post-card-header">
+                            <h2 class="post-card-title">@post.Title</h2>
+                            <p class="post-card-meta">
+                                Đăng bởi <span class="username">@post.User.FirstName @post.User.LastName</span> vào ngày @post.CreatedAt.ToString("dd/MM/yyyy")
+                            </p>
+                        </div>
+                        <div class="post-card-content">
+                            <p>@post.Content</p>
+                        </div>
+                    </div>
+                    <a asp-page="/Comments/Index" class="comment-button" asp-route-postId="@post.PostId">Bình luận (@post.ForumComments.Count)</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
