@@ -26,8 +26,17 @@ namespace DataAccess
         public List<ForumPost> getAll()
         {
             return _context.ForumPosts
+                .Where(fp => fp.IsDeleted != true)
                 .Include(fp => fp.User)
                 .Include(fp => fp.ForumComments)
+                .ToList();
+        }
+
+        public List<ForumPost> GetAllByUserId(Guid userId)
+        {
+            return _context.ForumPosts
+                .Where(fp => fp.UserId == userId && fp.IsDeleted != true)
+                .Include(fp => fp.User)
                 .ToList();
         }
 
@@ -36,6 +45,18 @@ namespace DataAccess
             return _context.ForumPosts
                 .Include(fp => fp.User)
                 .FirstOrDefault(fp => fp.PostId == postId);
+        }
+
+        public void Delete(ForumPost post)
+        {
+            _context.Update(post);
+            _context.SaveChanges();
+        }
+
+        public void Update(ForumPost post)
+        {
+            _context.Update(post);
+            _context.SaveChanges();
         }
     }
 }

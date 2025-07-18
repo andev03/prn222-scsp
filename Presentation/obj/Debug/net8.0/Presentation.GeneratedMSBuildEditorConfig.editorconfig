@@ -72,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ydW1cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Forum/UserManagePost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ydW1cVXNlck1hbmFnZVBvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

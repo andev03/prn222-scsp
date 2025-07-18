@@ -14,5 +14,8 @@ namespace DataAccess.IRepositories
         ForumPost getPostById(int postId);
 
         void Create(ForumPost forumPost);
+        List<ForumPost> GetAllByUserId(Guid userId);
+        void Update(ForumPost post);
+        void Delete(ForumPost post);
     }
 }
