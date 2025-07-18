@@ -2,7 +2,8 @@ wwwroot\css\badges_received.css
 wwwroot\css\footer.css
 wwwroot\css\header.css
 wwwroot\css\Index.css
-wwwroot\css\Leaderboard.css
+wwwroot\css\index_smoking_records.css
+wwwroot\css\leaderboard.css
 wwwroot\css\profile.css
 wwwroot\css\site.css
 wwwroot\css\subscription.css

@@ -7,42 +7,42 @@
 
 <main role="main" class="pb-3">
     <div class="container-fluid py-4">
-        <!-- Header Section -->
+        <!-- Phần tiêu đề -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h2 class="text-primary mb-1">
                             <i class="fas fa-edit me-2"></i>
-                            Edit Health Record
+                            Chỉnh sửa Ghi chép Sức khỏe
                         </h2>
-                        <p class="text-muted mb-0">Update smoking cessation journey and health progress</p>
+                        <p class="text-muted mb-0">Cập nhật hành trình cai thuốc và tiến triển sức khỏe</p>
                     </div>
                     <a asp-page="./Index" class="btn btn-outline-secondary">
                         <i class="fas fa-arrow-left me-2"></i>
-                        Back to Records
+                        Quay lại Danh sách
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Main Form -->
+        <!-- Biểu mẫu chính -->
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-warning text-white">
                         <h5 class="mb-0">
                             <i class="fas fa-heartbeat me-2"></i>
-                            Update Health Record Information
+                            Cập nhật Thông tin Sức khỏe
                         </h5>
                     </div>
                     <div class="card-body p-4">
-                        <!-- Display validation errors -->
+                        <!-- Hiển thị lỗi xác thực -->
                         @if (!ViewData.ModelState.IsValid)
                         {
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="fas fa-exclamation-triangle me-2"></i>
-                                <strong>Please fix the following errors:</strong>
+                                <strong>Vui lòng sửa các lỗi sau:</strong>
                                 <ul class="mb-0 mt-2">
                                     @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                                     {
@@ -54,37 +54,17 @@
                         }
 
                         <form method="post" id="editRecordForm">
-                            <!-- Hidden fields for system data -->
                             <input type="hidden" asp-for="Item.RecordId" />
                             <input type="hidden" asp-for="Item.CreatedAt" />
                             <input type="hidden" asp-for="Item.IsDeleted" />
                             <input type="hidden" asp-for="Item.DeletedAt" />
 
                             <div class="row">
-                                <!-- User Selection -->
-                                <div class="col-md-6 mb-4">
-                                    <label asp-for="Item.UserId" class="form-label fw-semibold">
-                                        <i class="fas fa-user me-1 text-primary"></i>
-                                        Select User <span class="text-danger">*</span>
-                                    </label>
-                                    <select asp-for="Item.UserId"
-                                            asp-items="Model.UserList"
-                                            class="form-select form-control-lg"
-                                            id="userId"
-                                            required>
-                                    </select>
-                                    <span asp-validation-for="Item.UserId" class="text-danger"></span>
-                                    <div class="form-text">
-                                        <i class="fas fa-info-circle me-1"></i>
-                                        User associated with this health record
-                                    </div>
-                                </div>
-
-                                <!-- Record Date -->
+                                <!-- Ngày ghi chép -->
                                 <div class="col-md-6 mb-4">
                                     <label asp-for="Item.RecordDate" class="form-label fw-semibold">
                                         <i class="fas fa-calendar me-1 text-success"></i>
-                                        Record Date <span class="text-danger">*</span>
+                                        Ngày ghi chép <span class="text-danger">*</span>
                                     </label>
                                     <input asp-for="Item.RecordDate"
                                            type="date"
@@ -94,17 +74,16 @@
                                     <span asp-validation-for="Item.RecordDate" class="text-danger"></span>
                                     <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Date when this health record was tracked
+                                        Ngày ghi nhận tình trạng sức khỏe
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <!-- Cigarettes Count -->
                                 <div class="col-md-6 mb-4">
                                     <label asp-for="Item.CigarettesCount" class="form-label fw-semibold">
                                         <i class="fas fa-smoking me-1 text-warning"></i>
-                                        Cigarettes Count <span class="text-danger">*</span>
+                                        Số lượng thuốc đã hút <span class="text-danger">*</span>
                                     </label>
                                     <input asp-for="Item.CigarettesCount"
                                            type="number"
@@ -116,41 +95,39 @@
                                     <span asp-validation-for="Item.CigarettesCount" class="text-danger"></span>
                                     <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Number of cigarettes smoked (0 = smoke-free day!)
+                                        Nhập 0 nếu là ngày không hút thuốc
                                     </div>
                                 </div>
 
-                                <!-- Frequency -->
                                 <div class="col-md-6 mb-4">
                                     <label asp-for="Item.Frequency" class="form-label fw-semibold">
                                         <i class="fas fa-clock me-1 text-info"></i>
-                                        Smoking Frequency
+                                        Tần suất hút thuốc
                                     </label>
                                     <select asp-for="Item.Frequency" class="form-select form-control-lg" id="frequency">
-                                        <option value="">Select frequency...</option>
-                                        <option value="None">None (Smoke-Free)</option>
-                                        <option value="Morning Only">Morning Only</option>
-                                        <option value="Afternoon Only">Afternoon Only</option>
-                                        <option value="Evening Only">Evening Only</option>
-                                        <option value="Morning & Evening">Morning & Evening</option>
-                                        <option value="Throughout Day">Throughout Day</option>
-                                        <option value="Social Occasions">Social Occasions Only</option>
-                                        <option value="Stress-Related">Stress-Related</option>
+                                        <option value="">Chọn tần suất...</option>
+                                        <option value="None">Không hút</option>
+                                        <option value="Morning Only">Chỉ buổi sáng</option>
+                                        <option value="Afternoon Only">Chỉ buổi chiều</option>
+                                        <option value="Evening Only">Chỉ buổi tối</option>
+                                        <option value="Morning & Evening">Sáng và tối</option>
+                                        <option value="Throughout Day">Cả ngày</option>
+                                        <option value="Social Occasions">Khi giao tiếp xã hội</option>
+                                        <option value="Stress-Related">Do căng thẳng</option>
                                     </select>
                                     <span asp-validation-for="Item.Frequency" class="text-danger"></span>
                                     <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        When during the day smoking occurred
+                                        Khoảng thời gian trong ngày đã hút thuốc
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <!-- Cost Per Pack -->
                                 <div class="col-md-6 mb-4">
                                     <label asp-for="Item.CostPerPack" class="form-label fw-semibold">
                                         <i class="fas fa-dollar-sign me-1 text-danger"></i>
-                                        Cost per Pack ($)
+                                        Giá mỗi bao ($)
                                     </label>
                                     <input asp-for="Item.CostPerPack"
                                            type="number"
@@ -162,15 +139,15 @@
                                     <span asp-validation-for="Item.CostPerPack" class="text-danger"></span>
                                     <div class="form-text">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Cost spent on cigarettes (optional, for financial tracking)
+                                        Chi phí đã chi (không bắt buộc)
                                     </div>
                                 </div>
 
-                                <!-- Record Status -->
+                                <!-- Trạng thái ghi chép -->
                                 <div class="col-md-6 mb-4">
                                     <label class="form-label fw-semibold">
                                         <i class="fas fa-toggle-on me-1 text-primary"></i>
-                                        Record Status
+                                        Trạng thái ghi chép
                                     </label>
                                     <div class="card border-light bg-light p-3">
                                         <div class="form-check form-switch">
@@ -183,65 +160,65 @@
                                             <input name="Item.Disabled" type="hidden" value="false">
                                             <label class="form-check-label fw-semibold" for="recordStatus">
                                                 <span class="badge bg-success me-2" id="statusBadge">
-                                                    <i class="fas fa-check me-1"></i>Active
+                                                    <i class="fas fa-check me-1"></i>Đang hoạt động
                                                 </span>
-                                                <span id="statusText">Enable this health record</span>
+                                                <span id="statusText">Bật ghi chép sức khỏe này</span>
                                             </label>
                                         </div>
                                         <div class="form-text mt-2">
                                             <i class="fas fa-info-circle me-1"></i>
-                                            Active records are included in health analytics
+                                            Ghi chép đang hoạt động sẽ được thống kê sức khỏe
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Notes -->
+                            <!-- Ghi chú -->
                             <div class="mb-4">
                                 <label asp-for="Item.Notes" class="form-label fw-semibold">
                                     <i class="fas fa-sticky-note me-1 text-primary"></i>
-                                    Health Notes & Observations
+                                    Ghi chú sức khỏe & nhận xét
                                 </label>
                                 <textarea asp-for="Item.Notes"
                                           class="form-control"
                                           id="notes"
                                           rows="4"
-                                          placeholder="Record how you felt, triggers, cravings, health improvements, or any other observations..."></textarea>
+                                          placeholder="Ghi lại cảm nhận, nguyên nhân, sự cải thiện sức khỏe hoặc bất kỳ điều gì bạn muốn chia sẻ..."></textarea>
                                 <span asp-validation-for="Item.Notes" class="text-danger"></span>
                                 <div class="form-text">
                                     <i class="fas fa-info-circle me-1"></i>
-                                    Document your health journey, feelings, triggers, or improvements
+                                    Theo dõi cảm xúc, tiến triển và tác nhân gây hút thuốc
                                 </div>
                             </div>
 
-                            <!-- Health Status Preview -->
+                            <!-- Xem trước tình trạng sức khỏe -->
                             <div class="row">
                                 <div class="col-md-12 mb-4">
                                     <label class="form-label fw-semibold">
                                         <i class="fas fa-heartbeat me-1 text-success"></i>
-                                        Health Status Preview
+                                        Xem trước tình trạng sức khỏe
                                     </label>
                                     <div class="card border-success bg-light" style="min-height: 120px;">
                                         <div class="card-body d-flex align-items-center justify-content-center">
                                             <div class="text-center" id="healthPreview">
                                                 <i class="fas fa-heart fa-3x text-success mb-2"></i>
-                                                <div class="fw-bold text-success h6">Excellent Health Day!</div>
-                                                <div class="text-muted small">Smoke-Free Progress</div>
+                                                <div class="fw-bold text-success h6">Một ngày khỏe mạnh tuyệt vời!</div>
+                                                <div class="text-muted small">Tiến trình không hút thuốc</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Action Buttons -->
+                            <!-- Nút hành động -->
                             <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
                                 <a asp-page="./Index" class="btn btn-outline-secondary btn-lg px-4">
                                     <i class="fas fa-times me-2"></i>
-                                    Cancel
+                                    Hủy
                                 </a>
                                 <button type="submit" class="btn btn-warning btn-lg px-4" id="updateRecordBtn">
                                     <i class="fas fa-save me-2"></i>
-                                    Update Health Record
+                                    Cập nhật
                                 </button>
                             </div>
                         </form>
@@ -249,65 +226,65 @@
                 </div>
             </div>
 
-            <!-- Health Guidelines Section -->
+            <!-- Hướng dẫn -->
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-info text-white">
                         <h6 class="mb-0">
                             <i class="fas fa-medkit me-2"></i>
-                            Health Update Guidelines
+                            Hướng dẫn Cập nhật
                         </h6>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
                             <h6 class="text-success">
                                 <i class="fas fa-heart me-1"></i>
-                                Smoke-Free Progress
+                                Tiến trình không hút thuốc
                             </h6>
                             <ul class="small text-muted mb-0">
-                                <li>Update count to 0 for smoke-free days</li>
-                                <li>Change frequency to "None"</li>
-                                <li>Add positive health observations</li>
+                                <li>Nhập 0 nếu bạn không hút thuốc</li>
+                                <li>Chọn "Không hút"</li>
+                                <li>Ghi lại những cải thiện tích cực</li>
                             </ul>
                         </div>
 
                         <div class="mb-3">
                             <h6 class="text-warning">
                                 <i class="fas fa-chart-line me-1"></i>
-                                Progress Tracking
+                                Theo dõi tiến trình
                             </h6>
                             <ul class="small text-muted mb-0">
-                                <li>Accurate cigarette count updates</li>
-                                <li>Note changes in smoking patterns</li>
-                                <li>Update cost information for financial tracking</li>
+                                <li>Cập nhật số lượng chính xác</li>
+                                <li>Ghi nhận thay đổi thói quen hút</li>
+                                <li>Ghi chi phí nếu muốn theo dõi tài chính</li>
                             </ul>
                         </div>
 
                         <div class="mb-3">
                             <h6 class="text-primary">
                                 <i class="fas fa-notes-medical me-1"></i>
-                                Health Observations
+                                Ghi nhận sức khỏe
                             </h6>
                             <ul class="small text-muted mb-0">
-                                <li>Update feelings and mood changes</li>
-                                <li>Note physical improvements</li>
-                                <li>Track trigger patterns</li>
+                                <li>Ghi cảm xúc, tâm trạng</li>
+                                <li>Ghi nhận thay đổi thể chất</li>
+                                <li>Ghi chú các tác nhân kích thích</li>
                             </ul>
                         </div>
 
                         <div class="alert alert-light border-warning mt-3">
                             <i class="fas fa-edit text-warning me-2"></i>
-                            <strong>Update Tip:</strong> Regular updates help track your progress accurately. Be honest about your journey!
+                            <strong>Lưu ý:</strong> Cập nhật thường xuyên giúp bạn theo dõi chính xác hơn. Hãy trung thực với bản thân!
                         </div>
                     </div>
                 </div>
 
-                <!-- Health Statistics Card -->
+                <!-- Thống kê ghi chép -->
                 <div class="card border-0 shadow-sm mt-3">
                     <div class="card-header bg-success text-white">
                         <h6 class="mb-0">
                             <i class="fas fa-chart-bar me-2"></i>
-                            Record Information
+                            Thông tin Ghi chép
                         </h6>
                     </div>
                     <div class="card-body">
@@ -315,13 +292,13 @@
                             <div class="col-6">
                                 <div class="border-end">
                                     <i class="fas fa-calendar-plus text-primary fa-2x mb-2"></i>
-                                    <h6 class="mb-1">Created</h6>
+                                    <h6 class="mb-1">Ngày tạo</h6>
                                     <small class="text-muted">@Model.Item.CreatedAt?.ToString("MMM dd, yyyy")</small>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <i class="fas fa-calendar-edit text-info fa-2x mb-2"></i>
-                                <h6 class="mb-1">Last Updated</h6>
+                                <h6 class="mb-1">Cập nhật lần cuối</h6>
                                 <small class="text-muted">
                                     @if (Model.Item.UpdatedAt.HasValue && Model.Item.UpdatedAt != Model.Item.CreatedAt)
                                     {
@@ -329,7 +306,7 @@
                                     }
                                     else
                                     {
-                                        <span>Not updated</span>
+                                        <span>Chưa cập nhật</span>
                                     }
                                 </small>
                             </div>
@@ -341,6 +318,7 @@
     </div>
 </main>
 
+
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -350,7 +328,6 @@
             const statusCheckbox = document.getElementById('recordStatus');
             const statusBadge = document.getElementById('statusBadge');
             const statusText = document.getElementById('statusText');
-            const userSelect = document.getElementById('userId');
 
             // Update health preview based on cigarettes count
             function updateHealthPreview() {
@@ -360,23 +337,23 @@
                 if (count === 0) {
                     icon = 'fas fa-heart';
                     color = 'success';
-                    status = 'Excellent Health Day!';
-                    message = 'Smoke-Free Progress';
+                    status = 'Sức khỏe tuyệt vời!';
+                    message = 'Tiến độ không khói thuốc';
                 } else if (count <= 3) {
                     icon = 'fas fa-heart-pulse';
                     color = 'info';
-                    status = 'Good Progress!';
-                    message = 'Reducing Consumption';
+                    status = 'Tiến độ tốt!';
+                    message = 'Giảm tiêu thụ';
                 } else if (count <= 10) {
                     icon = 'fas fa-exclamation-triangle';
                     color = 'warning';
-                    status = 'Moderate Day';
-                    message = 'Room for Improvement';
+                    status = 'Vừa phải';
+                    message = 'Cần cải thiện';
                 } else {
                     icon = 'fas fa-radiation';
                     color = 'danger';
-                    status = 'High Risk Day';
-                    message = 'Focus on Reduction';
+                    status = 'Rủi ro cao';
+                    message = 'Tập trung vào việc giảm thiểu';
                 }
 
                 healthPreview.innerHTML = `
@@ -401,11 +378,11 @@
                 if (this.checked) {
                     statusBadge.innerHTML = '<i class="fas fa-times me-1"></i>Disabled';
                     statusBadge.className = 'badge bg-danger me-2';
-                    statusText.textContent = 'Disable this health record';
+                    statusText.textContent = 'Vô hiệu hóa hồ sơ sức khỏe này';
                 } else {
                     statusBadge.innerHTML = '<i class="fas fa-check me-1"></i>Active';
                     statusBadge.className = 'badge bg-success me-2';
-                    statusText.textContent = 'Enable this health record';
+                    statusText.textContent = 'Kích hoạt hồ sơ sức khỏe này';
                 }
             });
 
@@ -414,11 +391,11 @@
                 if (statusCheckbox.checked) {
                     statusBadge.innerHTML = '<i class="fas fa-times me-1"></i>Disabled';
                     statusBadge.className = 'badge bg-danger me-2';
-                    statusText.textContent = 'Disable this health record';
+                    statusText.textContent = 'Vô hiệu hóa hồ sơ sức khỏe này';
                 } else {
                     statusBadge.innerHTML = '<i class="fas fa-check me-1"></i>Active';
                     statusBadge.className = 'badge bg-success me-2';
-                    statusText.textContent = 'Enable this health record';
+                    statusText.textContent = 'Kích hoạt hồ sơ sức khỏe này';
                 }
             };
 
@@ -436,28 +413,12 @@
                     }
                 });
 
-                // Special validation for user selection
-                if (!userSelect.value || userSelect.value === '') {
-                    userSelect.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    userSelect.classList.remove('is-invalid');
-                }
-
                 if (!isValid) {
                     e.preventDefault();
-                    alert('Please fill in all required fields and select a user');
+                    alert('Vui lòng điền vào tất cả các trường bắt buộc và chọn người dùng');
                 }
             });
 
-            // User selection change handler
-            userSelect.addEventListener('change', function() {
-                if (this.value) {
-                    this.classList.remove('is-invalid');
-                }
-            });
-
-            // Initialize
             updateHealthPreview();
             initStatus();
         });

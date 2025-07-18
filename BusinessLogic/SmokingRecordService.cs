@@ -26,6 +26,12 @@ namespace BusinessLogic
            return await _repository.GetAllAsync();
         }
 
+        public List<SmokingRecord> GetAllByUserId(Guid userId)
+        {
+            return _repository.GetAllByUserId(userId);
+
+        }
+
         public async Task<SmokingRecord> GetById(int RecordId)
         {
            return await _repository.GetByIdAsync(RecordId);

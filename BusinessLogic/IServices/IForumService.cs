@@ -11,5 +11,8 @@ namespace BusinessLogic.IServices
     {
         public List<ForumPost> GetAll();
         ForumPost GetByPostId(int postId);
+
+        void Create(ForumPost forumPost);
+
     }
 }

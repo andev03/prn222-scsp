@@ -28,7 +28,6 @@ namespace Presentation.Pages.UserBadges
         public async Task OnGetAsync()
         {
             // Load users and badges for dropdowns
-            await LoadUsers();
             await LoadBadges();
 
             // Initialize default values
@@ -39,31 +38,6 @@ namespace Presentation.Pages.UserBadges
                 CreatedAt = DateTime.Now,
                 IsDeleted = false
             };
-        }
-
-        private async Task LoadUsers()
-        {
-            try
-            {
-                var users = await _userService.GetAll();
-                UserList = users.Select(u => new SelectListItem
-                {
-                    Value = u.UserId.ToString(),
-                    Text = u.Email
-                }).ToList();
-
-                // Add default option
-                UserList.Insert(0, new SelectListItem
-                {
-                    Value = "",
-                    Text = "Select a user..."
-                });
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Error loading users: {ex.Message}";
-                UserList = new List<SelectListItem>();
-            }
         }
 
         private async Task LoadBadges()
@@ -97,14 +71,7 @@ namespace Presentation.Pages.UserBadges
         public async Task<IActionResult> OnPostAsync()
         {
             // Reload dropdowns in case of validation errors
-            await LoadUsers();
             await LoadBadges();
-
-            // Validate required fields manually
-            if (Item.UserId == Guid.Empty)
-            {
-                ModelState.AddModelError("Item.UserId", "Please select a user.");
-            }
 
             if (Item.BadgeId <= 0)
             {

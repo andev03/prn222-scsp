@@ -1,4 +1,4 @@
-using BusinessLogic.IServices;
+﻿using BusinessLogic.IServices;
 using BusinessObject;
 using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,64 +10,33 @@ namespace Presentation.Pages.SmokingRecords
     [BindProperties]
     public class CreateModel : PageModel
     {
-        public SmokingRecord Item { get; set; } = new SmokingRecord();
-        public List<SelectListItem> UserList { get; set; } = new List<SelectListItem>();
+        public SmokingRecord Item { get; set; }
 
         private readonly ISmokingRecordService _smokingRecordService;
-        private readonly IUserService _userService;
 
-        public CreateModel(ISmokingRecordService smokingRecordService, IUserService userService)
+        public CreateModel(ISmokingRecordService smokingRecordService)
         {
             _smokingRecordService = smokingRecordService;
-            _userService = userService;
         }
 
         public async Task OnGetAsync()
         {
-            // Load users for dropdown
-            await LoadUsers();
 
-            // Initialize default values
             Item = new SmokingRecord
             {
                 RecordDate = DateOnly.FromDateTime(DateTime.Now),
                 CigarettesCount = 0,
                 Disabled = false,
                 CreatedAt = DateTime.Now,
-                IsDeleted = false
-                // UserId will be selected from dropdown
+                IsDeleted = false,
             };
-        }
-
-        private async Task LoadUsers()
-        {
-            try
-            {
-                var users = await _userService.GetAll();
-                UserList = users.Select(u => new SelectListItem
-                {
-                    Value = u.UserId.ToString(),
-                    Text = u.Email
-                }).ToList();
-
-                // Add default option
-                UserList.Insert(0, new SelectListItem
-                {
-                    Value = "",
-                    Text = "Select a user..."
-                });
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Error loading users: {ex.Message}";
-                UserList = new List<SelectListItem>();
-            }
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Reload users for dropdown in case of validation errors
-            await LoadUsers();
+            User user = HttpContext.Session.GetObject<User>("user");
+
+            Item.UserId = user.UserId;
 
             // Validate required fields manually
             if (Item.RecordDate == default(DateOnly))
@@ -109,16 +78,13 @@ namespace Presentation.Pages.SmokingRecords
                 Item.IsDeleted = false;
                 Item.DeletedAt = null;
 
-                // Ensure Disabled has a value (default to false if null)
                 if (!Item.Disabled.HasValue)
                 {
                     Item.Disabled = false;
                 }
 
-                // Create smoking record through service
                 await _smokingRecordService.Create(Item);
 
-                // Redirect back to index with success message
                 TempData["SuccessMessage"] = $"Smoking record for '{Item.RecordDate.ToString("MMM dd, yyyy")}' created successfully!";
                 return RedirectToPage("./Index");
             }

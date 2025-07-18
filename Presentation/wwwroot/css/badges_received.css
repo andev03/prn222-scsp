@@ -1,130 +1,182 @@
 ﻿.badges-received-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Keeping user's specified background */
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
 }
 
-.container {
-    max-width: 1200px;
+.badges-container {
+    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    overflow-x: auto; /* For responsive table on small screens */
 }
 
-.page-header {
+.badges-header {
     text-align: center;
-    margin-bottom: 50px;
-    color: white;
+    margin-bottom: 30px;
+    color: #333;
 }
 
-    .page-header h1 {
-        font-size: 2.5rem;
+    .badges-header h1 {
+        font-size: 2.2rem;
         margin-bottom: 10px;
         font-weight: 700;
+        color: #333;
     }
 
-    .page-header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
+    .badges-header p {
+        font-size: 1.05rem;
+        opacity: 0.85;
+        color: #555;
     }
 
-.posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.post-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push button to bottom */
-}
-
-    .post-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    }
-
-.post-card-header {
-    margin-bottom: 15px;
-}
-
-.post-card-title {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.post-card-meta {
-    font-size: 0.85rem;
-    color: #777;
-}
-
-    .post-card-meta .username {
-        font-weight: 600;
-        color: #667eea;
-    }
-
-.post-card-content {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 25px;
-    flex-grow: 1; /* Allow content to take available space */
-}
-
-    .post-card-content p {
-        margin-bottom: 1em;
-    }
-
-.comment-button {
-    display: block; /* Make it block to take full width */
+.badges-table {
     width: 100%;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    text-align: center;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-    .comment-button:hover {
-        background: linear-gradient(135deg, #5a6fd8, #6a4190);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+    .badges-table thead th {
+        background-color: #f0f2f5;
+        color: #333;
+        padding: 15px;
+        text-align: left;
+        border-bottom: 2px solid #e0e0e0;
+        font-weight: 600;
+        font-size: 0.95rem;
     }
 
-/* Responsive adjustments */
+    .badges-table tbody tr {
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.2s ease;
+    }
+
+        .badges-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .badges-table tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+
+    .badges-table td {
+        padding: 15px;
+        vertical-align: middle;
+        font-size: 0.9rem;
+        color: #444;
+    }
+
+.badge-code {
+    font-weight: 500;
+    color: #667eea; /* Using a color from the background gradient */
+}
+
+.badge-name {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #333;
+}
+
+.badge-icon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    color: #ffc107; /* A gold/star color */
+}
+
+.badge-description,
+.badge-criteria {
+    line-height: 1.5;
+}
+
+.text-center {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-    .page-header h1 {
-        font-size: 2rem;
+    .badges-received-body {
+        padding: 30px 10px;
     }
 
-    .posts-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .post-card {
+    .badges-container {
         padding: 25px;
     }
 
-    .post-card-title {
-        font-size: 1.3rem;
+    .badges-header h1 {
+        font-size: 1.8rem;
     }
 
-    .post-card-content {
-        font-size: 0.9rem;
+    .badges-header p {
+        font-size: 0.95rem;
+    }
+
+    .badges-table,
+    .badges-table tbody,
+    .badges-table tr,
+    .badges-table td {
+        display: block;
+        width: 100%;
+    }
+
+        .badges-table thead {
+            display: none; /* Hide table headers on small screens */
+        }
+
+        .badges-table tr {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .badges-table td {
+            text-align: right;
+            padding-left: 50%; /* Space for the data-label */
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+
+            .badges-table td:last-child {
+                border-bottom: none;
+            }
+
+            .badges-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 30px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: #555;
+            }
+
+    .badge-name .badge-icon {
+        margin-left: auto; /* Push icon to the right on mobile */
+        margin-right: 0;
+    }
+
+    .badge-name span {
+        margin-right: 8px; /* Space between name and icon */
+    }
+
+    .badges-table td.text-center {
+        text-align: center;
+        padding-left: 15px; /* Reset padding for the "no badges" message */
     }
 }

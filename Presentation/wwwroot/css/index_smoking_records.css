@@ -1,0 +1,359 @@
+﻿/* General Styles */
+.smoking-report-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient background */
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #343a40; /* Dark grey text */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Stronger, softer shadow */
+}
+
+h1 {
+    text-align: center;
+    color: #212529; /* Darker grey for main title */
+    margin-bottom: 40px;
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: #495057; /* Slightly lighter than main text */
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e9ecef; /* Lighter border */
+    padding-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Form Section */
+.form-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px; /* Increased gap */
+    margin-bottom: 40px;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03); /* Subtle inner shadow */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #495057;
+        font-size: 0.95em;
+    }
+
+    .form-group input[type="date"],
+    .form-group input[type="number"],
+    .form-group input[type="text"],
+    .form-group textarea {
+        padding: 14px; /* Increased padding */
+        border: 1px solid #ced4da; /* Softer border color */
+        border-radius: 8px; /* More rounded corners */
+        font-size: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #667eea; /* Accent blue/purple focus border */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Accent glow on focus */
+        }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px; /* Slightly taller textarea */
+    }
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 14px 30px; /* Larger buttons */
+    border: none;
+    border-radius: 50px; /* Pill-shaped buttons */
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Button shadow */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2); /* Accent gradient for primary button */
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #5a6fd8, #6a4190); /* Darker gradient on hover */
+        transform: translateY(-3px); /* More pronounced lift */
+        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3); /* Accent shadow on hover */
+    }
+
+/* Summary Section */
+.summary-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 25px; /* Increased gap */
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: #f0f2f7; /* Light blue/grey background to complement gradient */
+    border-radius: 10px;
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.03);
+}
+
+.summary-item {
+    flex: 1;
+    min-width: 220px; /* Slightly larger min-width */
+    text-align: center;
+    padding: 20px; /* Increased padding */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06); /* Softer shadow */
+    transition: transform 0.2s ease;
+}
+
+    .summary-item:hover {
+        transform: translateY(-5px); /* Lift on hover */
+    }
+
+    .summary-item h3 {
+        margin-top: 0;
+        color: #667eea; /* Accent color for summary titles */
+        font-size: 1.2em;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .summary-item p {
+        font-size: 2.5em; /* Larger numbers */
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+        letter-spacing: -1px;
+    }
+
+/* Table Section */
+.table-section {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate; /* Use separate for border-radius on cells */
+    border-spacing: 0; /* Remove default spacing */
+    margin-top: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+    .data-table th,
+    .data-table td {
+        padding: 18px; /* Increased padding */
+        text-align: left;
+        border-bottom: 1px solid #e9ecef; /* Lighter border */
+    }
+
+    .data-table th {
+        background-color: #f2f2f2;
+        color: #555;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        letter-spacing: 0.5px;
+    }
+
+    .data-table tbody tr:last-child td {
+        border-bottom: none; /* No border on last row */
+    }
+
+    .data-table tbody tr:nth-child(even) {
+        background-color: #fdfdfd; /* Subtle stripe effect */
+    }
+
+    .data-table tbody tr:hover {
+        background-color: #e6f7ff; /* Light blue hover for rows */
+        cursor: pointer;
+    }
+
+    .data-table .action-buttons .btn {
+        padding: 10px 15px; /* Smaller buttons for actions */
+        margin-right: 8px;
+        font-size: 0.85em;
+        box-shadow: none; /* Remove individual button shadow in table */
+        border-radius: 8px; /* Slightly rounded for action buttons */
+        text-transform: none; /* No uppercase for action buttons */
+        letter-spacing: normal;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+        .data-table .action-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+        }
+
+.btn-view {
+    background-color: #4a5bbd; /* Darker blue from gradient palette */
+    color: white;
+}
+
+    .btn-view:hover {
+        background-color: #3a4a9e;
+    }
+
+.btn-edit {
+    background-color: #ffda6a; /* Softer yellow */
+    color: #333;
+}
+
+    .btn-edit:hover {
+        background-color: #e0c15a;
+    }
+
+.btn-delete {
+    background-color: #e74c3c; /* Muted red */
+    color: white;
+}
+
+    .btn-delete:hover {
+        background-color: #c0392b;
+    }
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .section-title {
+        font-size: 1.6em;
+    }
+
+    .form-section {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .summary-item {
+        min-width: 180px;
+        padding: 18px;
+    }
+
+        .summary-item p {
+            font-size: 2em;
+        }
+
+    .data-table th,
+    .data-table td {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 1.4em;
+        margin-bottom: 20px;
+    }
+
+    .form-section {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 0.9em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.95em;
+    }
+
+    .summary-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .summary-item {
+        width: 100%;
+        max-width: 300px;
+        padding: 15px;
+    }
+
+        .summary-item h3 {
+            font-size: 1.1em;
+        }
+
+        .summary-item p {
+            font-size: 1.8em;
+        }
+
+    .data-table th,
+    .data-table td {
+        padding: 12px;
+        font-size: 0.85em;
+    }
+
+    .data-table .action-buttons .btn {
+        padding: 8px 10px;
+        font-size: 0.75em;
+        margin-right: 5px;
+    }
+}
