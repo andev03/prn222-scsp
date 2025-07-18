@@ -13,6 +13,12 @@
             <p>Cập nhật những thông tin và kiến thức mới nhất từ chúng tôi.</p>
         </div>
 
+        <div class="text-right mb-3">
+            <button type="button" id="createPostButton">
+                + Tạo Bài Viết
+            </button>
+        </div>
+
         <div class="posts-grid">
             @foreach (var post in Model.Posts)
             {
@@ -32,5 +38,60 @@
                 </div>
             }
         </div>
+        <div class="modal" id="newPostModal">
+            <div class="modal-content">
+                <form asp-page-handler="Create" method="post" id="newPostForm">
+                    <div class="modal-header">
+                        <h5>Tạo Bài Viết Mới</h5>
+                        <button type="button" class="close-button" aria-label="Đóng">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for=@Model.Title>Tiêu đề</label>
+                            <input type="text" id="postTitle" name="Title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for=@Model.Content class="form-label">Nội dung</label>
+                            <textarea id="postContent" name="Content" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" class="btn btn-submit">Đăng Bài</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    const createPostButton = document.getElementById('createPostButton');
+    const newPostModal = document.getElementById('newPostModal');
+    const newPostForm = document.getElementById('newPostForm');
+    const closeButtons = document.querySelectorAll('.close-button, .btn-cancel');
+
+    // Show modal
+    createPostButton.addEventListener('click', () => {
+        newPostModal.style.display = 'flex';
+    });
+
+    // Hide modal
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            newPostModal.style.display = 'none';
+            newPostForm.reset(); // Clear form fields
+        });
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === newPostModal) {
+            newPostModal.style.display = 'none';
+            newPostForm.reset();
+        }
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', renderPosts);
+</script>

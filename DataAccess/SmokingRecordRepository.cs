@@ -16,6 +16,10 @@ namespace DataAccess
         {
             _context = new QuitSmokingAppDBContext();
         }
-      
+
+        public List<SmokingRecord> GetAllByUserId(Guid userId)
+        {
+            return _context.SmokingRecords.Where(sr => sr.UserId == userId && sr.IsDeleted != true && sr.Disabled != true).ToList();
+        }
     }
 }

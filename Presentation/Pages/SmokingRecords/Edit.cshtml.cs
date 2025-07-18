@@ -11,25 +11,19 @@ namespace Presentation.Pages.SmokingRecords
     public class EditModel : PageModel
     {
         public SmokingRecord Item { get; set; } = new SmokingRecord();
-        public List<SelectListItem> UserList { get; set; } = new List<SelectListItem>();
 
         private readonly ISmokingRecordService _smokingRecordService;
         private readonly IUserService _userService;
 
-        public EditModel(ISmokingRecordService smokingRecordService, IUserService userService)
+        public EditModel(ISmokingRecordService smokingRecordService)
         {
             _smokingRecordService = smokingRecordService;
-            _userService = userService;
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
             try
             {
-                // Load users for dropdown
-                await LoadUsers();
-
-                // Get smoking record by ID
                 Item = await _smokingRecordService.GetById(id);
 
                 if (Item == null || Item.IsDeleted == true)
@@ -47,37 +41,13 @@ namespace Presentation.Pages.SmokingRecords
             }
         }
 
-        private async Task LoadUsers()
-        {
-            try
-            {
-                var users = await _userService.GetAll();
-                UserList = users.Select(u => new SelectListItem
-                {
-                    Value = u.UserId.ToString(),
-                    Text = u.Email
-                }).ToList();
-
-                // Add default option
-                UserList.Insert(0, new SelectListItem
-                {
-                    Value = "",
-                    Text = "Select a user..."
-                });
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = $"Error loading users: {ex.Message}";
-                UserList = new List<SelectListItem>();
-            }
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            // Reload users for dropdown in case of validation errors
-            await LoadUsers();
 
-            // Validate required fields manually
+            User user = HttpContext.Session.GetObject<User>("user");
+
+            Item.UserId = user.UserId;
+
             if (Item.RecordDate == default(DateOnly))
             {
                 ModelState.AddModelError("Item.RecordDate", "Record Date is required.");

@@ -10,5 +10,6 @@ namespace DataAccess.IRepositories
 {
     public interface ISmokingRecordRepository : IGenericRepository<SmokingRecord>
     {
+        List<SmokingRecord> GetAllByUserId(Guid userId);
     }
 }

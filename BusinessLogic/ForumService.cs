@@ -17,6 +17,11 @@ namespace BusinessLogic
             _repository = repository;
         }
 
+        public void Create(ForumPost forumPost)
+        {
+            _repository.Create(forumPost);
+        }
+
         public List<ForumPost> GetAll()
         {
             return _repository.getAll();

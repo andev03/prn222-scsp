@@ -106,15 +106,7 @@ namespace Presentation.Pages.UserBadges
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // Reload dropdowns in case of validation errors
-            await LoadUsers();
             await LoadBadges();
-
-            // Validate required fields manually
-            if (Item.UserId == Guid.Empty)
-            {
-                ModelState.AddModelError("Item.UserId", "Please select a user.");
-            }
 
             if (Item.BadgeId <= 0)
             {

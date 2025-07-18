@@ -15,6 +15,7 @@ namespace BusinessLogic.IServices
         Task<int> Create(SmokingRecord item);
         Task<int> Update(SmokingRecord item);
         Task<int> SoftDelete(int RecordId);
-       
+
+        List<SmokingRecord> GetAllByUserId(Guid userId);
     }
 }

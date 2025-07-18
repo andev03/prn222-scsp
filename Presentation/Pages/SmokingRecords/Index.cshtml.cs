@@ -17,11 +17,12 @@ namespace Presentation.Pages.SmokingRecords
             _smokingRecordService = smokingRecordService;
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
+            User user = HttpContext.Session.GetObject<User>("user");
             try
             {
-                smokingRecords = await _smokingRecordService.GetAll();
+                smokingRecords = _smokingRecordService.GetAllByUserId(user.UserId);
             }
             catch (Exception ex)
             {

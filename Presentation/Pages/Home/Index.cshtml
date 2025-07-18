@@ -17,7 +17,14 @@
                         Tham gia cộng đồng của chúng tôi để nhận được sự hỗ trợ, động viên và chia sẻ kinh nghiệm từ những người cùng chung mục tiêu.
                     </p>
                     <div class="hero-buttons">
-                        <a asp-page="/Auth/Register" class="btn-primary">Tham Gia Ngay</a>
+                        @if (Model.User == null)
+                        {
+                            <a asp-page="/Auth/Register" class="btn-primary">Tham Gia Ngay</a>
+                        }
+                        else
+                        {
+                            <a class="btn-primary">Tham Gia Ngay</a>
+                        }
                         <button class="btn-secondary">Tìm Hiểu Thêm</button>
                     </div>
                 </div>

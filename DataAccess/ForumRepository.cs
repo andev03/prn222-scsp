@@ -16,6 +16,13 @@ namespace DataAccess
         {
             _context = new QuitSmokingAppDBContext();
         }
+
+        public void Create(ForumPost forumPost)
+        {
+            _context.ForumPosts.Add(forumPost);
+            _context.SaveChanges();
+        }
+
         public List<ForumPost> getAll()
         {
             return _context.ForumPosts

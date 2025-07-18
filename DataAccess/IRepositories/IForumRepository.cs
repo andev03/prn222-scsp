@@ -13,5 +13,6 @@ namespace DataAccess.IRepositories
 
         ForumPost getPostById(int postId);
 
+        void Create(ForumPost forumPost);
     }
 }
