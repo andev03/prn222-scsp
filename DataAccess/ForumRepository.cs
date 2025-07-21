@@ -23,12 +23,13 @@ namespace DataAccess
             _context.SaveChanges();
         }
 
-        public List<ForumPost> getAll()
+        public List<ForumPost> GetAll()
         {
             return _context.ForumPosts
                 .Where(fp => fp.IsDeleted != true)
                 .Include(fp => fp.User)
                 .Include(fp => fp.ForumComments)
+                .OrderByDescending(fp => fp.CreatedAt)
                 .ToList();
         }
 
@@ -37,6 +38,7 @@ namespace DataAccess
             return _context.ForumPosts
                 .Where(fp => fp.UserId == userId && fp.IsDeleted != true)
                 .Include(fp => fp.User)
+                .OrderByDescending(fp => fp.CreatedAt)
                 .ToList();
         }
 

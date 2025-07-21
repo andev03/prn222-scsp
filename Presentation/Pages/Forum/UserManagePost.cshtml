@@ -177,20 +177,17 @@
     const newPostForm = document.getElementById('newPostForm');
     const closeButtons = document.querySelectorAll('.close-button, .btn-cancel');
 
-    // Show modal
     createPostButton.addEventListener('click', () => {
         newPostModal.style.display = 'flex';
     });
 
-    // Hide modal
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             newPostModal.style.display = 'none';
-            newPostForm.reset(); // Clear form fields
+            newPostForm.reset();
         });
     });
 
-    // Close modal when clicking outside
     window.addEventListener('click', (event) => {
         if (event.target === newPostModal) {
             newPostModal.style.display = 'none';

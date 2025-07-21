@@ -35,7 +35,7 @@ namespace Presentation.Pages.Users
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
-            RoleName = user.RoleId.ToUpper();
+            RoleName = user.Role.ToUpper();
         }
 
         public IActionResult OnPost()

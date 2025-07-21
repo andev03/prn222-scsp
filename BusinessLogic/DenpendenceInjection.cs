@@ -1,4 +1,5 @@
-﻿using BusinessLogic.IServices;
+﻿using BusinessLogic.IService;
+using BusinessLogic.IServices;
 using DataAccess;
 using DataAccess.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +24,18 @@ namespace BusinessLogic
             services.AddScoped<IUserRepostitory, UserRepostitory>();
             services.AddScoped<IForumRepository, ForumRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IQuitPlanRepository, QuitPlanRepository>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            //services.AddScoped<ITokenBusiness, TokenBusiness>();
             services.AddScoped<IBadgeService, BadgeService>();
             services.AddScoped<IUserBadgeService, UserBadgeService>();
             services.AddScoped<ISmokingRecordService, SmokingRecordService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IForumService, ForumService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IQuitPlanService, QuitPlanService>();
             return services;
         }
     }

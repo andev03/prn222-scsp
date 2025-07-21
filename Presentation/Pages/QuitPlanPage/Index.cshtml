@@ -1,0 +1,305 @@
+﻿@page
+@model Presentation.Pages.QuitPlanPage.IndexModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<link href="~/css/quit_plan.css" rel="stylesheet" />
+
+<div class="plan-body">
+    <div class="container">
+        <div class="page-header">
+            <h1>Quản Lý Kế Hoạch</h1>
+            <p>Theo dõi và quản lý các kế hoạch của bạn một cách hiệu quả.</p>
+        </div>
+
+        <div class="text-right mb-3">
+            <button type="button" class="action-button add-button" id="openAddModal">
+                + Thêm Kế Hoạch Mới
+            </button>
+        </div>
+
+        <div class="plans-grid">
+            @if (Model.QuitPlans == null || !Model.QuitPlans.Any())
+            {
+                <div class="no-post-message text-center mt-4" style="color: white">
+                    <p>Bạn chưa có kế hoạch nào. Hãy tạo kế hoạch đầu tiên của bạn!</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var plan in Model.QuitPlans)
+                {
+                    var statusClass = plan.Status switch
+                    {
+                        "ongoing" => "status-in-progress",
+                        "completed" => "status-completed",
+                        "cancelled" => "status-cancelled",
+                        _ => ""
+                    };
+                    <div class="plan-card"
+                         data-plan-id="@plan.PlanId"
+                         data-reason="@plan.Reason"
+                         data-detailed="@plan.PlanDetails"
+                         data-created="@plan.CreatedAt.ToString("dd/MM/yyyy")"
+                         data-start="@plan.StartDate.ToString("dd/MM/yyyy")"
+                         data-end="@plan.ExpectedEndDate?.ToString("dd/MM/yyyy")"
+                         data-status="@plan.Status">
+                        <div>
+                            <div class="plan-card-header">
+                                <h2 class="plan-card-reason">@plan.Reason</h2>
+                                <p class="plan-card-meta">Ngày tạo: <span class="created-at">@plan.CreatedAt.ToString("dd/MM/yyyy")</span></p>
+                            </div>
+                            <div class="plan-card-content">
+                                <p><strong>Bắt đầu:</strong> @plan.StartDate.ToString("dd/MM/yyyy")</p>
+                                <p><strong>Dự kiến kết thúc:</strong> @plan.ExpectedEndDate?.ToString("dd/MM/yyyy")</p>
+                                <p>
+                                    <strong>Trạng thái:</strong> <span class="status @statusClass">
+                                        @{
+                                            string statusText = plan.Status switch
+                                            {
+                                                "ongoing" => "Đang thực hiện",
+                                                "completed" => "Hoàn thành",
+                                                "cancelled" => "Đã hủy",
+                                                _ => ""
+                                            };
+                                            @statusText
+                                        }
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="plan-actions">
+                            <a asp-page="/QuitPlan/Detail" data-plan-id="@plan.PlanId" asp-route-id="@plan.PlanId" class="action-button view-detail-button">Xem Chi Tiết</a>
+                            <a asp-page="/QuitPlan/Edit" data-plan-id="@plan.PlanId" asp-route-id="@plan.PlanId" class="action-button edit-button">Sửa</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@plan.PlanId" class="d-inline">
+                                <button type="submit" data-plan-id="@plan.PlanId" class="action-button delete-button">Xóa</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    <div id="addPlanModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Thêm Kế Hoạch Mới</h5>
+                <button type="button" class="close-button" data-modal-id="addPlanModal" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-page-handler="Create" id="addPlanForm">
+                    <div class="form-group">
+                        <label for="addReason">Lý do</label>
+                        <input type="text" id="addReason" name="NewPlan.Reason" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="addDetailedPlan">Kế hoạch chi tiết</label>
+                        <textarea id="addDetailedPlan" name="NewPlan.PlanDetails" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="addStartDate">Ngày bắt đầu</label>
+                        <input type="date" id="addStartDate" name="NewPlan.StartDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="addExpectedEndDate">Ngày dự kiến kết thúc</label>
+                        <input type="date" id="addExpectedEndDate" name="NewPlan.ExpectedEndDate" required />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancel" data-modal-id="addPlanModal">Hủy</button>
+                        <button type="submit" class="btn btn-submit">Thêm Kế Hoạch</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Chi Tiết Kế Hoạch</h5>
+                <button type="button" class="close-button" data-modal-id="viewDetailModal" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Lý do:</strong> <span id="detailReason"></span></p>
+                <p><strong>Kế hoạch chi tiết:</strong> <span id="detailDetailedPlan"></span></p>
+                <p><strong>Ngày tạo:</strong> <span id="detailCreatedAt"></span></p>
+                <p><strong>Ngày bắt đầu:</strong> <span id="detailStartDate"></span></p>
+                <p><strong>Dự kiến kết thúc:</strong> <span id="detailExpectedEndDate"></span></p>
+                <p><strong>Trạng thái:</strong> <span id="detailStatus"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" data-modal-id="viewDetailModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editPlanModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Sửa Kế Hoạch</h5>
+                <button type="button" class="close-button" data-modal-id="editPlanModal" aria-label="Đóng">&times;</button>
+            </div>
+            <form method="post" id="editPlanForm" asp-page-handler="Edit">
+                <input type="hidden" id="editPlanId" asp-for="Plan.PlanId" />
+                <div class="form-group">
+                    <label for="editReason">Lý do</label>
+                    <input type="text" id="editReason" asp-for="Plan.Reason" required />
+                </div>
+                <div class="form-group">
+                    <label for="editDetailedPlan">Kế hoạch chi tiết</label>
+                    <textarea id="editDetailedPlan" asp-for="Plan.DetailedPlan" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editStartDate">Ngày bắt đầu</label>
+                    <input type="date" id="editStartDate" asp-for="Plan.StartDate" required />
+                </div>
+                <div class="form-group">
+                    <label for="editExpectedEndDate">Ngày dự kiến kết thúc</label>
+                    <input type="date" id="editExpectedEndDate" asp-for="Plan.ExpectedEndDate" required />
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Trạng thái</label>
+                    <select id="editStatus" asp-for="Plan.Status" required>
+                        <option value="ongoing">Đang thực hiện</option>
+                        <option value="completed">Hoàn thành</option>
+                        <option value="cancelled">Đã hủy</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-modal-id="editPlanModal">Hủy</button>
+                    <button type="submit" class="btn btn-submit">Lưu Thay Đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content small-modal">
+        <div class="modal-header">
+            <h5>Xác Nhận Xóa</h5>
+            <button type="button" class="close-button" data-modal-id="deleteConfirmModal" aria-label="Đóng">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa kế hoạch này không?</p>
+
+            <form method="post" asp-page-handler="Delete" id="deletePlanForm">
+                <input type="hidden" id="deletePlanId" name="PlanId" />
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-modal-id="deleteConfirmModal">Hủy</button>
+            <button type="submit" form="deletePlanForm" class="btn btn-delete">Xóa</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modals = {
+                add: document.getElementById('addPlanModal'),
+                view: document.getElementById('viewDetailModal'),
+                edit: document.getElementById('editPlanModal'),
+                delete: document.getElementById('deleteConfirmModal')
+            };
+
+            function showModal(modalElement) {
+                modalElement.style.display = 'flex';
+            }
+
+            function hideModal(modalElement) {
+                modalElement.style.display = 'none';
+            }
+
+            const openAddModalBtn = document.getElementById('openAddModal');
+            if (openAddModalBtn) {
+                openAddModalBtn.addEventListener('click', () => {
+                    showModal(modals.add);
+                });
+            }
+
+        document.querySelectorAll('.view-detail-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = e.target.closest('.plan-card');
+                if (!card) return;
+
+                document.getElementById('detailReason').textContent = card.dataset.reason;
+                document.getElementById('detailDetailedPlan').textContent = card.dataset.detailed || 'Không có';
+                document.getElementById('detailCreatedAt').textContent = card.dataset.created;
+                document.getElementById('detailStartDate').textContent = card.dataset.start;
+                document.getElementById('detailExpectedEndDate').textContent = card.dataset.end;
+
+                const statusMap = {
+                    'ongoing': 'Đang thực hiện',
+                    'completed': 'Hoàn thành',
+                    'cancelled': 'Đã hủy'
+                };
+
+                document.getElementById('detailStatus').textContent = statusMap[card.dataset.status] || '';
+                document.getElementById('detailStatus').className = `status status-${card.dataset.status}`;
+
+                showModal(document.getElementById('viewDetailModal'));
+            });
+        });
+
+        document.querySelectorAll('.edit-button').forEach(btn => {
+            function convertToISODateFormat(dateString) {
+                const [day, month, year] = dateString.split('/');
+                return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // yyyy-MM-dd
+            }
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = e.target.closest('.plan-card');
+                if (!card) return;
+
+                document.getElementById('editPlanId').value = card.dataset.planId;
+                document.getElementById('editReason').value = card.dataset.reason;
+                document.getElementById('editDetailedPlan').value = card.dataset.detailed;
+                document.getElementById('editStartDate').value = convertToISODateFormat(card.dataset.start);
+                document.getElementById('editExpectedEndDate').value = convertToISODateFormat(card.dataset.end);
+                document.getElementById('editStatus').value = card.dataset.status;
+
+                showModal(document.getElementById('editPlanModal'));
+            });
+        });
+
+        document.querySelectorAll('.delete-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = e.target.closest('.plan-card');
+                if (!card) return;
+
+                document.getElementById('deletePlanId').value = card.dataset.planId;
+                showModal(document.getElementById('deleteConfirmModal'));
+            });
+        });
+
+        const closeButtons = document.querySelectorAll('.close-button, .btn-cancel');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const modalId = event.target.dataset.modalId;
+                if (modalId) {
+                    hideModal(document.getElementById(modalId));
+                } else {
+                    const parentModal = event.target.closest('.modal');
+                    if (parentModal) {
+                        hideModal(parentModal);
+                    }
+                }
+            });
+        });
+
+        window.addEventListener('click', (event) => {
+            Object.values(modals).forEach(modal => {
+                if (event.target === modal) {
+                    hideModal(modal);
+                }
+            });
+        });
+    });
+</script>

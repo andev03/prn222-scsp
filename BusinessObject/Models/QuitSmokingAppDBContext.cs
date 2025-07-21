@@ -417,10 +417,10 @@ public partial class QuitSmokingAppDBContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("password");
-            entity.Property(e => e.RoleId)
+            entity.Property(e => e.Role)
                 .HasMaxLength(20)
                 .IsUnicode(false)
-                .HasColumnName("role_id");
+                .HasColumnName("role");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(sysutcdatetime())")
                 .HasColumnName("updated_at");

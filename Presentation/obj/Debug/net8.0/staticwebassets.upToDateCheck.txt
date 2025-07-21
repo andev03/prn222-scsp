@@ -5,6 +5,7 @@ wwwroot\css\Index.css
 wwwroot\css\index_smoking_records.css
 wwwroot\css\leaderboard.css
 wwwroot\css\profile.css
+wwwroot\css\quit_plan.css
 wwwroot\css\site.css
 wwwroot\css\subscription.css
 wwwroot\css\user_manage_post.css

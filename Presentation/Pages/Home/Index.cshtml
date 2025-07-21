@@ -162,7 +162,7 @@
     </section>
 
     <!-- CTA Section -->
-    @if (Model.User != null)
+    @if (Model.User != null && Model.User.Role.Equals("user"))
     {
         <section class="cta-section">
             <div class="container">
@@ -250,7 +250,7 @@
             </div>
         </section>
     }
-    else
+    else if (Model.User == null)
     {
         <section class="cta-section">
             <div class="container">

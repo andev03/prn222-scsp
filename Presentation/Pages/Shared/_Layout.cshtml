@@ -23,9 +23,9 @@
 
                 <ul class="nav-menu" id="nav-menu">
                     <li class="nav-item"><a asp-page="/Home/Index" class="nav-link">Trang chủ</a></li>
-                    @if (user != null && user.RoleId.Equals("bac"))
+                    @if (user != null && user.Role.Equals("bac"))
                     {
-                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/QuitPlanPage/Index" class="nav-link">Kế hoạch</a></li>
                         <li class="nav-item">
                             <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
                         </li>
@@ -34,23 +34,23 @@
                         </li>
                         <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
                     }
-                    else if (user != null && user.RoleId.Equals("vang"))
+                    else if (user != null && user.Role.Equals("vang"))
                     {
-                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/QuitPlanPage/Index" class="nav-link">Kế hoạch</a></li>
                         <li class="nav-item"><a asp-page="/Forum/Index" class="nav-link">Cộng đồng</a></li>
                         <li class="nav-item">
                             <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
                         </li>
                         <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
                     }
-                    else if (user != null && user.RoleId.Equals("kimcuong"))
+                    else if (user != null && user.Role.Equals("kimcuong"))
                     {
-                        <li class="nav-item"><a asp-page="/Resources" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/QuitPlanPage/Index" class="nav-link">Kế hoạch</a></li>
                         <li class="nav-item"><a asp-page="/Forum/Index" class="nav-link">Cộng đồng</a></li>
                         <li class="nav-item"><a asp-page="/Resources" class="nav-link">Coach</a></li>
                         <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
                     }
-                    else if (user != null && user.RoleId.Equals("user"))
+                    else if (user != null && user.Role.Equals("user"))
                     {
                         <li class="nav-item">
                             <a class="nav-link disabled" style="pointer-events: none;">Kế hoạch</a>

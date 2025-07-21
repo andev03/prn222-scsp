@@ -24,7 +24,6 @@ namespace Presentation.Pages.Auth
         public void OnGet()
         {
         }
-
         public IActionResult OnPostLogin()
         {
             if (!ModelState.IsValid)

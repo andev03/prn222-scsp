@@ -29,7 +29,7 @@ namespace BusinessLogic
 
         public List<ForumPost> GetAll()
         {
-            return _repository.getAll();
+            return _repository.GetAll();
         }
 
         public List<ForumPost> GetAllByUserId(Guid userId)

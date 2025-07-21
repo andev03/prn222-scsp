@@ -9,7 +9,7 @@ namespace DataAccess.IRepositories
 {
     public interface IForumRepository
     {
-        List<ForumPost> getAll();
+        List<ForumPost> GetAll();
 
         ForumPost getPostById(int postId);
 

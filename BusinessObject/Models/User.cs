@@ -9,7 +9,7 @@ public partial class User
 {
     public Guid UserId { get; set; }
 
-    public string RoleId { get; set; }
+    public string Role { get; set; }
 
     public string Username { get; set; }
 
