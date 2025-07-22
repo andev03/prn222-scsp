@@ -28,8 +28,8 @@ namespace DataAccess
         {
             return _context.Feedbacks
                 .Include(f => f.Coach)
-                .AsEnumerable() // chuyển sang client-side để tránh lỗi nullable navigation
-                .GroupBy(f => new { f.CoachId, f.Coach.FirstName, f.Coach.LastName }) // group theo coach thật sự
+                .AsEnumerable()
+                .GroupBy(f => new { f.CoachId, f.Coach.FirstName, f.Coach.LastName })
                 .Select(g => new CoachDto
                 {
                     CoachID = g.Key.CoachId,

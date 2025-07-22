@@ -64,20 +64,26 @@
                         <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
 
                     }
+                    else if (user != null && user.Role.Equals("coach")){
+                        <li class="nav-item"><a asp-page="/QuitPlanPage/Index" class="nav-link">Kế hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/Forum/Index" class="nav-link">Cộng đồng</a></li>
+                        <li class="nav-item"><a asp-page="/Coach/Manager" class="nav-link">Messages</a></li>
+                        <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
+                    }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link disabled" style="pointer-events: none;">Kế hoạch</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" style="pointer-events: none;">Bảng xếp hạng</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" style="pointer-events: none;">Kế hoạch</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" style="pointer-events: none;">Cộng đồng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" style="pointer-events: none;">Coach</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" style="pointer-events: none;">Bảng xếp hạng</a>
+                    </li>
                     }
                 </ul>
 
@@ -176,12 +182,6 @@
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        window.addEventListener('click', function (e) {
-            const dropdown = document.querySelector('.dropdown');
-            if (!dropdown.contains(e.target)) {
-                document.getElementById('dropdown-menu').style.display = 'none';
-            }
-        });
     </script>
     <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

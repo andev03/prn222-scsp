@@ -40,24 +40,6 @@
             </div>
             <div class="modal-body chat-body">
                 <div class="chat-messages" id="chatMessages">
-                    @if (Model.Messages == null || Model.Messages.Any())
-                    {
-                        <div class="message received">Chào bạn! Tôi có thể giúp gì cho bạn?</div>
-                    }
-                    else
-                    {
-                        @foreach (var message in Model.Messages)
-                        {
-                            if (message.SenderId == Guid.Parse(ViewData["UserId"]?.ToString()))
-                            {
-                                <div class="message sent">@message.MessageText</div>
-                            }
-                            else
-                            {
-                                <div class="message received">@message.MessageText</div>
-                            }
-                        }
-                    }
                 </div>
 
                 <div class="chat-input-area">
@@ -76,7 +58,6 @@
             </div>
             <div class="modal-body reviews-body">
                 <div class="review-list" id="reviewList">
-                    <!-- Reviews will be loaded here by JavaScript -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -181,18 +162,6 @@
                 chatBox.appendChild(div);
                 input.value = '';
             }
-        });
-        connectButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const coachName = button.dataset.coachName;
-                const coachId = button.dataset.coachId;
-
-                // Gán tên và ID huấn luyện viên
-                document.getElementById("chatCoachName").textContent = coachName;
-                document.getElementById("chatModal").dataset.coachId = coachId;
-
-                showModal(document.getElementById("chatModal"));
-            });
         });
         // --- Xử lý Reviews Modal ---
         viewReviewsButtons.forEach(button => {

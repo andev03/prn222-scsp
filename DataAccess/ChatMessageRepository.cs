@@ -1,4 +1,5 @@
-﻿using BusinessObject.Models;
+﻿using BusinessObject.DTOs;
+using BusinessObject.Models;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,20 @@ namespace DataAccess
                 .Where(cm => cm.SenderId == senderId && cm.ReceivedId == coachId || cm.SenderId == coachId && cm.ReceivedId == senderId)
                 .ToList();
         }
+
+        public List<ConversationDto> GetAllByUserId(Guid coachId)
+        {
+            return _context.ChatMessages
+                .Where(m => m.ReceivedId == coachId)
+                .GroupBy(m => m.SenderId)
+                .Select(g => new ConversationDto
+                {
+                    SenderId = g.Key,
+                    SenderName = g.First().Sender.FirstName + " " + g.First().Sender.LastName,
+                    Timestamp = g.Max(m => m.SentAt)
+                }).ToList();
+        }
+
 
         public void SaveMessage(ChatMessage chatMessage)
         {

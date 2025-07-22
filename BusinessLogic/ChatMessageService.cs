@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.IServices;
+using BusinessObject.DTOs;
 using BusinessObject.Models;
 using DataAccess;
 using DataAccess.IRepositories;
@@ -18,6 +19,11 @@ namespace BusinessLogic
         public ChatMessageService(IChatMessageRepository chatMessageRepository)
         {
             _chatMessageRepository = chatMessageRepository;
+        }
+
+        public List<ConversationDto> GetAllByUserId(Guid coachId)
+        {
+            return _chatMessageRepository.GetAllByUserId(coachId);
         }
 
         public List<ChatMessage> GetAllByUserIdAndCoachId(Guid senderId, Guid coachId)

@@ -23,7 +23,6 @@ namespace Presentation.Pages.Coach
         public List<ChatMessage> Messages { get; set; }
         public User User { get; set; }
 
-
         [BindProperty]
         public string NewMessage { get; set; }
 
@@ -43,6 +42,11 @@ namespace Presentation.Pages.Coach
             var messages = _chatMessage.GetAllByUserIdAndCoachId(user.UserId, coachId);
 
             var html = new System.Text.StringBuilder();
+
+            if (messages == null || messages.Any())
+            {
+                html.Append($"<div class='message received'>Chào bạn! Tôi có thể giúp gì cho bạn?</div>");
+            }
 
             foreach (var message in messages)
             {
@@ -129,7 +133,7 @@ namespace Presentation.Pages.Coach
                 Comment = Comment
             };
 
-            _feedbackService.Create(feedback); // phương thức lưu đánh giá vào DB
+            _feedbackService.Create(feedback);
 
             return new JsonResult(new { success = true, message = "Đánh giá đã được gửi thành công!" });
         }

@@ -1,4 +1,5 @@
-﻿using BusinessObject.Models;
+﻿using BusinessObject.DTOs;
+using BusinessObject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace BusinessLogic.IServices
         void SaveMessage(ChatMessage chatMessage);
 
         List<ChatMessage> GetAllByUserIdAndCoachId(Guid senderId, Guid coachId);
+        List<ConversationDto> GetAllByUserId(Guid coachId);
     }
 }
