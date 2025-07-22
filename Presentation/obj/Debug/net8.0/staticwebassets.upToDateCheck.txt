@@ -1,4 +1,5 @@
 wwwroot\css\badges_received.css
+wwwroot\css\coach.css
 wwwroot\css\footer.css
 wwwroot\css\header.css
 wwwroot\css\Index.css

@@ -16,6 +16,19 @@ public partial class QuitSmokingAppDBContext : DbContext
         : base(options)
     {
     }
+    public static string GetConnectionString(string connectionStringName)
+    {
+        var config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        string connectionString = config.GetConnectionString(connectionStringName);
+        return connectionString;
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
     public virtual DbSet<Badge> Badges { get; set; }
 
@@ -42,29 +55,16 @@ public partial class QuitSmokingAppDBContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserBadge> UserBadges { get; set; }
-    public static string GetConnectionString(string connectionStringName)
-    {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        string connectionString = config.GetConnectionString(connectionStringName);
-        return connectionString;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Badge>(entity =>
         {
-            entity.HasKey(e => e.BadgeId).HasName("PK__badges__E7989656A56CECDC");
+            entity.HasKey(e => e.BadgeId).HasName("PK__badges__E7989656EC804EE2");
 
             entity.ToTable("badges");
 
-            entity.HasIndex(e => e.Code, "UQ__badges__357D4CF9E9530DFC").IsUnique();
+            entity.HasIndex(e => e.Code, "UQ__badges__357D4CF92648C4BE").IsUnique();
 
             entity.Property(e => e.BadgeId).HasColumnName("badge_id");
             entity.Property(e => e.Code)
@@ -98,7 +98,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<ChatMessage>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__chat_mes__0BBF6EE65C7C2048");
+            entity.HasKey(e => e.MessageId).HasName("PK__chat_mes__0BBF6EE6D0966786");
 
             entity.ToTable("chat_messages");
 
@@ -125,11 +125,12 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__feedback__7A6B2B8C8F2B6360");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__feedback__7A6B2B8CC7B062B9");
 
             entity.ToTable("feedbacks");
 
             entity.Property(e => e.FeedbackId).HasColumnName("feedback_id");
+            entity.Property(e => e.CoachId).HasColumnName("coach_id");
             entity.Property(e => e.Comment)
                 .HasMaxLength(1000)
                 .HasColumnName("comment");
@@ -139,7 +140,12 @@ public partial class QuitSmokingAppDBContext : DbContext
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Feedbacks)
+            entity.HasOne(d => d.Coach).WithMany(p => p.FeedbackCoaches)
+                .HasForeignKey(d => d.CoachId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_fb_coach");
+
+            entity.HasOne(d => d.User).WithMany(p => p.FeedbackUsers)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_fb_users");
@@ -147,7 +153,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<ForumComment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__forum_co__E7957687794CACA6");
+            entity.HasKey(e => e.CommentId).HasName("PK__forum_co__E7957687AE7FB3A6");
 
             entity.ToTable("forum_comments");
 
@@ -174,7 +180,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<ForumPost>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__forum_po__3ED78766C962F629");
+            entity.HasKey(e => e.PostId).HasName("PK__forum_po__3ED78766741B2402");
 
             entity.ToTable("forum_posts");
 
@@ -206,7 +212,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificationId).HasName("PK__notifica__E059842F39FD66F3");
+            entity.HasKey(e => e.NotificationId).HasName("PK__notifica__E059842F06A646F8");
 
             entity.ToTable("notifications");
 
@@ -236,7 +242,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__payments__ED1FC9EAE11BA4C6");
+            entity.HasKey(e => e.PaymentId).HasName("PK__payments__ED1FC9EA0159B365");
 
             entity.ToTable("payments");
 
@@ -267,7 +273,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<ProgressRecord>(entity =>
         {
-            entity.HasKey(e => e.ProgressId).HasName("PK__progress__49B3D8C1B2B95886");
+            entity.HasKey(e => e.ProgressId).HasName("PK__progress__49B3D8C1DA37C060");
 
             entity.ToTable("progress_records");
 
@@ -290,7 +296,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<QuitPlan>(entity =>
         {
-            entity.HasKey(e => e.PlanId).HasName("PK__quit_pla__BE9F8F1D63C72D9D");
+            entity.HasKey(e => e.PlanId).HasName("PK__quit_pla__BE9F8F1DA4C5E01A");
 
             entity.ToTable("quit_plans");
 
@@ -325,7 +331,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<SmokingRecord>(entity =>
         {
-            entity.HasKey(e => e.RecordId).HasName("PK__smoking___BFCFB4DD74A45E9A");
+            entity.HasKey(e => e.RecordId).HasName("PK__smoking___BFCFB4DDB4E7E2FA");
 
             entity.ToTable("smoking_records");
 
@@ -363,7 +369,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<Subscription>(entity =>
         {
-            entity.HasKey(e => e.SubscriptionId).HasName("PK__subscrip__863A7EC195950790");
+            entity.HasKey(e => e.SubscriptionId).HasName("PK__subscrip__863A7EC1F20684D8");
 
             entity.ToTable("subscriptions");
 
@@ -389,11 +395,11 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__users__B9BE370FA20588FD");
+            entity.HasKey(e => e.UserId).HasName("PK__users__B9BE370FDE1D69B8");
 
             entity.ToTable("users");
 
-            entity.HasIndex(e => e.Email, "UQ__users__AB6E6164E05548A1").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__users__AB6E61646BC72531").IsUnique();
 
             entity.Property(e => e.UserId)
                 .HasDefaultValueSql("(newid())")
@@ -433,7 +439,7 @@ public partial class QuitSmokingAppDBContext : DbContext
 
         modelBuilder.Entity<UserBadge>(entity =>
         {
-            entity.HasKey(e => e.UserBadgeId).HasName("PK__user_bad__225DFD7243BA5755");
+            entity.HasKey(e => e.UserBadgeId).HasName("PK__user_bad__225DFD7204B36DD6");
 
             entity.ToTable("user_badges");
 

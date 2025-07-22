@@ -29,7 +29,9 @@ public partial class User
 
     public virtual ICollection<ChatMessage> ChatMessageSenders { get; set; } = new List<ChatMessage>();
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+    public virtual ICollection<Feedback> FeedbackCoaches { get; set; } = new List<Feedback>();
+
+    public virtual ICollection<Feedback> FeedbackUsers { get; set; } = new List<Feedback>();
 
     public virtual ICollection<ForumComment> ForumComments { get; set; } = new List<ForumComment>();
 

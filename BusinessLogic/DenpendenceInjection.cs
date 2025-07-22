@@ -25,6 +25,8 @@ namespace BusinessLogic
             services.AddScoped<IForumRepository, ForumRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IQuitPlanRepository, QuitPlanRepository>();
+            services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -36,6 +38,8 @@ namespace BusinessLogic
             services.AddScoped<IForumService, ForumService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IQuitPlanService, QuitPlanService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IChatMessageService, ChatMessageService>();
             return services;
         }
     }

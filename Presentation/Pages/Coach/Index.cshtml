@@ -1,0 +1,326 @@
+﻿@page
+@model Presentation.Pages.Coach.IndexModel
+@{
+}
+
+<link href="~/css/coach.css" rel="stylesheet" />
+
+<div class="coach-body">
+    <div class="container">
+        <div class="page-header">
+            <h1>Huấn Luyện Viên Của Chúng Tôi</h1>
+            <p>Tìm kiếm và kết nối với các chuyên gia hàng đầu.</p>
+        </div>
+
+        <div class="coaches-grid">
+            @foreach (var coach in Model.Coaches)
+            {
+                <div class="coach-card">
+                    <div class="coach-info">
+                        <h2 class="coach-name">@coach.Name</h2>
+                        <div class="coach-rating">
+                            Đánh giá: <span>@coach.Rating</span> ⭐
+                        </div>
+                    </div>
+                    <div class="coach-actions">
+                        <button type="button" class="action-button connect-button" data-coach-name="@coach.Name" data-coach-id="@coach.CoachID">Kết nối</button>
+                        <button type="button" class="action-button view-reviews-button" data-coach-name="@coach.Name" data-coach-id="@coach.CoachID">Xem đánh giá</button>
+                        <button type="button" class="action-button rate-button" data-coach-name="@coach.Name" data-coach-id="@coach.CoachID">Đánh giá</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="chatModal" class="modal" data-coach-id="@Model.CoachId">
+        <div class="modal-content chat-modal-content">
+            <div class="modal-header">
+                <h5>Chat với <span id="chatCoachName"></span></h5>
+                <button type="button" class="close-button" data-modal-id="chatModal" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-body chat-body">
+                <div class="chat-messages" id="chatMessages">
+                    @if (Model.Messages == null || Model.Messages.Any())
+                    {
+                        <div class="message received">Chào bạn! Tôi có thể giúp gì cho bạn?</div>
+                    }
+                    else
+                    {
+                        @foreach (var message in Model.Messages)
+                        {
+                            if (message.SenderId == Guid.Parse(ViewData["UserId"]?.ToString()))
+                            {
+                                <div class="message sent">@message.MessageText</div>
+                            }
+                            else
+                            {
+                                <div class="message received">@message.MessageText</div>
+                            }
+                        }
+                    }
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Nhập tin nhắn của bạn..." />
+                    <button type="button" id="sendMessageButton" class="send-button">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviewsModal" class="modal">
+        <div class="modal-content reviews-modal-content">
+            <div class="modal-header">
+                <h5>Đánh giá của <span id="reviewsCoachName"></span></h5>
+                <button type="button" class="close-button" data-modal-id="reviewsModal" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-body reviews-body">
+                <div class="review-list" id="reviewList">
+                    <!-- Reviews will be loaded here by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="action-button close-button-model" data-modal-id="reviewsModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rateCoachModal" class="modal">
+        <div class="modal-content rate-modal-content">
+            <div class="modal-header">
+                <h5>Đánh giá <span id="rateCoachName"></span></h5>
+                <button type="button" class="close-button" data-modal-id="rateCoachModal" aria-label="Đóng">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rateCoachForm">
+                    <div class="form-group">
+                        <label for="rating">Xếp hạng</label>
+                        <select id="rating" name="rating" required>
+                            <option value="">Chọn xếp hạng</option>
+                            <option value="5">5 Sao ⭐⭐⭐⭐⭐</option>
+                            <option value="4">4 Sao ⭐⭐⭐⭐</option>
+                            <option value="3">3 Sao ⭐⭐⭐</option>
+                            <option value="2">2 Sao ⭐⭐</option>
+                            <option value="1">1 Sao ⭐</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Bình luận</label>
+                        <textarea id="comment" name="comment" rows="4" placeholder="Chia sẻ trải nghiệm của bạn..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" data-modal-id="rateCoachModal">Hủy</button>
+                <button type="submit" class="btn btn-submit" form="rateCoachForm">Gửi đánh giá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Modals
+        const chatModal = document.getElementById('chatModal');
+        const reviewsModal = document.getElementById('reviewsModal');
+        const rateCoachModal = document.getElementById('rateCoachModal');
+
+        // Chat elements
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageButton = document.getElementById('sendMessageButton');
+
+        // Reviews elements
+        const reviewsCoachNameSpan = document.getElementById('reviewsCoachName');
+        const reviewListDiv = document.getElementById('reviewList');
+
+        // Rate Coach elements
+        const rateCoachNameSpan = document.getElementById('rateCoachName');
+        const rateCoachForm = document.getElementById('rateCoachForm');
+        const ratingSelect = document.getElementById('rating');
+        const commentTextarea = document.getElementById('comment');
+
+        // Buttons
+        const connectButtons = document.querySelectorAll('.connect-button');
+        const viewReviewsButtons = document.querySelectorAll('.view-reviews-button');
+        const rateButtons = document.querySelectorAll('.rate-button');
+        const closeButtons = document.querySelectorAll('.close-button, .modal-footer .btn-cancel');
+        const closeButtonsModel = document.querySelectorAll('.close-button-model');
+
+        // Hàm hiển thị modal
+        function showModal(modalElement) {
+            modalElement.style.display = 'flex';
+        }
+
+        // Hàm ẩn modal
+        function hideModal(modalElement) {
+            modalElement.style.display = 'none';
+        }
+
+        // --- Xử lý Chat Modal ---
+        document.getElementById("sendMessageButton").addEventListener("click", async function () {
+            const input = document.getElementById("chatInput");
+            const message = input.value.trim();
+            if (!message) return;
+
+            const coachId = document.getElementById("chatModal").dataset.coachId;
+            const formData = new FormData();
+
+            formData.append("NewMessage", message);
+            formData.append("CoachId", coachId);
+
+            const response = await fetch('/Coach/Index?handler=SendMessage', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const chatBox = document.getElementById("chatMessages");
+                const div = document.createElement("div");
+                div.className = "message sent";
+                div.innerText = message;
+                chatBox.appendChild(div);
+                input.value = '';
+            }
+        });
+        connectButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const coachName = button.dataset.coachName;
+                const coachId = button.dataset.coachId;
+
+                // Gán tên và ID huấn luyện viên
+                document.getElementById("chatCoachName").textContent = coachName;
+                document.getElementById("chatModal").dataset.coachId = coachId;
+
+                showModal(document.getElementById("chatModal"));
+            });
+        });
+        // --- Xử lý Reviews Modal ---
+        viewReviewsButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const coachName = event.target.dataset.coachName;
+                const coachId = event.target.dataset.coachId;
+
+                reviewsCoachNameSpan.textContent = coachName;
+                reviewListDiv.innerHTML = ''; // Clear
+
+                // Gọi server để lấy HTML đánh giá
+                const response = await fetch(`/Coach/Index?handler=Reviews&coachId=${coachId}`);
+                const html = await response.text();
+
+                reviewListDiv.innerHTML = html;
+
+                showModal(reviewsModal);
+            });
+        });
+
+        // --- Xử lý Rate Coach Modal ---
+        rateButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const coachName = button.dataset.coachName;
+                const coachId = button.dataset.coachId;
+                rateCoachNameSpan.textContent = coachName;
+                rateCoachForm.dataset.coachId = coachId; // lưu ID vào form
+                showModal(rateCoachModal);
+            });
+        });
+
+        rateCoachForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const rating = ratingSelect.value;
+            const comment = commentTextarea.value.trim();
+            const coachId = rateCoachForm.dataset.coachId;
+
+            if (!rating || !comment) {
+                alert("Vui lòng chọn xếp hạng và nhập bình luận.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("Rating", rating);
+            formData.append("Comment", comment);
+            formData.append("CoachId", coachId);
+
+            const response = await fetch("/Coach/Index?handler=Rate", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert("Cảm ơn bạn đã đánh giá!");
+                hideModal(rateCoachModal);
+
+                // Tùy chọn: refresh lại đánh giá mới
+                const viewReviewBtn = document.querySelector(`.view-reviews-button[data-coach-id="${coachId}"]`);
+                if (viewReviewBtn) {
+                    viewReviewBtn.click(); // tự động mở lại modal đánh giá mới
+                }
+            } else {
+                alert("Lỗi: " + result.message);
+            }
+        });
+
+        // --- Xử lý đóng Modal chung ---
+        closeButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const modalId = event.target.dataset.modalId;
+                if (modalId) {
+                    hideModal(document.getElementById(modalId));
+                } else {
+                    // Fallback nếu không có data-modal-id (ví dụ: nút X)
+                    const parentModal = event.target.closest('.modal');
+                    if (parentModal) {
+                        hideModal(parentModal);
+                    }
+                }
+            });
+        });
+        closeButtonsModel.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const modalId = event.target.dataset.modalId;
+                if (modalId) {
+                    hideModal(document.getElementById(modalId));
+                } else {
+                    // Fallback nếu không có data-modal-id (ví dụ: nút X)
+                    const parentModal = event.target.closest('.modal');
+                    if (parentModal) {
+                        hideModal(parentModal);
+                    }
+                }
+            });
+        });
+        // Đóng modal khi nhấp ra ngoài nội dung modal
+        window.addEventListener('click', (event) => {
+            if (event.target === chatModal) {
+                hideModal(chatModal);
+            }
+            if (event.target === reviewsModal) {
+                hideModal(reviewsModal);
+            }
+            if (event.target === rateCoachModal) {
+                hideModal(rateCoachModal);
+            }
+        });
+        connectButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const coachName = button.dataset.coachName;
+                const coachId = button.dataset.coachId;
+
+                // Gán tên & ID
+                document.getElementById("chatCoachName").textContent = coachName;
+                document.getElementById("chatModal").dataset.coachId = coachId;
+
+                // Gọi server để lấy tin nhắn HTML partial
+                const response = await fetch(`/Coach/Index?handler=Connect&coachId=${coachId}`);
+                const html = await response.text();
+
+                const chatBox = document.getElementById("chatMessages");
+                chatBox.innerHTML = html; // Replace nội dung tin nhắn
+
+                showModal(document.getElementById("chatModal"));
+            });
+        });
+    });
+</script>
