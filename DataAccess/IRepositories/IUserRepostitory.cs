@@ -11,6 +11,7 @@ namespace DataAccess.IRepositories
     public interface IUserRepostitory  :IGenericRepository<User>
     {
         Task<User> GetByGuiUser(Guid id);
+        List<User> GetAllByRole();
 
         User Login(string username, string password);
 

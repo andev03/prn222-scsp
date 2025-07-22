@@ -17,6 +17,12 @@ namespace DataAccess
         {
             _quitSmokingAppDBContext = new QuitSmokingAppDBContext();
         }
+
+        public List<User> GetAllByRole()
+        {
+            return _quitSmokingAppDBContext.Users.Where(u => u.Role.ToLower() == "coach").ToList();
+        }
+
         public async Task<User> GetByGuiUser(Guid id) {
             return await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
