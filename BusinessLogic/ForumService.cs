@@ -22,14 +22,29 @@ namespace BusinessLogic
             _repository.Create(forumPost);
         }
 
+        public void Delete(ForumPost post)
+        {
+            _repository.Delete(post);
+        }
+
         public List<ForumPost> GetAll()
         {
-            return _repository.getAll();
+            return _repository.GetAll();
+        }
+
+        public List<ForumPost> GetAllByUserId(Guid userId)
+        {
+            return _repository.GetAllByUserId(userId);
         }
 
         public ForumPost GetByPostId(int postId)
         {
             return _repository.getPostById(postId);
+        }
+
+        public void Update(ForumPost post)
+        {
+            _repository.Update(post);
         }
     }
 }

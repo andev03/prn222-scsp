@@ -37,7 +37,7 @@ namespace Presentation.Pages.Auth
             user.Username = Input.Username;
             user.Email = Input.Email;
             user.Password = Input.Password;
-            user.RoleId = "user";
+            user.Role = "user";
 
             _userService.Register(user);
 

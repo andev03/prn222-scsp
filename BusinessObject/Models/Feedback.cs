@@ -9,6 +9,8 @@ public partial class Feedback
 {
     public int FeedbackId { get; set; }
 
+    public Guid CoachId { get; set; }
+
     public Guid UserId { get; set; }
 
     public byte Rating { get; set; }
@@ -16,6 +18,8 @@ public partial class Feedback
     public string Comment { get; set; }
 
     public DateTime CreatedAt { get; set; }
+
+    public virtual User Coach { get; set; }
 
     public virtual User User { get; set; }
 }

@@ -1,0 +1,197 @@
+﻿@page
+@model Presentation.Pages.Forum.UserManagePostModel
+@{
+    ViewData["Title"] = "Quản Lí Bài Viết";
+}
+
+<link href="~/css/user_manage_post.css" rel="stylesheet" />
+
+<div class="manage-posts-body">
+    <div class="container">
+        <div class="page-header">
+            <h1>Quản Lý Bài Viết</h1>
+            <p>Chỉnh sửa và xóa các bài viết hiện có.</p>
+        </div>
+
+        <div class="posts-grid">
+            @if (Model.Posts != null && Model.Posts.Any())
+            {
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="post-card" data-id="@post.PostId" data-title="@post.Title" data-content="@post.Content">
+                        <div>
+                            <div class="post-card-header">
+                                <h2 class="post-card-title">@post.Title</h2>
+                                <p class="post-card-meta">
+                                    Đăng bởi <span class="username">@post.User.FirstName @post.User.LastName</span> vào ngày @post.CreatedAt.ToString("dd/MM/yyyy")
+                                </p>
+                            </div>
+                            <div class="post-card-content">
+                                <p>@post.Content</p>
+                            </div>
+                        </div>
+                        <div class="post-actions">
+                            <button type="button" class="action-button edit-button">Sửa</button>
+                            <button type="button" class="action-button delete-button">Xóa</button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-post-message text-center mt-4" style="color: white">
+                    <p>Bạn chưa có bài viết nào. Hãy tạo bài viết đầu tiên của bạn!</p>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="button" id="createPostButton">
+                + Tạo Bài Viết
+            </button>
+        </div>
+
+        <div class="modal" id="editPostModal">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="Edit" id="editPostForm">
+                    <div class="modal-header">
+                        <h5>Sửa Bài Viết</h5>
+                        <button type="button" class="close-button" aria-label="Đóng">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" asp-for=@Model.Id id="editPostId" name="Id">
+                        <div class="form-group">
+                            <label asp-for=@Model.Title>Tiêu đề</label>
+                            <input type="text" id="editPostTitle" name="Title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for=@Model.Content class="form-label">Nội dung</label>
+                            <textarea id="editPostContent" name="Content" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" class="btn btn-submit">Lưu Thay Đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="deleteConfirmModal">
+            <div class="modal-content small-modal">
+                <form method="post" asp-page-handler="Delete">
+                    <div class="modal-header">
+                        <h5>Xác Nhận Xóa</h5>
+                        <button type="button" class="close-button" aria-label="Đóng">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xóa bài viết này không?</p>
+                        <input type="hidden" asp-for=@Model.Id id="deletePostId" name="Id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" class="btn btn-delete" id="confirmDeleteButton">Xóa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="newPostModal">
+            <div class="modal-content">
+                <form asp-page-handler="Create" method="post" id="newPostForm">
+                    <div class="modal-header">
+                        <h5>Tạo Bài Viết Mới</h5>
+                        <button type="button" class="close-button" aria-label="Đóng">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for=@Model.Title>Tiêu đề</label>
+                            <input type="text" id="postTitle" name="Title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for=@Model.Content class="form-label">Nội dung</label>
+                            <textarea id="postContent" name="Content" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" class="btn btn-submit">Đăng Bài</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const postCard = this.closest('.post-card');
+            const title = postCard.querySelector('.post-card-title').innerText;
+            const content = postCard.querySelector('.post-card-content p').innerText;
+            const postId = postCard.dataset.id;
+
+            // Set dữ liệu vào form sửa
+            document.getElementById('editPostId').value = postId;
+            document.getElementById('editPostTitle').value = title;
+            document.getElementById('editPostContent').value = content;
+
+            // Hiển thị modal
+            document.getElementById('editPostModal').style.display = 'block';
+        });
+    });
+
+    // Hiển thị modal Xóa
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', function () {
+            // Hiển thị modal xác nhận xóa
+            const postCard = this.closest('.post-card');
+            const postId = postCard.dataset.id;
+            document.getElementById('deletePostId').value = postId;
+            document.getElementById('deleteConfirmModal').style.display = 'block';
+        });
+    });
+
+    // Nút Đóng/Hủy cho cả hai modal
+    document.querySelectorAll('.close-button, .btn-cancel').forEach(button => {
+        button.addEventListener('click', function () {
+            document.getElementById('editPostModal').style.display = 'none';
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+        });
+    });
+
+    // Tùy chọn thêm: Đóng modal khi click ra ngoài
+    window.onclick = function (event) {
+        const editModal = document.getElementById('editPostModal');
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        if (event.target === editModal) {
+            editModal.style.display = 'none';
+        }
+        if (event.target === deleteModal) {
+            deleteModal.style.display = 'none';
+        }
+    };
+
+    const createPostButton = document.getElementById('createPostButton');
+    const newPostModal = document.getElementById('newPostModal');
+    const newPostForm = document.getElementById('newPostForm');
+    const closeButtons = document.querySelectorAll('.close-button, .btn-cancel');
+
+    createPostButton.addEventListener('click', () => {
+        newPostModal.style.display = 'flex';
+    });
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            newPostModal.style.display = 'none';
+            newPostForm.reset();
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === newPostModal) {
+            newPostModal.style.display = 'none';
+            newPostForm.reset();
+        }
+    });
+</script>

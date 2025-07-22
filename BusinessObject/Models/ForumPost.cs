@@ -15,9 +15,13 @@ public partial class ForumPost
 
     public string Content { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public DateTime DeletedAt { get; set; }
 
     public virtual ICollection<ForumComment> ForumComments { get; set; } = new List<ForumComment>();
 

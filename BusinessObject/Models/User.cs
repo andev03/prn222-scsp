@@ -9,7 +9,7 @@ public partial class User
 {
     public Guid UserId { get; set; }
 
-    public string RoleId { get; set; }
+    public string Role { get; set; }
 
     public string Username { get; set; }
 
@@ -29,7 +29,9 @@ public partial class User
 
     public virtual ICollection<ChatMessage> ChatMessageSenders { get; set; } = new List<ChatMessage>();
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+    public virtual ICollection<Feedback> FeedbackCoaches { get; set; } = new List<Feedback>();
+
+    public virtual ICollection<Feedback> FeedbackUsers { get; set; } = new List<Feedback>();
 
     public virtual ICollection<ForumComment> ForumComments { get; set; } = new List<ForumComment>();
 

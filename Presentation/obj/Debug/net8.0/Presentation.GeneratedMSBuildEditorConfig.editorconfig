@@ -60,6 +60,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmFkZ2VzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Coach/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29hY2hcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Coach/Manager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29hY2hcTWFuYWdlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Comments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tbWVudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -72,6 +80,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ydW1cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Forum/UserManagePost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ydW1cVXNlck1hbmFnZVBvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +94,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/QuitPlanPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVpdFBsYW5QYWdlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [S:/university/semester_7/PRN222/project/scsp/Presentation/Pages/Shared/_ValidationScriptsPartial.cshtml]
