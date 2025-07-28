@@ -91,12 +91,11 @@ namespace Presentation.Pages.Payment
                     DateTime.UtcNow.AddMonths(1),
                     "QR"
                 );
+                TempData["SuccessMessage"] = "Bạn đã mua gói thành công!";
             }
             catch (Exception ex)
             {
-                // Log lỗi ra file hoặc console
                 ModelState.AddModelError("", "Lỗi khi lưu vào database: " + ex.Message);
-                // Có thể trả về lại trang Payment với thông báo lỗi
                 return Page();
             }
 
