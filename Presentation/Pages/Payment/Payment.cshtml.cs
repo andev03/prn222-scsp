@@ -57,23 +57,50 @@ namespace Presentation.Pages.Payment
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var userIdString = HttpContext.Session.GetObject<string>("userId");
-            if (userIdString == null)
+            switch (PackageId)
+            {
+                case 1:
+                    PackageName = "Gói Bạc";
+                    PackagePrice = 99000;
+                    break;
+                case 2:
+                    PackageName = "Gói Vàng";
+                    PackagePrice = 199000;
+                    Discount = 20000;
+                    break;
+                case 3:
+                    PackageName = "Gói Kim Cương";
+                    PackagePrice = 399000;
+                    Discount = 50000;
+                    break;
+            }
+            var user = HttpContext.Session.GetObject<BusinessObject.Models.User>("user");
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Session không có user");
                 return RedirectToPage("/Auth/Login");
+            }
+            var userId = user.UserId;
+            try
+            {
+                await _paymentService.CreateSubscriptionAndPaymentAsync(
+                    userId,
+                    PackageName,
+                    TotalAmount,
+                    DateTime.UtcNow,
+                    DateTime.UtcNow.AddMonths(1),
+                    "QR"
+                );
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi ra file hoặc console
+                ModelState.AddModelError("", "Lỗi khi lưu vào database: " + ex.Message);
+                // Có thể trả về lại trang Payment với thông báo lỗi
+                return Page();
+            }
 
-            if (!Guid.TryParse(userIdString, out Guid userId))
-                return RedirectToPage("/Auth/Login");
-
-            await _paymentService.CreateSubscriptionAndPaymentAsync(
-                userId,
-                PackageName,
-                TotalAmount,
-                DateTime.UtcNow,
-                DateTime.UtcNow.AddMonths(1),
-                "QR"
-            );
-
-            return RedirectToPage("/PaymentSuccess");
+            return RedirectToPage("/Home/Index");
         }
     }
 }

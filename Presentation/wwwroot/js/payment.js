@@ -37,26 +37,7 @@
         cancelButton.addEventListener('click', cancelPayment);
     }
 
-    const form = document.querySelector('form');
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
 
-            const fullname = document.getElementById('fullname').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-
-            if (!fullname || !email || !phone) {
-                alert('Vui lòng điền đầy đủ thông tin khách hàng.');
-                return;
-            }
-
-            if (confirm('Bạn đã hoàn tất thanh toán qua mã QR?')) {
-                alert('Cảm ơn bạn! Chúng tôi đang xác nhận thanh toán của bạn.');
-
-            }
-        });
-    }
 
     function generateQRPlaceholder() {
         const qrPlaceholder = document.querySelector('.qr-placeholder');
