@@ -40,5 +40,10 @@ namespace BusinessLogic
         {
             _userRepostitory.UpdateProfile(user);
         }
+
+        public async Task UpdateRoleAsync(Guid userId, string newRole)
+        {
+            await _userRepostitory.UpdateRoleAsync(userId, newRole);
+        }
     }
 }

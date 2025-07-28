@@ -42,11 +42,16 @@
     function generateQRPlaceholder() {
         const qrPlaceholder = document.querySelector('.qr-placeholder');
         if (!qrPlaceholder) return;
+
         qrPlaceholder.innerHTML = `
-            <div style="font-size: 1rem; font-weight: 600; text-align: center;">
-                QR CODE<br>1,150,000₫
-            </div>`;
+        <div style="text-align: center;">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVSI6bYOpnK7OBoSg8yuoodPKXlPLlovjmUg&s"
+                 alt="" 
+                 style="width: 150px; height: 150px; display: block; margin: 0 auto 0.5rem;" />
+            <div style="font-size: 1rem; font-weight: 600;"></div>
+        </div>`;
     }
     generateQRPlaceholder();
+
 
 });

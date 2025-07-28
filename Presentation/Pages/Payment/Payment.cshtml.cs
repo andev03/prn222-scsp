@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.IServices;
+using BusinessObject.Models;
 using BusinessObject.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,10 +11,12 @@ namespace Presentation.Pages.Payment
     public class PaymentModel : PageModel
     {
         private readonly IPaymentService _paymentService;
+        private readonly IUserService _userService;
 
-        public PaymentModel(IPaymentService paymentService)
+        public PaymentModel(IPaymentService paymentService, IUserService userService)
         {
             _paymentService = paymentService;
+            _userService = userService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -57,21 +60,25 @@ namespace Presentation.Pages.Payment
 
         public async Task<IActionResult> OnPostAsync()
         {
+            string RoleName = string.Empty;
             switch (PackageId)
             {
                 case 1:
                     PackageName = "Gói Bạc";
                     PackagePrice = 99000;
+                    RoleName = "bac";
                     break;
                 case 2:
                     PackageName = "Gói Vàng";
                     PackagePrice = 199000;
                     Discount = 20000;
+                    RoleName = "vang";
                     break;
                 case 3:
                     PackageName = "Gói Kim Cương";
                     PackagePrice = 399000;
                     Discount = 50000;
+                    RoleName = "kimcuong";
                     break;
             }
             var user = HttpContext.Session.GetObject<BusinessObject.Models.User>("user");
@@ -91,6 +98,15 @@ namespace Presentation.Pages.Payment
                     DateTime.UtcNow.AddMonths(1),
                     "QR"
                 );
+
+                await _userService.UpdateRoleAsync(userId, RoleName);
+                var loadRole = HttpContext.Session.GetObject<User>("user");
+
+                if (loadRole != null)
+                {
+                    loadRole.Role = RoleName;
+                    HttpContext.Session.SetObject("user", loadRole);
+                }
                 TempData["SuccessMessage"] = "Bạn đã mua gói thành công!";
             }
             catch (Exception ex)

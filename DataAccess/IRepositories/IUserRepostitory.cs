@@ -17,6 +17,7 @@ namespace DataAccess.IRepositories
 
         void Register(User user);
         void UpdateProfile(User user);
+        Task UpdateRoleAsync(Guid userId, string newRole);
 
     }
 }

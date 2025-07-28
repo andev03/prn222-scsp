@@ -48,5 +48,20 @@ namespace DataAccess
             _quitSmokingAppDBContext.Update(existingUser);
             _quitSmokingAppDBContext.SaveChanges();
         }
+
+        public async Task UpdateRoleAsync(Guid userId, string newRole)
+        {
+            using (var context = new QuitSmokingAppDBContext())
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+                if (user != null)
+                {
+                    user.Role = newRole;
+                    user.UpdatedAt = DateTime.UtcNow;
+                    context.Users.Update(user);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }
