@@ -86,3 +86,12 @@ crashlytics-build.properties
 SCSP.RazorApp/appsettings.json
 /.vs
 SCSP.RazorApp/SCSP.RazorApp.csproj.user
+/BusinessLogic/bin
+/DataAccess/obj
+Presentation/appsettings.json
+/Presentation/bin
+/BusinessLogic/bin
+/Presentation/obj
+/DataAccess/obj
+/BusinessObject/obj
+/BusinessLogic/obj

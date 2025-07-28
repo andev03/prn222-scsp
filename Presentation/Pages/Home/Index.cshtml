@@ -7,6 +7,13 @@
 <link rel="stylesheet" href="~/css/subscription.css" />
 
 <div class="main-content">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Thành công!</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <section class="hero">
         <div class="container">
             <div class="hero-grid">
@@ -172,7 +179,6 @@
                 </div>
 
                 <div class="pricing-grid">
-                    <!-- Gói Vàng -->
                     <div class="pricing-card">
                         <h3 class="plan-name">Bạc</h3>
                         <p class="plan-description">Phù hợp cho người mới bắt đầu</p>
@@ -194,10 +200,9 @@
                             <li class="unavailable">Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button secondary">Chọn Gói Bạc</button>
+                        <a asp-page="/Payment/Payment" asp-route-PackageId="1" class="cta-button secondary">Chọn Gói Bạc</a>
                     </div>
 
-                    <!-- Gói Bạc -->
                     <div class="pricing-card popular">
                         <h3 class="plan-name">Vàng</h3>
                         <p class="plan-description">Cho người dùng cần hỗ trợ thông minh</p>
@@ -219,10 +224,9 @@
                             <li class="unavailable">Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button primary">Chọn Gói Vàng</button>
+                        <a asp-page="/Payment/Payment" asp-route-PackageId="2" class="cta-button primary">Chọn Gói Vàng</a>
                     </div>
 
-                    <!-- Gói Kim Cương -->
                     <div class="pricing-card">
                         <h3 class="plan-name">Kim Cương</h3>
                         <p class="plan-description">Hỗ trợ toàn diện với huấn luyện viên</p>
@@ -244,7 +248,7 @@
                             <li>Tư vấn từ huấn luyện viên</li>
                         </ul>
 
-                        <button class="cta-button secondary">Chọn Gói Kim Cương</button>
+                        <a asp-page="/Payment/Payment" asp-route-PackageId="3" class="cta-button secondary">Chọn Gói Kim Cương</a>
                     </div>
                 </div>
             </div>

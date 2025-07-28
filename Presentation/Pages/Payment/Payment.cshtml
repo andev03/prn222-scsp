@@ -1,0 +1,86 @@
+﻿@page
+@model Presentation.Pages.Payment.PaymentModel
+@{
+    ViewData["Title"] = "Thanh Toán - Cai Thuốc Lá";
+}
+
+<link rel="stylesheet" href="~/css/payment.css" />
+
+<div class="container">
+    <h1 class="page-title">Thanh Toán</h1>
+
+    <div class="payment-card">
+        <div class="order-summary">
+            <h2 class="order-title">Tóm tắt đơn hàng</h2>
+            <div class="order-item">
+                <span>@Model.PackageName</span>
+                <span>@Model.PackagePrice.ToString("N0")₫</span>
+            </div>
+            <div class="order-item">
+                <span>Phí dịch vụ</span>
+                <span>@Model.ServiceFee.ToString("N0")₫</span>
+            </div>
+            @if (Model.Discount > 0)
+            {
+                <div class="order-item">
+                    <span>Giảm giá</span>
+                    <span style="color: #10b981;">-@Model.Discount.ToString("N0")₫</span>
+                </div>
+            }
+            <div class="order-item total">
+                <span>Tổng cộng</span>
+                <span>@Model.TotalAmount.ToString("N0")₫</span>
+            </div>
+        </div>
+
+        <div class="timer">
+            <div class="timer-text">Thời gian thanh toán còn lại:</div>
+            <div class="timer-countdown" id="countdown">15:00</div>
+        </div>
+
+        <form method="post">
+            <input type="hidden" asp-for="PackageId" />
+
+            <div class="form-section">
+                <h3 class="section-title">Thanh toán qua mã QR</h3>
+                <div class="qr-section">
+                    <div class="qr-code">
+                        <div class="qr-placeholder">
+                            QR Code cho @Model.TotalAmount.ToString("N0")₫
+                        </div>
+                    </div>
+                    <div class="qr-info">
+                        Quét mã QR bằng ứng dụng ngân hàng hoặc ví điện tử của bạn
+                    </div>
+                </div>
+                <div class="payment-info">
+                    <div class="payment-info-title">Hướng dẫn thanh toán</div>
+                    <div class="payment-info-text">
+                        1. Mở ứng dụng ngân hàng hoặc ví điện tử<br>
+                        2. Chọn chức năng quét mã QR<br>
+                        3. Quét mã QR phía trên<br>
+                        4. Xác nhận thanh toán số tiền <strong>@Model.TotalAmount.ToString("N0")₫</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-secondary" id="cancelButton">
+                    Hủy thanh toán
+                </button>
+                <button type="submit" class="btn-primary">
+                    Xác nhận đã thanh toán
+                </button>
+            </div>
+
+            <div class="security-info">
+                <span class="security-icon">🔒</span>
+                Giao dịch được bảo mật và mã hóa an toàn
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/payment.js"></script>
+}
