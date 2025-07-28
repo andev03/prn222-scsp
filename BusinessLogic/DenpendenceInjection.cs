@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.IService;
 using BusinessLogic.IServices;
+using BusinessObject.Services;
 using DataAccess;
 using DataAccess.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,8 @@ namespace BusinessLogic
             services.AddScoped<IQuitPlanRepository, QuitPlanRepository>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -40,6 +43,7 @@ namespace BusinessLogic
             services.AddScoped<IQuitPlanService, QuitPlanService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             return services;
         }
     }

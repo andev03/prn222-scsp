@@ -1,5 +1,6 @@
 using BusinessLogic;
 using BusinessLogic.IServices;
+using BusinessObject;
 using BusinessObject.Models;
 using DataAccess;
 using DataAccess.IRepositories;
@@ -7,20 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<QuitSmokingAppDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
 
+
+
 var app = builder.Build();
-
-
-// Register Repository
-//builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-
-// Register services
-//builder.Services.AddScoped<IPaymentService, PaymentService>();
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
