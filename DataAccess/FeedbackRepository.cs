@@ -47,5 +47,41 @@ namespace DataAccess
                 .ToList();
         }
 
+
+        // Admin
+        public async Task<IEnumerable<Feedback>> GetAllAsync()
+        {
+            return await _context.Feedbacks
+                .Include(f => f.User)
+                .OrderByDescending(f => f.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Feedback>> GetByRatingAsync(byte rating)
+        {
+            return await _context.Feedbacks
+                .Include(f => f.User)
+                .Where(f => f.Rating == rating)
+                .OrderByDescending(f => f.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<Feedback> GetByIdAsync(int id)
+        {
+            return await _context.Feedbacks
+                .Include(f => f.User)
+                .FirstOrDefaultAsync(f => f.FeedbackId == id);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var feedback = await _context.Feedbacks.FindAsync(id);
+            if (feedback != null)
+            {
+                _context.Feedbacks.Remove(feedback);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

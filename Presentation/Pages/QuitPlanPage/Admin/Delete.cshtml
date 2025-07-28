@@ -1,0 +1,62 @@
+﻿@page
+@model Presentation.Pages.QuitPlanPage.Admin.DeleteModel
+
+@{
+	ViewData["Title"] = "Xác nhận xóa kế hoạch nghỉ việc";
+}
+
+
+<div class="my-5 mx-4">
+<h1 class="text-danger">Xác nhận xóa</h1>
+
+<h4>Bạn có chắc chắn muốn xóa kế hoạch  này không?</h4>
+<hr />
+
+ 
+
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-6">
+			<dl class="row">
+				<dt class="col-sm-4 fw-bold">Lý do</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.Reason</dd>
+
+				<dt class="col-sm-4 fw-bold">Ngày bắt đầu</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.StartDate.ToString("dd/MM/yyyy")</dd>
+
+				<dt class="col-sm-4 fw-bold">Ngày kết thúc dự kiến</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.ExpectedEndDate?.ToString("dd/MM/yyyy")</dd>
+
+				<dt class="col-sm-4 fw-bold">Chi tiết kế hoạch</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.PlanDetails</dd>
+
+				<dt class="col-sm-4 fw-bold">Ngày tạo</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+				<dt class="col-sm-4 fw-bold">Cập nhật gần nhất</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+				<dt class="col-sm-4 fw-bold">Trạng thái xóa</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.IsDeleted  </dd>
+
+				<dt class="col-sm-4 fw-bold">Trạng thái kế hoạch</dt>
+				<dd class="col-sm-8">@Model.QuitPlan.Status</dd>
+
+				@* <dt class="col-sm-4 fw-bold">Người dùng</dt> *@
+				@* <dd class="col-sm-8">@Model.QuitPlan.User?.Email</dd> *@
+			</dl>
+
+			<form method="post">
+				<input type="hidden" asp-for="QuitPlan.PlanId" />
+				<button type="submit" class="btn btn-danger">Xóa</button>
+				<a asp-page="./Index" class="btn btn-secondary ms-2">Quay lại</a>
+			</form>
+		</div>
+	</div>
+
+	<div />

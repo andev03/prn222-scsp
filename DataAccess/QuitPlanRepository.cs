@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Models;
 using DataAccess.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,5 +48,49 @@ namespace DataAccess
             _context.QuitPlans.Update(quitPlan);
             _context.SaveChanges();
         }
+
+        //Admin 
+        public async Task<List<QuitPlan>> GetAllQuitPlanAsync()
+        {
+            return await _context.QuitPlans
+                                 .Include(q => q.User) // Đảm bảo có thông tin User
+                                 .ToListAsync();
+        }
+
+
+        public async Task<List<QuitPlan>> GetQuitPlansByUserIdAsync(Guid userId)
+      => await _context.QuitPlans
+            .Include(p => p.User)
+          .Include(p => p.ProgressRecords)
+          .Where(p => p.UserId == userId)
+          .ToListAsync();
+
+        public async Task<QuitPlan> GetByIdAsync(int id)
+            => await _context.QuitPlans.Include(u => u.User)
+                .Include(p => p.ProgressRecords)
+                .FirstOrDefaultAsync(p => p.PlanId == id);
+
+        public async Task AddAsync(QuitPlan plan)
+        {
+            _context.QuitPlans.Add(plan);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(QuitPlan plan)
+        {
+            _context.QuitPlans.Update(plan);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var plan = await GetByIdAsync(id);
+            if (plan != null)
+            {
+                _context.QuitPlans.Remove(plan);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

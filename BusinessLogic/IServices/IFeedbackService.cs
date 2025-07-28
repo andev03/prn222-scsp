@@ -15,5 +15,15 @@ namespace BusinessLogic.IServices
         List<Feedback> GetByCoachId(Guid coachId);
         void Create(Feedback feedback);
 
+
+
+        Task<IEnumerable<Feedback>> GetAllAsync();
+
+        Task<IEnumerable<Feedback>> GetByRatingAsync(byte rating);
+
+        Task<Feedback> GetByIdAsync(int id);
+
+        Task DeleteAsync(int id);
+
     }
 }

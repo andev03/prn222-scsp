@@ -1,0 +1,51 @@
+﻿@page
+@model Presentation.Pages.QuitPlanPage.Admin.DetailsModel
+
+@{
+    ViewData["Title"] = "Chi tiết kế hoạch bỏ thuốc";
+}
+
+<h1 class="mb-4">Chi tiết kế hoạch bỏ thuốc</h1>
+
+<div class="my-5 mx-4">
+<div class="card  ">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin kế hoạch</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-4 fw-bold">Lý do</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.Reason</dd>
+
+            <dt class="col-sm-4 fw-bold">Ngày bắt đầu</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.StartDate.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4 fw-bold">Ngày kết thúc dự kiến</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.ExpectedEndDate</dd>
+
+            <dt class="col-sm-4 fw-bold">Chi tiết kế hoạch</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.PlanDetails</dd>
+
+            <dt class="col-sm-4 fw-bold">Ngày tạo</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-4 fw-bold">Ngày cập nhật</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-4 fw-bold">Trạng thái xóa</dt>
+            <dd class="col-sm-8">@(Model.QuitPlan.IsDeleted)</dd>
+
+            <dt class="col-sm-4 fw-bold">Trạng thái kế hoạch</dt>
+            <dd class="col-sm-8">@Model.QuitPlan.Status</dd>
+
+            @* <dt class="col-sm-4 fw-bold">Email người dùng</dt> *@
+            @* <dd class="col-sm-8">@Model.QuitPlan.User.Email</dd> *@
+        </dl>
+    </div>
+</div>
+
+<div class="my-4">
+    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.QuitPlan.PlanId">Chỉnh sửa</a>
+    <a class="btn btn-secondary ms-2" asp-page="./Index">Quay lại danh sách</a>
+</div>
+
+</div>

@@ -17,5 +17,18 @@ namespace BusinessLogic.IServices
         Task<int> SoftDelete(int UserBadgeId);
 
         List<NumberBadgeResponse> NumberBadgesReceived();
+
+
+        Task<List<UserBadge>> GetAllAsync();
+
+
+        Task<UserBadge> GetByIdAsync(int id);
+
+        Task<List<UserBadge>> GetByUserIdAsync(Guid userId);
+
+
+        Task AddBadgeAsync(UserBadge userBadge);
+        Task DeleteBadgeAsync(int id);
+
     }
 }

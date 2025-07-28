@@ -33,5 +33,13 @@ namespace DataAccess
 
             return userBadges;
         }
+
+
+        // admin
+        public async Task<List<Badge>> GetAllBadgeAsync()
+        {
+            return await _context.Badges.ToListAsync();
+        }
+
     }
 }

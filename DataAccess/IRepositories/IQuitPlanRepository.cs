@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,20 @@ namespace DataAccess.IRepositories
 
         void Update(QuitPlan quitPlan);
         void Delete(QuitPlan quitPlan);
+
+
+        Task<List<QuitPlan>> GetAllQuitPlanAsync();
+
+
+        Task<List<QuitPlan>> GetQuitPlansByUserIdAsync(Guid userId);
+
+        Task<QuitPlan> GetByIdAsync(int id);
+
+        Task AddAsync(QuitPlan plan);
+
+        Task UpdateAsync(QuitPlan plan);
+
+        Task DeleteAsync(int id);
+
     }
 }

@@ -1,0 +1,62 @@
+﻿@page
+@model Presentation.Pages.QuitPlanPage.Admin.CreateModel
+
+@{
+    ViewData["Title"] = "Tạo kế hoạch cai nghiện";
+}
+
+<div class="container my-5">
+    <div class="card shadow rounded">
+        <div class="card-header  text-white" style="background-color: #6f42c1;>
+            <h4 class="mb-0">Tạo kế hoạch cai nghiện</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="QuitPlan.UserId" class="form-label fw-bold">Người dùng</label>
+                    <select asp-for="QuitPlan.UserId" class="form-select" asp-items="ViewBag.UserId">
+                        <option value="">-- Chọn người dùng --</option>
+                    </select>
+                    <span asp-validation-for="QuitPlan.UserId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuitPlan.Reason" class="form-label fw-bold">Lý do</label>
+                    <input asp-for="QuitPlan.Reason" class="form-control" placeholder="Nhập lý do..." />
+                    <span asp-validation-for="QuitPlan.Reason" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuitPlan.StartDate" class="form-label fw-bold">Ngày bắt đầu</label>
+                    <input asp-for="QuitPlan.StartDate" type="date" class="form-control" />
+                    <span asp-validation-for="QuitPlan.StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuitPlan.ExpectedEndDate" class="form-label fw-bold">Ngày kết thúc dự kiến</label>
+                    <input asp-for="QuitPlan.ExpectedEndDate" type="date" class="form-control" />
+                    <span asp-validation-for="QuitPlan.ExpectedEndDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="QuitPlan.PlanDetails" class="form-label fw-bold">Chi tiết kế hoạch</label>
+                    <textarea asp-for="QuitPlan.PlanDetails" rows="3" class="form-control" placeholder="Mô tả chi tiết..."></textarea>
+                    <span asp-validation-for="QuitPlan.PlanDetails" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-page="Index" class="btn btn-secondary">Quay lại</a>
+                    <button type="submit" class="btn btn-primary">Tạo mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

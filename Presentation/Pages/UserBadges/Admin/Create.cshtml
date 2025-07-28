@@ -1,0 +1,68 @@
+﻿@page
+@model Presentation.Pages.UserBadges.Admin.CreateModel
+
+@{
+    ViewData["Title"] = "Tạo huy hiệu người dùng";
+}
+
+<div class="container my-5">
+    <div class="card shadow border-0">
+        <div class="card-header text-white" style="background-color: #6f42c1;">
+            <h4 class="mb-0">Tạo mới Huy hiệu người dùng</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="UserBadge.UserId" class="form-label fw-bold">Người dùng</label>
+                    <select asp-for="UserBadge.UserId" class="form-control" asp-items="ViewBag.UserId">
+                        <option value="">-- Chọn người dùng --</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="UserBadge.BadgeId" class="form-label fw-bold">Huy hiệu</label>
+                    <select asp-for="UserBadge.BadgeId" class="form-control" asp-items="ViewBag.BadgeId">
+                        <option value="">-- Chọn huy hiệu --</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="UserBadge.IsDeleted" class="form-label fw-bold">Đã xóa</label>
+                    <select asp-for="UserBadge.IsDeleted" class="form-control">
+                        <option value="true">Đúng</option>
+                        <option value="false">Sai</option>
+                    </select>
+                    <span asp-validation-for="UserBadge.IsDeleted" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="UserBadge.Disabled" class="form-label fw-bold">Vô hiệu hóa</label>
+                    <select asp-for="UserBadge.Disabled" class="form-control">
+                        <option value="true">Đúng</option>
+                        <option value="false">Sai</option>
+                    </select>
+                    <span asp-validation-for="UserBadge.Disabled" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-page="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> Tạo mới
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.IServices;
 using BusinessObject.Models;
+using DataAccess;
 using DataAccess.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace BusinessLogic
     public class UserService : IUserService
     {
         private readonly IUserRepostitory _userRepostitory;
-        public UserService(IUserRepostitory userRepostitory)
+   
+        public UserService(IUserRepostitory userRepostitory )
         {
             _userRepostitory = userRepostitory;
+           
         }
         public async Task<List<User>> GetAll()
         {
@@ -40,5 +43,15 @@ namespace BusinessLogic
         {
             _userRepostitory.UpdateProfile(user);
         }
+
+        // Admin 
+        public async Task<List<User>> GetAllUsers()
+        {
+
+            return await _userRepostitory.GetAllUsers();
+
+        }
+
+
     }
 }

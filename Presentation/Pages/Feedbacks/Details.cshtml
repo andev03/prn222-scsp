@@ -1,0 +1,56 @@
+﻿@page
+@model Presentation.Pages.Feedbacks.DetailsModel
+@{
+    ViewData["Title"] = "Chi tiết phản hồi";
+}
+
+<div class="container my-5">
+    <div class="card shadow rounded">
+        <div class="card-header text-white" style="background-color: #6f42c1">
+            <h4 class="mb-0">Chi tiết phản hồi</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3 text-end fw-semibold">
+                    Người dùng
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Feedback.User.Email)
+                </dd>
+
+                <dt class="col-sm-3 text-end fw-semibold">
+                    Huấn luyện viên
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Feedback.Coach.Email)
+                </dd>
+
+                <dt class="col-sm-3 text-end fw-semibold">
+                    @Html.DisplayNameFor(model => model.Feedback.Comment)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Feedback.Comment)
+                </dd>
+
+                <dt class="col-sm-3 text-end fw-semibold">
+                    @Html.DisplayNameFor(model => model.Feedback.Rating)
+                </dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-warning text-dark fs-6">
+                        @Html.DisplayFor(model => model.Feedback.Rating) ★
+                    </span>
+                </dd>
+
+                <dt class="col-sm-3 text-end fw-semibold">
+                    @Html.DisplayNameFor(model => model.Feedback.CreatedAt)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Feedback.CreatedAt)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer d-flex justify-content-end gap-3">
+            <a asp-page="./Index" class="btn btn-primary">← Quay lại danh sách</a>
+        </div>
+    </div>
+</div>

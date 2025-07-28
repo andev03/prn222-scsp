@@ -1,0 +1,70 @@
+﻿@page
+@model Presentation.Pages.UserBadges.Admin.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>UserBadge</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserBadge.UserBadgeId" />
+            <div class="form-group">
+                <label asp-for="UserBadge.UserId" class="control-label"></label>
+                <select asp-for="UserBadge.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserBadge.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.BadgeId" class="control-label"></label>
+                <select asp-for="UserBadge.BadgeId" class="form-control" asp-items="ViewBag.BadgeId"></select>
+                <span asp-validation-for="UserBadge.BadgeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.AwardedAt" class="control-label"></label>
+                <input asp-for="UserBadge.AwardedAt" class="form-control" />
+                <span asp-validation-for="UserBadge.AwardedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.IsDeleted" class="control-label"></label>
+                <input asp-for="UserBadge.IsDeleted" class="form-control" />
+                <span asp-validation-for="UserBadge.IsDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.Disabled" class="control-label"></label>
+                <input asp-for="UserBadge.Disabled" class="form-control" />
+                <span asp-validation-for="UserBadge.Disabled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.CreatedAt" class="control-label"></label>
+                <input asp-for="UserBadge.CreatedAt" class="form-control" />
+                <span asp-validation-for="UserBadge.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.UpdatedAt" class="control-label"></label>
+                <input asp-for="UserBadge.UpdatedAt" class="form-control" />
+                <span asp-validation-for="UserBadge.UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserBadge.DeletedAt" class="control-label"></label>
+                <input asp-for="UserBadge.DeletedAt" class="form-control" />
+                <span asp-validation-for="UserBadge.DeletedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -18,5 +18,7 @@ namespace DataAccess.IRepositories
         void Register(User user);
         void UpdateProfile(User user);
 
+        Task<List<User>> GetAllUsers();
+
     }
 }
