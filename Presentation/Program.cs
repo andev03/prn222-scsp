@@ -1,5 +1,8 @@
 using BusinessLogic;
+using BusinessLogic.IServices;
+using BusinessObject.Models;
 using DataAccess;
+using DataAccess.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddSession();
 
 var app = builder.Build();
+
+
+// Register Repository
+//builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+// Register services
+//builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 if (!app.Environment.IsDevelopment())
 {
