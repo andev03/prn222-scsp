@@ -42,5 +42,48 @@ namespace BusinessLogic
             _repository.Delete(quitPlan);
         }
 
+
+
+        // Admin 
+
+
+        public Task<List<QuitPlan>> GetAllQuitPlanAsync()
+        {
+
+            return _repository.GetAllQuitPlanAsync();
+
+        }
+
+
+        public Task<List<QuitPlan>> GetQuitPlansByUserIdAsync(Guid userId)
+        {
+
+            return _repository.GetQuitPlansByUserIdAsync(userId);
+
+        }
+        public Task<QuitPlan> GetByIdAsync(int id)
+        {
+            return _repository.GetByIdAsync(id);
+
+        }
+        public async Task AddAsync(QuitPlan plan)
+        {
+
+            await _repository.AddAsync(plan);
+
+        }
+        public async Task UpdateAsync(QuitPlan plan)
+        {
+
+            await _repository.UpdateAsync(plan);
+
+        }
+        public async Task DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+
+        }
+
+        
     }
 }

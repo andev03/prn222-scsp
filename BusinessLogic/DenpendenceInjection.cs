@@ -28,8 +28,10 @@ namespace BusinessLogic
             services.AddScoped<IQuitPlanRepository, QuitPlanRepository>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
+            services.AddScoped<DashboardRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -43,6 +45,7 @@ namespace BusinessLogic
             services.AddScoped<IQuitPlanService, QuitPlanService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
+            services.AddScoped<DashboardService>();
             services.AddScoped<IPaymentService, PaymentService>();
             return services;
         }

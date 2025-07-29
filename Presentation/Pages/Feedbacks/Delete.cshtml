@@ -1,0 +1,53 @@
+﻿@page
+@model Presentation.Pages.Feedbacks.DeleteModel
+
+@{
+	ViewData["Title"] = "Xóa phản hồi";
+}
+
+<div class="my-5 mx-4"
+
+<h3>Bạn có chắc chắn muốn xóa phản hồi này không?</h3>
+<div>
+	<h4>Thông tin phản hồi</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Feedback.Rating)
+		</dt>
+		<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Feedback.Rating)
+		</dd>
+		<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Feedback.Comment)
+		</dt>
+		<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Feedback.Comment)
+		</dd>
+		<dt class="col-sm-2">
+			Ngày tạo
+		</dt>
+		<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Feedback.CreatedAt)
+		</dd>
+		<dt class="col-sm-2">
+			Huấn luyện viên
+		</dt>
+		<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Feedback.Coach.Email)
+		</dd>
+		<dt class="col-sm-2">
+			Người dùng
+		</dt>
+		<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Feedback.User.Email)
+		</dd>
+	</dl>
+
+	<form method="post">
+		<input type="hidden" asp-for="Feedback.FeedbackId" />
+		<input type="submit" value="Xóa" class="btn btn-danger" /> |
+		<a asp-page="./Index">Quay lại danh sách</a>
+	</form>
+</div>
+</div>

@@ -1,0 +1,89 @@
+﻿@page
+@model Presentation.Pages.QuitPlanPage.Admin.EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa Kế hoạch bỏ thuốc";
+}
+
+<h2 class="mb-4 text-white" style="background-color: #6f42c1;">Chỉnh sửa Kế hoạch Bỏ thuốc</h2>
+<hr />
+<div class="card shadow p-4">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="QuitPlan.PlanId" />
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.UserId" class="form-label fw-bold">Người dùng</label>
+            <select asp-for="QuitPlan.UserId" class="form-select" asp-items="ViewBag.UserId">
+                <option disabled selected>-- Chọn người dùng --</option>
+            </select>
+            <span asp-validation-for="QuitPlan.UserId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.Reason" class="form-label fw-bold">Lý do</label>
+            <input asp-for="QuitPlan.Reason" class="form-control" />
+            <span asp-validation-for="QuitPlan.Reason" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.StartDate" class="form-label fw-bold">Ngày bắt đầu</label>
+            <input asp-for="QuitPlan.StartDate" class="form-control" type="date" />
+            <span asp-validation-for="QuitPlan.StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.ExpectedEndDate" class="form-label fw-bold">Ngày kết thúc dự kiến</label>
+            <input asp-for="QuitPlan.ExpectedEndDate" class="form-control" type="date" />
+            <span asp-validation-for="QuitPlan.ExpectedEndDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.PlanDetails" class="form-label fw-bold">Chi tiết kế hoạch</label>
+            <textarea asp-for="QuitPlan.PlanDetails" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="QuitPlan.PlanDetails" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.CreatedAt" class="form-label fw-bold">Ngày tạo</label>
+            <input asp-for="QuitPlan.CreatedAt" class="form-control" readonly />
+            <span asp-validation-for="QuitPlan.CreatedAt" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.UpdatedAt" class="form-label fw-bold">Cập nhật lần cuối</label>
+            <input asp-for="QuitPlan.UpdatedAt" class="form-control" readonly />
+            <span asp-validation-for="QuitPlan.UpdatedAt" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuitPlan.IsDeleted" class="form-label fw-bold">Trạng thái xóa</label>
+            <select asp-for="QuitPlan.IsDeleted" class="form-select">
+                <option value="false">Chưa xóa</option>
+                <option value="true">Đã xóa</option>
+            </select>
+            <span asp-validation-for="QuitPlan.IsDeleted" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="QuitPlan.Status" class="form-label fw-bold">Trạng thái</label>
+            <select asp-for="QuitPlan.Status" class="form-select">
+                <option value="0">Chưa bắt đầu</option>
+                <option value="1">Đang thực hiện</option>
+                <option value="2">Hoàn thành</option>
+                <option value="3">Thất bại</option>
+            </select>
+            <span asp-validation-for="QuitPlan.Status" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a asp-page="./Index" class="btn btn-secondary">Quay lại</a>
+            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

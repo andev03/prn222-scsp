@@ -1,0 +1,147 @@
+﻿@page
+@model Presentation.Pages.Dashboard.IndexModel
+@using BusinessObject.ViewModels
+@{
+    ViewData["Title"] = "Bảng điều khiển (Dashboard)";
+}
+
+<h2 class="mb-4">Bảng điều khiển</h2>
+
+<div class="row g-3">
+    <!-- Các thẻ thống kê -->
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-header">Tổng người dùng</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalUsers</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-header">Tổng gói thành viên</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalPackages</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-header">Tổng lượt đăng ký</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalSubscriptions</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-header">Tổng kế hoạch bỏ thuốc</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalQuitPlans</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger">
+            <div class="card-header">Tổng phản hồi</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalFeedbacks</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-header">Đánh giá trung bình</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.AverageRating.ToString("0.0") ⭐</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-dark">
+            <div class="card-header">Tổng huy hiệu được trao</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalBadgesAwarded</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-header">Tổng buổi tư vấn</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalCoachSessions</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-header">Tổng bài đăng diễn đàn</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalForumPosts</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-header">Tổng thanh toán</div>
+            <div class="card-body">
+                <h5 class="card-title">@Model.Dashboard.TotalPayments.ToString("N0") VNĐ</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<!-- BIỂU ĐỒ THỐNG KÊ -->
+<h4 class="mt-5 mb-3">Biểu đồ tổng quan</h4>
+<canvas id="dashboardChart" height="100"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('dashboardChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Người dùng', 'Gói thành viên', 'Đăng ký', 'Kế hoạch bỏ thuốc',
+                    'Phản hồi', 'Đánh giá TB', 'Huy hiệu', 'Buổi tư vấn',
+                    'Bài diễn đàn', 'Thanh toán (VNĐ)'
+                ],
+                datasets: [{
+                    label: 'Chỉ số thống kê',
+                    data: [
+        @Model.Dashboard.TotalUsers,
+        @Model.Dashboard.TotalPackages,
+        @Model.Dashboard.TotalSubscriptions,
+        @Model.Dashboard.TotalQuitPlans,
+        @Model.Dashboard.TotalFeedbacks,
+        @Model.Dashboard.AverageRating,
+        @Model.Dashboard.TotalBadgesAwarded,
+        @Model.Dashboard.TotalCoachSessions,
+        @Model.Dashboard.TotalForumPosts,
+        @Model.Dashboard.TotalPayments
+                    ],
+                    backgroundColor: [
+                        '#007bff', '#28a745', '#17a2b8', '#ffc107',
+                        '#dc3545', '#6c757d', '#343a40', '#6610f2',
+                        '#20c997', '#fd7e14'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

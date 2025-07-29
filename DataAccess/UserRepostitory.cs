@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class UserRepostitory :GenericRepository<User>, IUserRepostitory
+    public class UserRepostitory : GenericRepository<User>, IUserRepostitory
     {
         private readonly QuitSmokingAppDBContext _quitSmokingAppDBContext;
         public UserRepostitory()
@@ -18,12 +18,28 @@ namespace DataAccess
             _quitSmokingAppDBContext = new QuitSmokingAppDBContext();
         }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _context.Users.Select(u => new User
+            {
+                UserId = u.UserId,
+                Username = u.Username,
+                Email = u.Email,
+                Role = u.Role,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                CreatedAt = u.CreatedAt,
+                UpdatedAt = u.UpdatedAt
+            }).ToListAsync();
+        }
+
         public List<User> GetAllByRole()
         {
             return _quitSmokingAppDBContext.Users.Where(u => u.Role.ToLower() == "coach").ToList();
         }
 
-        public async Task<User> GetByGuiUser(Guid id) {
+        public async Task<User> GetByGuiUser(Guid id)
+        {
             return await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
 

@@ -55,5 +55,51 @@ namespace BusinessLogic
         {
             return _feedbackRepository.GetByCoachId(coachId);
         }
+
+        //Admin 
+
+        public async Task<IEnumerable<Feedback>> GetAllAsync()
+        {
+            var data = await _feedbackRepository.GetAllAsync();
+            return data.Select(f => new Feedback
+            {
+                FeedbackId = f.FeedbackId,
+                User = f.User,
+                Rating = f.Rating,
+                Comment = f.Comment,
+                CreatedAt = f.CreatedAt
+            });
+
+
+
+        }
+
+        public async Task<IEnumerable<Feedback>> GetByRatingAsync(byte rating) {
+
+            var data = await _feedbackRepository.GetByRatingAsync(rating);
+            return data.Select(f => new Feedback
+            {
+                FeedbackId = f.FeedbackId,
+                User = f.User,
+                Rating = f.Rating,
+                Comment = f.Comment,
+                CreatedAt = f.CreatedAt
+            });
+
+        }
+
+        public async Task<Feedback> GetByIdAsync(int id)
+        {
+            var data = await _feedbackRepository.GetByIdAsync(id);
+            return data;
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _feedbackRepository.DeleteAsync(id);
+        }
+
+         
     }
 }

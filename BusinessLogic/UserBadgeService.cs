@@ -58,5 +58,44 @@ namespace BusinessLogic
         {
             return await _userBadgeRepository.UpdateAsync(item);
         }
+
+
+        public async Task<List<UserBadge>> GetAllAsync()
+        {
+
+            return await _userBadgeRepository.GetAllAsync();
+
+        }
+
+
+
+
+        // Admin
+        public async Task<UserBadge> GetByIdAsync(int id)
+        {
+
+            return await _userBadgeRepository.GetByIdAsync(id);
+
+        }
+
+        public async Task<List<UserBadge>> GetByUserIdAsync(Guid userId)
+        {
+            return await _userBadgeRepository.GetByUserIdAsync(userId);
+
+        }
+
+
+        public async Task AddBadgeAsync(UserBadge userBadge)
+        {
+            await _userBadgeRepository.AddBadgeAsync(userBadge);
+
+        }
+        public async Task DeleteBadgeAsync(int id)
+        {
+
+            await _userBadgeRepository.DeleteBadgeAsync(id);
+        }
+
+
     }
 }

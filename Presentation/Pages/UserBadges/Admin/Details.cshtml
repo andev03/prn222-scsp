@@ -1,0 +1,48 @@
+﻿@page
+@model Presentation.Pages.UserBadges.Admin.DetailsModel
+
+@{
+    ViewData["Title"] = "Chi tiết huy hiệu người dùng";
+}
+
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-header  text-white" style="background-color: #6f42c1;">
+            <h2 class="mb-0">Chi tiết huy hiệu người dùng</h2>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+
+                <dt class="col-sm-3 fw-bold">Email người dùng</dt>
+                <dd class="col-sm-9">@Model.UserBadge.User?.Email</dd>
+
+                <dt class="col-sm-3 fw-bold">Ngày trao huy hiệu</dt>
+                <dd class="col-sm-9">@Model.UserBadge.AwardedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3 fw-bold">Đã bị xóa?</dt>
+                <dd class="col-sm-9">@Model.UserBadge.IsDeleted</dd>
+
+                <dt class="col-sm-3 fw-bold">Đã vô hiệu hóa?</dt>
+                <dd class="col-sm-9">@Model.UserBadge.Disabled</dd>
+
+                <dt class="col-sm-3 fw-bold">Ngày tạo</dt>
+                <dd class="col-sm-9">@Model.UserBadge.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3 fw-bold">Ngày cập nhật</dt>
+                <dd class="col-sm-9">@Model.UserBadge.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3 fw-bold">Ngày xóa</dt>
+                <dd class="col-sm-9">@Model.UserBadge.DeletedAt?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3 fw-bold">Mã huy hiệu</dt>
+                <dd class="col-sm-9">@Model.UserBadge.Badge?.Code</dd>
+
+             
+            </dl>
+        </div>
+        <div class="card-footer text-end">
+            @* <a asp-page="./Edit" asp-route-id="@Model.UserBadge.UserBadgeId" class="btn btn-warning me-2">Chỉnh sửa</a> *@
+            <a asp-page="./Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </div>
+</div>

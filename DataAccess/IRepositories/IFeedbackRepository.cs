@@ -1,5 +1,6 @@
 ﻿using BusinessObject.DTOs;
 using BusinessObject.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,15 @@ namespace DataAccess.IRepositories
         List<Feedback> GetByCoachId(Guid coachId);
 
         void Create(Feedback feedback);
+
+
+
+        Task<IEnumerable<Feedback>> GetAllAsync();
+
+        Task<IEnumerable<Feedback>> GetByRatingAsync(byte rating);
+
+        Task<Feedback> GetByIdAsync(int id);
+
+        Task DeleteAsync(int id);
     }
 }

@@ -70,6 +70,15 @@
                         <li class="nav-item"><a asp-page="/Coach/Manager" class="nav-link">Messages</a></li>
                         <li class="nav-item"><a asp-page="/Leaderboard/Index" class="nav-link">Bảng xếp hạng</a></li>
                     }
+
+                    else if (user != null && user.Role.Equals("admin"))
+                    {
+                        <li class="nav-item"><a asp-page="/Dashboard/Index" class="nav-link">Thống kê</a></li>
+                        <li class="nav-item"><a asp-page="/Users/Index" class="nav-link">Người dùng</a></li>
+                        <li class="nav-item"><a asp-page="/UserBadges/Admin/Index" class="nav-link">Huy Hiệu</a></li>
+                        <li class="nav-item"><a asp-page="/QuitPlanPage/Admin/Index" class="nav-link">Kế Hoạch</a></li>
+                        <li class="nav-item"><a asp-page="/Feedbacks/Index" class="nav-link">Phản hồi</a></li>
+                    }
                     else
                     {
                     <li class="nav-item">

@@ -1,0 +1,46 @@
+﻿@page
+@model Presentation.Pages.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="container my-5">
+    <div class="card shadow border-0">
+        <div class="card-header text-white" style="background-color: #6f42c1;">
+            <h4 class="mb-0">User Details</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3 text-secondary">Vai trò</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Role)</dd>
+
+                <dt class="col-sm-3 text-secondary">Tên đăng nhập</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Username)</dd>
+
+                <dt class="col-sm-3 text-secondary">Email</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Email)</dd>
+
+                <dt class="col-sm-3 text-secondary">Mật khẩu</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Password)</dd>
+
+                <dt class="col-sm-3 text-secondary">Họ</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.FirstName)</dd>
+
+                <dt class="col-sm-3 text-secondary">Tên</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.LastName)</dd>
+
+                <dt class="col-sm-3 text-secondary">Ngày tạo</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.CreatedAt)</dd>
+
+                <dt class="col-sm-3 text-secondary">Ngày cập nhật</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.UpdatedAt)</dd>
+            </dl>
+        </div>
+
+        <div class="card-footer text-end bg-light">
+            @* <a asp-page="./Edit" asp-route-id="@Model.User.UserId" class="btn btn-outline-warning me-2">Edit</a> *@
+            <a asp-page="./Index" class="btn btn-outline-primary">Trở lại danh sách</a>
+        </div>
+    </div>
+</div>
