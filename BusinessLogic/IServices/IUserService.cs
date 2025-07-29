@@ -15,7 +15,8 @@ namespace BusinessLogic.IServices
         void Register(User user);
 
         void UpdateProfile(User user);
-
         Task<List<User>> GetAllUsers();
+
+        Task UpdateRoleAsync(Guid userId, string newRole);
     }
 }

@@ -13,11 +13,11 @@ namespace BusinessLogic
     public class UserService : IUserService
     {
         private readonly IUserRepostitory _userRepostitory;
-   
-        public UserService(IUserRepostitory userRepostitory )
+
+        public UserService(IUserRepostitory userRepostitory)
         {
             _userRepostitory = userRepostitory;
-           
+
         }
         public async Task<List<User>> GetAll()
         {
@@ -44,7 +44,6 @@ namespace BusinessLogic
             _userRepostitory.UpdateProfile(user);
         }
 
-        // Admin 
         public async Task<List<User>> GetAllUsers()
         {
 
@@ -52,6 +51,9 @@ namespace BusinessLogic
 
         }
 
-
+        public async Task UpdateRoleAsync(Guid userId, string newRole)
+        {
+            await _userRepostitory.UpdateRoleAsync(userId, newRole);
+        }
     }
 }
